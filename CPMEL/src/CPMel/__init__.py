@@ -75,6 +75,10 @@ u"""
         * 去除了static_cmds中无用的注释
         * 通过文档注释进行类型指定优化了在pycharm中编写程序的补全效果
         * 去除了mayaPlug模块下无用的程序
+    * 2.7版本更新 ：
+        * 优化了导入实现
+        * 使用CLI
+        注意2.7的CLI还不完善将于！！！CPMel3版本稳定CLI功能
 """
 from . import initializeMaya
 

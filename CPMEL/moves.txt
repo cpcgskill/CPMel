@@ -46,8 +46,3 @@
         /CPMel/event/base.py
         /CPMel/event/events.py
     /CPMel/ui/__init__.py
-/CPMel_Form/__init__.py
-    /CPMel_Form/_item.py
-    /CPMel_Form/core.py
-    /CPMel_Form/icon.ico
-    /CPMel_Form/item.py
