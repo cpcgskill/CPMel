@@ -9,7 +9,6 @@ u"""
 :aboutcg: https://www.aboutcg.org/teacher/54335
 :bilibili: https://space.bilibili.com/351598127
 """
-from collections import Iterable
 import maya.OpenMaya as OpenMaya
 from maya.OpenMaya import *
 
