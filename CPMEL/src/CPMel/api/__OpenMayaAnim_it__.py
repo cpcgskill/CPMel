@@ -9,9 +9,8 @@ u"""
 :aboutcg: https://www.aboutcg.org/teacher/54335
 :bilibili: https://space.bilibili.com/351598127
 """
-import __OpenMayaAnim__ as omaim
-from __ALL import its, MItForIt
-
+from . import __OpenMayaAnim__ as omaim
+from .__ALL import its, MItForIt
 
 
 # MItKeyframe
@@ -19,7 +18,6 @@ from __ALL import its, MItForIt
 class MItKeyframe(omaim.MItKeyframe):
     def __iter__(self):
         return MItForIt(self)
-
 
 
 __all__ = ["MItKeyframe"]

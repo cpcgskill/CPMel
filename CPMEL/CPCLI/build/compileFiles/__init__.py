@@ -11,32 +11,27 @@ u"""
 """
 import codecs
 from .. import PyEdit
+from ...utils import *
 
 fileTypes = dict()
 
 
-def baseFile(build_file, out_file):
-    with open(build_file, "rb") as f:
-        with open(out_file, "wb") as o_f:
-            o_f.write(f.read())
+def baseFile(file):
+    pass
 
 
-def PYD(build_file, out_file):
-    with open(build_file, "rb") as f:
-        with open(out_file, "wb") as o_f:
-            o_f.write(f.read())
+def PYD(out_file):
+    pass
 
 
 fileTypes["pyd"] = PYD
 
 
-def PY(build_file, out_file):
-    with codecs.open(build_file, "r", encoding="utf-8") as f:
-        with codecs.open(out_file, "w", encoding="utf-8") as o_f:
-            string = f.read()
-            for i in PyEdit.editFuncs:
-                string = i(string)
-            o_f.write(string)
+def PY(file):
+    string = decode(readFile(file))
+    for i in PyEdit.editFuncs:
+        string = i(string)
+    writeFile(file, string)
 
 
 fileTypes["py"] = PY
