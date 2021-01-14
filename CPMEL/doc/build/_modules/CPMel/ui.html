@@ -1,0 +1,499 @@
+
+
+<!DOCTYPE html>
+<html class="writer-html4" lang="en" >
+<head>
+  <meta charset="utf-8">
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  
+  <title>CPMel.ui &mdash; CPMEL 2.0.0 documentation</title>
+  
+
+  
+  <link rel="stylesheet" href="../../_static/css/theme.css" type="text/css" />
+  <link rel="stylesheet" href="../../_static/pygments.css" type="text/css" />
+
+  
+  
+  
+  
+
+  
+  <!--[if lt IE 9]>
+    <script src="../../_static/js/html5shiv.min.js"></script>
+  <![endif]-->
+  
+    
+      <script type="text/javascript" id="documentation_options" data-url_root="../../" src="../../_static/documentation_options.js"></script>
+        <script type="text/javascript" src="../../_static/jquery.js"></script>
+        <script type="text/javascript" src="../../_static/underscore.js"></script>
+        <script type="text/javascript" src="../../_static/doctools.js"></script>
+        <script type="text/javascript" src="../../_static/language_data.js"></script>
+    
+    <script type="text/javascript" src="../../_static/js/theme.js"></script>
+
+    
+    <link rel="index" title="Index" href="../../genindex.html" />
+    <link rel="search" title="Search" href="../../search.html" /> 
+</head>
+
+<body class="wy-body-for-nav">
+
+   
+  <div class="wy-grid-for-nav">
+    
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+          
+
+          
+            <a href="../../contents.html" class="icon icon-home" alt="Documentation Home"> CPMEL
+          
+
+          
+          </a>
+
+          
+            
+            
+          
+
+          
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+
+          
+        </div>
+
+        
+        <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
+          
+            
+            
+              
+            
+            
+              <!-- Local TOC -->
+              <div class="local-toc"></div>
+            
+          
+        </div>
+        
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+
+      
+      <nav class="wy-nav-top" aria-label="top navigation">
+        
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../../contents.html">CPMEL</a>
+        
+      </nav>
+
+
+      <div class="wy-nav-content">
+        
+        <div class="rst-content">
+        
+          
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<div role="navigation" aria-label="breadcrumbs navigation">
+
+  <ul class="wy-breadcrumbs">
+    
+      <li><a href="../../contents.html" class="icon icon-home"></a> &raquo;</li>
+        
+          <li><a href="../index.html">Module code</a> &raquo;</li>
+        
+      <li>CPMel.ui</li>
+    
+    
+      <li class="wy-breadcrumbs-aside">
+        
+      </li>
+    
+  </ul>
+
+  
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+            
+  <h1>Source code for CPMel.ui</h1><div class="highlight"><pre>
+<span></span><span class="ch">#!/usr/bin/python</span>
+<span class="c1"># -*-coding:utf-8 -*-</span>
+<span class="sa">u</span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">:创建时间: 2020/5/18 23:57</span>
+<span class="sd">:作者: 苍之幻灵</span>
+<span class="sd">:我的主页: https://cpcgskill.com</span>
+<span class="sd">:QQ: 2921251087</span>
+<span class="sd">:爱发电: https://afdian.net/@Phantom_of_the_Cang</span>
+<span class="sd">:aboutcg: https://www.aboutcg.org/teacher/54335</span>
+<span class="sd">:bilibili: https://space.bilibili.com/351598127</span>
+<span class="sd">&quot;&quot;&quot;</span>
+<span class="kn">import</span> <span class="nn">maya.cmds</span> <span class="k">as</span> <span class="nn">cmds</span>
+<span class="kn">from</span> <span class="nn">..api</span> <span class="kn">import</span> <span class="n">OpenMayaUI</span>
+
+<span class="k">try</span><span class="p">:</span>
+    <span class="kn">from</span> <span class="nn">PyQt5.QtWidgets</span> <span class="kn">import</span> <span class="o">*</span>
+    <span class="kn">from</span> <span class="nn">PyQt5.QtCore</span> <span class="kn">import</span> <span class="o">*</span>
+    <span class="kn">from</span> <span class="nn">PyQt5.QtGui</span> <span class="kn">import</span> <span class="o">*</span>
+<span class="k">except</span> <span class="ne">ImportError</span><span class="p">:</span>
+    <span class="k">try</span><span class="p">:</span>
+        <span class="kn">from</span> <span class="nn">PySide2.QtGui</span> <span class="kn">import</span> <span class="o">*</span>
+        <span class="kn">from</span> <span class="nn">PySide2.QtCore</span> <span class="kn">import</span> <span class="o">*</span>
+        <span class="kn">from</span> <span class="nn">PySide2.QtWidgets</span> <span class="kn">import</span> <span class="o">*</span>
+    <span class="k">except</span> <span class="ne">ImportError</span><span class="p">:</span>
+        <span class="kn">from</span> <span class="nn">PySide.QtGui</span> <span class="kn">import</span> <span class="o">*</span>
+        <span class="kn">from</span> <span class="nn">PySide.QtCore</span> <span class="kn">import</span> <span class="o">*</span>
+
+<span class="k">try</span><span class="p">:</span>
+    <span class="kn">from</span> <span class="nn">shiboken2</span> <span class="kn">import</span> <span class="o">*</span>
+<span class="k">except</span> <span class="ne">ImportError</span><span class="p">:</span>
+    <span class="kn">from</span> <span class="nn">shiboken</span> <span class="kn">import</span> <span class="o">*</span>
+<span class="k">try</span><span class="p">:</span>
+    <span class="n">mui</span> <span class="o">=</span> <span class="n">wrapInstance</span><span class="p">(</span><span class="n">long</span><span class="p">(</span><span class="n">OpenMayaUI</span><span class="o">.</span><span class="n">MQtUtil</span><span class="o">.</span><span class="n">mainWindow</span><span class="p">()),</span> <span class="n">QWidget</span><span class="p">)</span>
+<span class="k">except</span><span class="p">:</span>
+    <span class="n">mui</span> <span class="o">=</span> <span class="kc">None</span>
+
+
+<div class="viewcode-block" id="CPwindow"><a class="viewcode-back" href="../../cpmel/CPMel.ui.html#CPMel.ui.CPwindow">[docs]</a><span class="k">class</span> <span class="nc">CPwindow</span><span class="p">(</span><span class="n">QWidget</span><span class="p">):</span>
+<div class="viewcode-block" id="CPwindow.newMui"><a class="viewcode-back" href="../../cpmel/CPMel.ui.html#CPMel.ui.CPwindow.newMui">[docs]</a>    <span class="nd">@staticmethod</span>
+    <span class="k">def</span> <span class="nf">newMui</span><span class="p">():</span>
+        <span class="n">win</span> <span class="o">=</span> <span class="n">cmds</span><span class="o">.</span><span class="n">window</span><span class="p">()</span>
+        <span class="k">return</span> <span class="n">wrapInstance</span><span class="p">(</span><span class="n">long</span><span class="p">(</span><span class="n">OpenMayaUI</span><span class="o">.</span><span class="n">MQtUtil</span><span class="o">.</span><span class="n">findWindow</span><span class="p">(</span><span class="n">win</span><span class="p">)),</span> <span class="n">QWidget</span><span class="p">)</span></div>
+
+    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">maya_window</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">newMui</span><span class="p">()</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_main_layout</span> <span class="o">=</span> <span class="n">QVBoxLayout</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">maya_window</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_main_layout</span><span class="o">.</span><span class="n">setContentsMargins</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">)</span>
+        <span class="nb">super</span><span class="p">(</span><span class="n">CPwindow</span><span class="p">,</span> <span class="bp">self</span><span class="p">)</span><span class="o">.</span><span class="fm">__init__</span><span class="p">()</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_main_layout</span><span class="o">.</span><span class="n">addWidget</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">main_layout</span> <span class="o">=</span> <span class="n">QVBoxLayout</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span>
+
+<div class="viewcode-block" id="CPwindow.show"><a class="viewcode-back" href="../../cpmel/CPMel.ui.html#CPMel.ui.CPwindow.show">[docs]</a>    <span class="k">def</span> <span class="nf">show</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="nb">super</span><span class="p">(</span><span class="n">CPwindow</span><span class="p">,</span> <span class="bp">self</span><span class="p">)</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">maya_window</span><span class="o">.</span><span class="n">show</span><span class="p">()</span></div>
+
+<div class="viewcode-block" id="CPwindow.close"><a class="viewcode-back" href="../../cpmel/CPMel.ui.html#CPMel.ui.CPwindow.close">[docs]</a>    <span class="k">def</span> <span class="nf">close</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="nb">super</span><span class="p">(</span><span class="n">CPwindow</span><span class="p">,</span> <span class="bp">self</span><span class="p">)</span><span class="o">.</span><span class="n">close</span><span class="p">()</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">maya_window</span><span class="o">.</span><span class="n">close</span><span class="p">()</span></div>
+
+<div class="viewcode-block" id="CPwindow.setWindowTitle"><a class="viewcode-back" href="../../cpmel/CPMel.ui.html#CPMel.ui.CPwindow.setWindowTitle">[docs]</a>    <span class="k">def</span> <span class="nf">setWindowTitle</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">p_str</span><span class="p">):</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">maya_window</span><span class="o">.</span><span class="n">setWindowTitle</span><span class="p">(</span><span class="n">p_str</span><span class="p">)</span></div>
+
+<div class="viewcode-block" id="CPwindow.windowTitle"><a class="viewcode-back" href="../../cpmel/CPMel.ui.html#CPMel.ui.CPwindow.windowTitle">[docs]</a>    <span class="k">def</span> <span class="nf">windowTitle</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">maya_window</span><span class="o">.</span><span class="n">windowTitle</span><span class="p">()</span></div>
+
+<div class="viewcode-block" id="CPwindow.setWindowIcon"><a class="viewcode-back" href="../../cpmel/CPMel.ui.html#CPMel.ui.CPwindow.setWindowIcon">[docs]</a>    <span class="k">def</span> <span class="nf">setWindowIcon</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">icon</span><span class="p">):</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">maya_window</span><span class="o">.</span><span class="n">setWindowIcon</span><span class="p">(</span><span class="n">icon</span><span class="p">)</span></div>
+
+<div class="viewcode-block" id="CPwindow.windowIcon"><a class="viewcode-back" href="../../cpmel/CPMel.ui.html#CPMel.ui.CPwindow.windowIcon">[docs]</a>    <span class="k">def</span> <span class="nf">windowIcon</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">maya_window</span><span class="o">.</span><span class="n">windowIcon</span><span class="p">()</span></div>
+
+<div class="viewcode-block" id="CPwindow.resize"><a class="viewcode-back" href="../../cpmel/CPMel.ui.html#CPMel.ui.CPwindow.resize">[docs]</a>    <span class="k">def</span> <span class="nf">resize</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">size</span><span class="p">):</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">maya_window</span><span class="o">.</span><span class="n">resize</span><span class="p">(</span><span class="n">size</span><span class="p">)</span></div>
+
+<div class="viewcode-block" id="CPwindow.size"><a class="viewcode-back" href="../../cpmel/CPMel.ui.html#CPMel.ui.CPwindow.size">[docs]</a>    <span class="k">def</span> <span class="nf">size</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">maya_window</span><span class="o">.</span><span class="n">size</span><span class="p">()</span></div>
+
+<div class="viewcode-block" id="CPwindow.paintEvent"><a class="viewcode-back" href="../../cpmel/CPMel.ui.html#CPMel.ui.CPwindow.paintEvent">[docs]</a>    <span class="k">def</span> <span class="nf">paintEvent</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">event</span><span class="p">):</span>
+        <span class="nb">super</span><span class="p">(</span><span class="n">CPwindow</span><span class="p">,</span> <span class="bp">self</span><span class="p">)</span><span class="o">.</span><span class="n">resize</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">maya_window</span><span class="o">.</span><span class="n">size</span><span class="p">())</span></div>
+
+<div class="viewcode-block" id="CPwindow.deleteWindow"><a class="viewcode-back" href="../../cpmel/CPMel.ui.html#CPMel.ui.CPwindow.deleteWindow">[docs]</a>    <span class="k">def</span> <span class="nf">deleteWindow</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="nb">super</span><span class="p">(</span><span class="n">CPwindow</span><span class="p">,</span> <span class="bp">self</span><span class="p">)</span><span class="o">.</span><span class="n">close</span><span class="p">()</span>
+        <span class="n">delete</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">maya_window</span><span class="p">)</span></div></div>
+
+
+<div class="viewcode-block" id="CPQWindow"><a class="viewcode-back" href="../../cpmel/CPMel.ui.html#CPMel.ui.CPQWindow">[docs]</a><span class="k">class</span> <span class="nc">CPQWindow</span><span class="p">(</span><span class="n">QWidget</span><span class="p">):</span>
+    <span class="sa">u</span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    由CPMel重建的QWidget对象可以自动的将自身设置为Maya主窗口的子对象</span>
+
+<span class="sd">    &quot;&quot;&quot;</span>
+
+    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="o">*</span><span class="n">args</span><span class="p">):</span>
+        <span class="nb">super</span><span class="p">(</span><span class="n">CPQWindow</span><span class="p">,</span> <span class="bp">self</span><span class="p">)</span><span class="o">.</span><span class="fm">__init__</span><span class="p">(</span><span class="o">*</span><span class="n">args</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">setParent</span><span class="p">(</span><span class="n">mui</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">setWindowFlags</span><span class="p">(</span><span class="n">Qt</span><span class="o">.</span><span class="n">Window</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">main_layout</span> <span class="o">=</span> <span class="n">QVBoxLayout</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span>
+
+<div class="viewcode-block" id="CPQWindow.deleteWindow"><a class="viewcode-back" href="../../cpmel/CPMel.ui.html#CPMel.ui.CPQWindow.deleteWindow">[docs]</a>    <span class="k">def</span> <span class="nf">deleteWindow</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="nb">super</span><span class="p">(</span><span class="n">CPQWindow</span><span class="p">,</span> <span class="bp">self</span><span class="p">)</span><span class="o">.</span><span class="n">close</span><span class="p">()</span>
+        <span class="n">delete</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span></div></div>
+
+
+<div class="viewcode-block" id="CPQWidget"><a class="viewcode-back" href="../../cpmel/CPMel.ui.html#CPMel.ui.CPQWidget">[docs]</a><span class="k">class</span> <span class="nc">CPQWidget</span><span class="p">(</span><span class="n">QWidget</span><span class="p">):</span>
+    <span class="sa">u</span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    对CPQWindow的重写</span>
+<span class="sd">    不再构建self.main_layout</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+
+    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="o">*</span><span class="n">args</span><span class="p">):</span>
+        <span class="nb">super</span><span class="p">(</span><span class="n">CPQWidget</span><span class="p">,</span> <span class="bp">self</span><span class="p">)</span><span class="o">.</span><span class="fm">__init__</span><span class="p">(</span><span class="o">*</span><span class="n">args</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">setParent</span><span class="p">(</span><span class="n">mui</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">setWindowFlags</span><span class="p">(</span><span class="n">Qt</span><span class="o">.</span><span class="n">Window</span><span class="p">)</span>
+
+<div class="viewcode-block" id="CPQWidget.deleteWindow"><a class="viewcode-back" href="../../cpmel/CPMel.ui.html#CPMel.ui.CPQWidget.deleteWindow">[docs]</a>    <span class="k">def</span> <span class="nf">deleteWindow</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="nb">super</span><span class="p">(</span><span class="n">CPQWidget</span><span class="p">,</span> <span class="bp">self</span><span class="p">)</span><span class="o">.</span><span class="n">close</span><span class="p">()</span>
+        <span class="n">delete</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span></div></div>
+
+
+<div class="viewcode-block" id="FrameBlock"><a class="viewcode-back" href="../../cpmel/CPMel.ui.html#CPMel.ui.FrameBlock">[docs]</a><span class="k">class</span> <span class="nc">FrameBlock</span><span class="p">(</span><span class="n">QWidget</span><span class="p">):</span>
+    <span class="sa">u</span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    可折叠框架实现</span>
+
+<span class="sd">    &quot;&quot;&quot;</span>
+
+<div class="viewcode-block" id="FrameBlock.Bn"><a class="viewcode-back" href="../../cpmel/CPMel.ui.html#CPMel.ui.FrameBlock.Bn">[docs]</a>    <span class="k">class</span> <span class="nc">Bn</span><span class="p">(</span><span class="n">QPushButton</span><span class="p">):</span>
+        <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="o">*</span><span class="n">args</span><span class="p">):</span>
+            <span class="nb">super</span><span class="p">(</span><span class="n">FrameBlock</span><span class="o">.</span><span class="n">Bn</span><span class="p">,</span> <span class="bp">self</span><span class="p">)</span><span class="o">.</span><span class="fm">__init__</span><span class="p">()</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">__is_turn_on</span> <span class="o">=</span> <span class="kc">False</span>
+
+            <span class="k">def</span> <span class="nf">_</span><span class="p">(</span><span class="o">*</span><span class="n">args</span><span class="p">):</span>
+                <span class="bp">self</span><span class="o">.</span><span class="n">__is_turn_on</span> <span class="o">=</span> <span class="ow">not</span> <span class="bp">self</span><span class="o">.</span><span class="n">__is_turn_on</span>
+
+            <span class="bp">self</span><span class="o">.</span><span class="n">clicked</span><span class="o">.</span><span class="n">connect</span><span class="p">(</span><span class="n">_</span><span class="p">)</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">setStyleSheet</span><span class="p">(</span><span class="s2">&quot;text-align: left;&quot;</span><span class="p">)</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">setMaximumHeight</span><span class="p">(</span><span class="mi">20</span><span class="p">)</span>
+
+<div class="viewcode-block" id="FrameBlock.Bn.setIsTurnOn"><a class="viewcode-back" href="../../cpmel/CPMel.ui.html#CPMel.ui.FrameBlock.Bn.setIsTurnOn">[docs]</a>        <span class="k">def</span> <span class="nf">setIsTurnOn</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="nb">bool</span><span class="p">):</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">__is_turn_on</span> <span class="o">=</span> <span class="nb">bool</span></div>
+
+<div class="viewcode-block" id="FrameBlock.Bn.isTurnOn"><a class="viewcode-back" href="../../cpmel/CPMel.ui.html#CPMel.ui.FrameBlock.Bn.isTurnOn">[docs]</a>        <span class="k">def</span> <span class="nf">isTurnOn</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+            <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">__is_turn_on</span></div></div>
+
+<div class="viewcode-block" id="FrameBlock.Block"><a class="viewcode-back" href="../../cpmel/CPMel.ui.html#CPMel.ui.FrameBlock.Block">[docs]</a>    <span class="k">class</span> <span class="nc">Block</span><span class="p">(</span><span class="n">QWidget</span><span class="p">):</span>
+        <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">widget</span><span class="o">=</span><span class="n">QWidget</span><span class="p">):</span>
+            <span class="nb">super</span><span class="p">(</span><span class="n">FrameBlock</span><span class="o">.</span><span class="n">Block</span><span class="p">,</span> <span class="bp">self</span><span class="p">)</span><span class="o">.</span><span class="fm">__init__</span><span class="p">()</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">main_layout</span> <span class="o">=</span> <span class="n">QVBoxLayout</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">main_layout</span><span class="o">.</span><span class="n">addWidget</span><span class="p">(</span><span class="n">widget</span><span class="p">)</span>
+
+<div class="viewcode-block" id="FrameBlock.Block.paintEvent"><a class="viewcode-back" href="../../cpmel/CPMel.ui.html#CPMel.ui.FrameBlock.Block.paintEvent">[docs]</a>        <span class="k">def</span> <span class="nf">paintEvent</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">event</span><span class="p">):</span>
+            <span class="nb">super</span><span class="p">(</span><span class="n">FrameBlock</span><span class="o">.</span><span class="n">Block</span><span class="p">,</span> <span class="bp">self</span><span class="p">)</span><span class="o">.</span><span class="n">paintEvent</span><span class="p">(</span><span class="n">event</span><span class="p">)</span>
+            <span class="n">p</span> <span class="o">=</span> <span class="n">QPainter</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span>
+            <span class="n">p</span><span class="o">.</span><span class="n">setPen</span><span class="p">(</span><span class="n">Qt</span><span class="o">.</span><span class="n">NoPen</span><span class="p">)</span>
+            <span class="n">p</span><span class="o">.</span><span class="n">setBrush</span><span class="p">(</span><span class="n">QBrush</span><span class="p">(</span><span class="n">QColor</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">15</span><span class="p">)))</span>
+            <span class="n">p</span><span class="o">.</span><span class="n">drawRoundRect</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">rect</span><span class="p">(),</span> <span class="mi">5</span><span class="p">,</span> <span class="mi">5</span><span class="p">)</span>
+            <span class="n">p</span><span class="o">.</span><span class="n">end</span><span class="p">()</span></div></div>
+
+    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">name</span><span class="p">,</span> <span class="n">widget</span><span class="p">,</span> <span class="n">status</span><span class="o">=</span><span class="kc">False</span><span class="p">):</span>
+        <span class="sa">u</span><span class="sd">&quot;&quot;&quot;</span>
+
+
+<span class="sd">        :param name: 标题</span>
+<span class="sd">        :param widget: QWidget 对象</span>
+<span class="sd">        :param status: 默认状态</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="nb">super</span><span class="p">(</span><span class="n">FrameBlock</span><span class="p">,</span> <span class="bp">self</span><span class="p">)</span><span class="o">.</span><span class="fm">__init__</span><span class="p">()</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">main_layout</span> <span class="o">=</span> <span class="n">QVBoxLayout</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">main_layout</span><span class="o">.</span><span class="n">setContentsMargins</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">)</span>
+
+        <span class="bp">self</span><span class="o">.</span><span class="n">__bn</span> <span class="o">=</span> <span class="n">FrameBlock</span><span class="o">.</span><span class="n">Bn</span><span class="p">()</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">__bn</span><span class="o">.</span><span class="n">setIsTurnOn</span><span class="p">(</span><span class="n">status</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">name</span> <span class="o">=</span> <span class="n">name</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">__bn</span><span class="o">.</span><span class="n">clicked</span><span class="o">.</span><span class="n">connect</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">upwidget</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">main_layout</span><span class="o">.</span><span class="n">addWidget</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">__bn</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">widget</span> <span class="o">=</span> <span class="n">FrameBlock</span><span class="o">.</span><span class="n">Block</span><span class="p">(</span><span class="n">widget</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">main_layout</span><span class="o">.</span><span class="n">addWidget</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">widget</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">upwidget</span><span class="p">()</span>
+
+<div class="viewcode-block" id="FrameBlock.unfold"><a class="viewcode-back" href="../../cpmel/CPMel.ui.html#CPMel.ui.FrameBlock.unfold">[docs]</a>    <span class="k">def</span> <span class="nf">unfold</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">__bn</span><span class="o">.</span><span class="n">setIsTurnOn</span><span class="p">(</span><span class="kc">True</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">upwidget</span><span class="p">()</span></div>
+
+<div class="viewcode-block" id="FrameBlock.fold"><a class="viewcode-back" href="../../cpmel/CPMel.ui.html#CPMel.ui.FrameBlock.fold">[docs]</a>    <span class="k">def</span> <span class="nf">fold</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">__bn</span><span class="o">.</span><span class="n">setIsTurnOn</span><span class="p">(</span><span class="kc">False</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">upwidget</span><span class="p">()</span></div>
+
+<div class="viewcode-block" id="FrameBlock.upwidget"><a class="viewcode-back" href="../../cpmel/CPMel.ui.html#CPMel.ui.FrameBlock.upwidget">[docs]</a>    <span class="k">def</span> <span class="nf">upwidget</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="o">*</span><span class="n">args</span><span class="p">):</span>
+        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">__bn</span><span class="o">.</span><span class="n">isTurnOn</span><span class="p">():</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">__bn</span><span class="o">.</span><span class="n">setText</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">name</span><span class="p">)</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">widget</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">__bn</span><span class="o">.</span><span class="n">setText</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">name</span> <span class="o">+</span> <span class="sa">u</span><span class="s2">&quot;...&quot;</span><span class="p">)</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">widget</span><span class="o">.</span><span class="n">close</span><span class="p">()</span></div></div>
+
+
+<div class="viewcode-block" id="getFileName"><a class="viewcode-back" href="../../cpmel/CPMel.ui.html#CPMel.ui.getFileName">[docs]</a><span class="k">def</span> <span class="nf">getFileName</span><span class="p">():</span>
+    <span class="sa">u</span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    获得文件路径</span>
+
+<span class="sd">    :return: unicode is None</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="n">path</span> <span class="o">=</span> <span class="n">QFileDialog</span><span class="o">.</span><span class="n">getOpenFileName</span><span class="p">()</span>
+    <span class="k">if</span> <span class="nb">len</span><span class="p">(</span><span class="n">path</span><span class="p">)</span> <span class="o">&lt;</span> <span class="mi">3</span><span class="p">:</span>
+        <span class="k">return</span> <span class="kc">None</span>
+    <span class="k">return</span> <span class="n">path</span></div>
+
+
+<div class="viewcode-block" id="getDirectoryName"><a class="viewcode-back" href="../../cpmel/CPMel.ui.html#CPMel.ui.getDirectoryName">[docs]</a><span class="k">def</span> <span class="nf">getDirectoryName</span><span class="p">():</span>
+    <span class="sa">u</span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    获得文件夹路径</span>
+
+<span class="sd">    :return: unicode is None</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="n">path</span> <span class="o">=</span> <span class="n">QFileDialog</span><span class="o">.</span><span class="n">getExistingDirectory</span><span class="p">()</span>
+    <span class="k">if</span> <span class="nb">len</span><span class="p">(</span><span class="n">path</span><span class="p">)</span> <span class="o">&lt;</span> <span class="mi">3</span><span class="p">:</span>
+        <span class="k">return</span> <span class="kc">None</span>
+    <span class="k">return</span> <span class="n">path</span></div>
+
+
+<div class="viewcode-block" id="input"><a class="viewcode-back" href="../../cpmel/CPMel.ui.html#CPMel.ui.input">[docs]</a><span class="k">def</span> <span class="nf">input</span><span class="p">(</span><span class="n">title</span><span class="o">=</span><span class="sa">u</span><span class="s1">&#39;输入&#39;</span><span class="p">,</span> <span class="n">message</span><span class="o">=</span><span class="sa">u</span><span class="s1">&#39;&gt;&gt;&gt;&#39;</span><span class="p">,</span> <span class="n">text</span><span class="o">=</span><span class="sa">u</span><span class="s1">&#39;&#39;</span><span class="p">):</span>
+    <span class="sa">u</span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    创建一个接受字符串输入的输入框</span>
+
+<span class="sd">    :param title: 标题</span>
+<span class="sd">    :param message: 消息</span>
+<span class="sd">    :param text: 默认参数</span>
+<span class="sd">    :return: unicode is None</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="n">v</span><span class="p">,</span> <span class="n">is_ok</span> <span class="o">=</span> <span class="n">QInputDialog</span><span class="o">.</span><span class="n">getText</span><span class="p">(</span><span class="n">mui</span><span class="p">,</span> <span class="n">title</span><span class="p">,</span> <span class="n">message</span><span class="p">,</span> <span class="n">text</span><span class="p">)</span>
+    <span class="k">if</span> <span class="n">is_ok</span><span class="p">:</span>
+        <span class="k">return</span> <span class="n">v</span>
+    <span class="k">return</span> <span class="kc">None</span></div>
+
+
+<div class="viewcode-block" id="inputInt"><a class="viewcode-back" href="../../cpmel/CPMel.ui.html#CPMel.ui.inputInt">[docs]</a><span class="k">def</span> <span class="nf">inputInt</span><span class="p">(</span><span class="n">title</span><span class="o">=</span><span class="sa">u</span><span class="s1">&#39;输入&#39;</span><span class="p">,</span> <span class="n">message</span><span class="o">=</span><span class="sa">u</span><span class="s1">&#39;&gt;&gt;&gt;&#39;</span><span class="p">,</span> <span class="n">text</span><span class="o">=</span><span class="mi">0</span><span class="p">):</span>
+    <span class="sa">u</span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    创建一个接受整数输入的输入框</span>
+
+<span class="sd">    :param title: 标题</span>
+<span class="sd">    :param message: 消息</span>
+<span class="sd">    :param text: 默认参数</span>
+<span class="sd">    :return: unicode is None</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="n">v</span><span class="p">,</span> <span class="n">is_ok</span> <span class="o">=</span> <span class="n">QInputDialog</span><span class="o">.</span><span class="n">getInt</span><span class="p">(</span><span class="n">mui</span><span class="p">,</span> <span class="n">title</span><span class="p">,</span> <span class="n">message</span><span class="p">,</span> <span class="n">text</span><span class="p">)</span>
+    <span class="k">if</span> <span class="n">is_ok</span><span class="p">:</span>
+        <span class="k">return</span> <span class="n">v</span>
+    <span class="k">return</span> <span class="kc">None</span></div>
+
+
+<div class="viewcode-block" id="inputDouble"><a class="viewcode-back" href="../../cpmel/CPMel.ui.html#CPMel.ui.inputDouble">[docs]</a><span class="k">def</span> <span class="nf">inputDouble</span><span class="p">(</span><span class="n">title</span><span class="o">=</span><span class="sa">u</span><span class="s1">&#39;输入&#39;</span><span class="p">,</span> <span class="n">message</span><span class="o">=</span><span class="sa">u</span><span class="s1">&#39;&gt;&gt;&gt;&#39;</span><span class="p">,</span> <span class="n">text</span><span class="o">=</span><span class="mf">0.0</span><span class="p">):</span>
+    <span class="sa">u</span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    创建一个接受浮点输入的输入框</span>
+
+<span class="sd">    :param title: 标题</span>
+<span class="sd">    :param message: 消息</span>
+<span class="sd">    :param text: 默认参数</span>
+<span class="sd">    :return: unicode is None</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="n">v</span><span class="p">,</span> <span class="n">is_ok</span> <span class="o">=</span> <span class="n">QInputDialog</span><span class="o">.</span><span class="n">getDouble</span><span class="p">(</span><span class="n">mui</span><span class="p">,</span> <span class="n">title</span><span class="p">,</span> <span class="n">message</span><span class="p">,</span> <span class="n">text</span><span class="p">)</span>
+    <span class="k">if</span> <span class="n">is_ok</span><span class="p">:</span>
+        <span class="k">return</span> <span class="n">v</span>
+    <span class="k">return</span> <span class="kc">None</span></div>
+
+
+<div class="viewcode-block" id="inputFloat"><a class="viewcode-back" href="../../cpmel/CPMel.ui.html#CPMel.ui.inputFloat">[docs]</a><span class="k">def</span> <span class="nf">inputFloat</span><span class="p">(</span><span class="n">title</span><span class="o">=</span><span class="sa">u</span><span class="s1">&#39;输入&#39;</span><span class="p">,</span> <span class="n">message</span><span class="o">=</span><span class="sa">u</span><span class="s1">&#39;&gt;&gt;&gt;&#39;</span><span class="p">,</span> <span class="n">text</span><span class="o">=</span><span class="mf">0.0</span><span class="p">):</span>
+    <span class="sa">u</span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    创建一个接受浮点输入的输入框</span>
+
+<span class="sd">    :param title: 标题</span>
+<span class="sd">    :param message: 消息</span>
+<span class="sd">    :param text: 默认参数</span>
+<span class="sd">    :return: unicode is None</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="k">return</span> <span class="n">inputDouble</span><span class="p">(</span><span class="n">title</span><span class="p">,</span> <span class="n">message</span><span class="p">,</span> <span class="n">text</span><span class="p">)</span></div>
+
+
+<div class="viewcode-block" id="inputMultiLineText"><a class="viewcode-back" href="../../cpmel/CPMel.ui.html#CPMel.ui.inputMultiLineText">[docs]</a><span class="k">def</span> <span class="nf">inputMultiLineText</span><span class="p">(</span><span class="n">title</span><span class="o">=</span><span class="sa">u</span><span class="s1">&#39;输入&#39;</span><span class="p">,</span> <span class="n">message</span><span class="o">=</span><span class="sa">u</span><span class="s1">&#39;&gt;&gt;&gt;&#39;</span><span class="p">,</span> <span class="n">text</span><span class="o">=</span><span class="sa">u</span><span class="s1">&#39;&#39;</span><span class="p">):</span>
+    <span class="sa">u</span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    创建一个接受字符串输入的多行输入框</span>
+
+<span class="sd">    :param title: 标题</span>
+<span class="sd">    :param message: 消息</span>
+<span class="sd">    :param text: 默认参数</span>
+<span class="sd">    :return: unicode is None</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="n">v</span><span class="p">,</span> <span class="n">is_ok</span> <span class="o">=</span> <span class="n">QInputDialog</span><span class="o">.</span><span class="n">getMultiLineText</span><span class="p">(</span><span class="n">mui</span><span class="p">,</span> <span class="n">title</span><span class="p">,</span> <span class="n">message</span><span class="p">,</span> <span class="n">text</span><span class="p">)</span>
+    <span class="k">if</span> <span class="n">is_ok</span><span class="p">:</span>
+        <span class="k">return</span> <span class="n">v</span>
+    <span class="k">return</span> <span class="kc">None</span></div>
+
+
+<div class="viewcode-block" id="confirm"><a class="viewcode-back" href="../../cpmel/CPMel.ui.html#CPMel.ui.confirm">[docs]</a><span class="k">def</span> <span class="nf">confirm</span><span class="p">(</span><span class="n">title</span><span class="o">=</span><span class="sa">u</span><span class="s1">&#39;确认&#39;</span><span class="p">,</span> <span class="n">message</span><span class="o">=</span><span class="sa">u</span><span class="s1">&#39;&#39;</span><span class="p">):</span>
+    <span class="sa">u</span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    确认对话框</span>
+
+<span class="sd">    :param title: 标题</span>
+<span class="sd">    :param message: 消息</span>
+<span class="sd">    :return: bool</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="n">reply</span> <span class="o">=</span> <span class="n">QMessageBox</span><span class="o">.</span><span class="n">question</span><span class="p">(</span><span class="n">mui</span><span class="p">,</span> <span class="n">title</span><span class="p">,</span> <span class="n">message</span><span class="p">,</span>
+                                 <span class="n">QMessageBox</span><span class="o">.</span><span class="n">Yes</span> <span class="o">|</span> <span class="n">QMessageBox</span><span class="o">.</span><span class="n">No</span><span class="p">,</span> <span class="n">QMessageBox</span><span class="o">.</span><span class="n">No</span><span class="p">)</span>
+    <span class="k">if</span> <span class="n">reply</span> <span class="o">==</span> <span class="n">QMessageBox</span><span class="o">.</span><span class="n">StandardButton</span><span class="o">.</span><span class="n">No</span><span class="p">:</span>
+        <span class="k">return</span> <span class="kc">False</span>
+    <span class="k">else</span><span class="p">:</span>
+        <span class="k">return</span> <span class="kc">True</span></div>
+</pre></div>
+
+           </div>
+           
+          </div>
+          <footer>
+  
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>
+        
+        &copy; Copyright 2020, 苍之幻灵
+
+    </p>
+  </div>
+    
+    
+    
+    Built with <a href="http://sphinx-doc.org/">Sphinx</a> using a
+    
+    <a href="https://github.com/rtfd/sphinx_rtd_theme">theme</a>
+    
+    provided by <a href="https://readthedocs.org">Read the Docs</a>. 
+
+</footer>
+
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+  
+
+  <script type="text/javascript">
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script>
+
+  
+  
+    
+   
+
+</body>
+</html>

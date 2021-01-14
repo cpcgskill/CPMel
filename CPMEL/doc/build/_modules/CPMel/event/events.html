@@ -1,0 +1,340 @@
+
+
+<!DOCTYPE html>
+<html class="writer-html4" lang="en" >
+<head>
+  <meta charset="utf-8">
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  
+  <title>CPMel.event.events &mdash; CPMEL 2.0.0 documentation</title>
+  
+
+  
+  <link rel="stylesheet" href="../../../_static/css/theme.css" type="text/css" />
+  <link rel="stylesheet" href="../../../_static/pygments.css" type="text/css" />
+
+  
+  
+  
+  
+
+  
+  <!--[if lt IE 9]>
+    <script src="../../../_static/js/html5shiv.min.js"></script>
+  <![endif]-->
+  
+    
+      <script type="text/javascript" id="documentation_options" data-url_root="../../../" src="../../../_static/documentation_options.js"></script>
+        <script type="text/javascript" src="../../../_static/jquery.js"></script>
+        <script type="text/javascript" src="../../../_static/underscore.js"></script>
+        <script type="text/javascript" src="../../../_static/doctools.js"></script>
+        <script type="text/javascript" src="../../../_static/language_data.js"></script>
+    
+    <script type="text/javascript" src="../../../_static/js/theme.js"></script>
+
+    
+    <link rel="index" title="Index" href="../../../genindex.html" />
+    <link rel="search" title="Search" href="../../../search.html" /> 
+</head>
+
+<body class="wy-body-for-nav">
+
+   
+  <div class="wy-grid-for-nav">
+    
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+          
+
+          
+            <a href="../../../contents.html" class="icon icon-home" alt="Documentation Home"> CPMEL
+          
+
+          
+          </a>
+
+          
+            
+            
+          
+
+          
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../../../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+
+          
+        </div>
+
+        
+        <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
+          
+            
+            
+              
+            
+            
+              <!-- Local TOC -->
+              <div class="local-toc"></div>
+            
+          
+        </div>
+        
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+
+      
+      <nav class="wy-nav-top" aria-label="top navigation">
+        
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../../../contents.html">CPMEL</a>
+        
+      </nav>
+
+
+      <div class="wy-nav-content">
+        
+        <div class="rst-content">
+        
+          
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<div role="navigation" aria-label="breadcrumbs navigation">
+
+  <ul class="wy-breadcrumbs">
+    
+      <li><a href="../../../contents.html" class="icon icon-home"></a> &raquo;</li>
+        
+          <li><a href="../../index.html">Module code</a> &raquo;</li>
+        
+      <li>CPMel.event.events</li>
+    
+    
+      <li class="wy-breadcrumbs-aside">
+        
+      </li>
+    
+  </ul>
+
+  
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+            
+  <h1>Source code for CPMel.event.events</h1><div class="highlight"><pre>
+<span></span><span class="ch">#!/usr/bin/python</span>
+<span class="c1"># -*-coding:utf-8 -*-</span>
+<span class="c1"># :创建时间: 2020/5/18 23:57</span>
+<span class="c1"># :作者: 苍之幻灵</span>
+<span class="c1"># :我的主页: https://cpcgskill.com</span>
+<span class="c1"># :QQ: 2921251087</span>
+<span class="c1"># :爱发电: https://afdian.net/@Phantom_of_the_Cang</span>
+<span class="c1"># :aboutcg: https://www.aboutcg.org/teacher/54335</span>
+<span class="c1"># :bilibili: https://space.bilibili.com/351598127</span>
+<span class="kn">from</span> <span class="nn">..</span> <span class="kn">import</span> <span class="n">ISDEBUG</span>
+<span class="kn">from</span> <span class="nn">..cmds.node</span> <span class="kn">import</span> <span class="n">nodedata</span>
+<span class="kn">from</span> <span class="nn">..api</span> <span class="kn">import</span> <span class="n">OpenMaya</span>
+<span class="kn">from</span> <span class="nn">.</span> <span class="kn">import</span> <span class="n">base</span>
+<span class="k">if</span> <span class="n">ISDEBUG</span><span class="p">:</span>
+    <span class="n">reload</span><span class="p">(</span><span class="n">base</span><span class="p">)</span>
+
+
+
+<div class="viewcode-block" id="Dg"><a class="viewcode-back" href="../../../cpmel/CPMel.event.html#CPMel.event.events.Dg">[docs]</a><span class="k">class</span> <span class="nc">Dg</span><span class="p">(</span><span class="n">base</span><span class="o">.</span><span class="n">EventBase</span><span class="p">):</span>
+    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="nb">super</span><span class="p">(</span><span class="n">Dg</span><span class="p">,</span> <span class="bp">self</span><span class="p">)</span><span class="o">.</span><span class="fm">__init__</span><span class="p">()</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">message_ids</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">OpenMaya</span><span class="o">.</span><span class="n">MDGMessage</span><span class="o">.</span><span class="n">addNodeAddedCallback</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">__createNode</span><span class="p">))</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">message_ids</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">OpenMaya</span><span class="o">.</span><span class="n">MDGMessage</span><span class="o">.</span><span class="n">addNodeRemovedCallback</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">__removeNode</span><span class="p">))</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">message_ids</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">OpenMaya</span><span class="o">.</span><span class="n">MDGMessage</span><span class="o">.</span><span class="n">addPreConnectionCallback</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">__connectMessage</span><span class="p">))</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">message_ids</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">OpenMaya</span><span class="o">.</span><span class="n">MDGMessage</span><span class="o">.</span><span class="n">addConnectionCallback</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">__connectedMessage</span><span class="p">))</span>
+
+    <span class="k">def</span> <span class="nf">__createNode</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">node</span> <span class="o">=</span> <span class="n">OpenMaya</span><span class="o">.</span><span class="n">MObject</span><span class="p">,</span> <span class="n">data</span> <span class="o">=</span> <span class="kc">None</span><span class="p">):</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">createNode</span><span class="p">(</span><span class="n">nodedata</span><span class="o">.</span><span class="n">Global</span><span class="o">.</span><span class="n">objToNode</span><span class="p">(</span><span class="n">node</span><span class="p">))</span>
+
+    <span class="k">def</span> <span class="nf">__removeNode</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">node</span> <span class="o">=</span> <span class="n">OpenMaya</span><span class="o">.</span><span class="n">MObject</span><span class="p">,</span> <span class="n">data</span> <span class="o">=</span> <span class="kc">None</span><span class="p">):</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">removeNode</span><span class="p">(</span><span class="n">nodedata</span><span class="o">.</span><span class="n">Global</span><span class="o">.</span><span class="n">objToNode</span><span class="p">(</span><span class="n">node</span><span class="p">))</span>
+
+    <span class="k">def</span> <span class="nf">__connectedMessage</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">in_attr</span> <span class="o">=</span> <span class="n">OpenMaya</span><span class="o">.</span><span class="n">MPlug</span><span class="p">,</span> <span class="n">out_attr</span> <span class="o">=</span> <span class="n">OpenMaya</span><span class="o">.</span><span class="n">MPlug</span><span class="p">,</span> <span class="n">is_connect</span> <span class="o">=</span> <span class="nb">bool</span><span class="p">,</span> <span class="n">data</span> <span class="o">=</span> <span class="kc">None</span><span class="p">):</span>
+        <span class="n">in_attr</span> <span class="o">=</span> <span class="n">nodedata</span><span class="o">.</span><span class="n">Global</span><span class="o">.</span><span class="n">plugToAttr</span><span class="p">(</span><span class="n">in_attr</span><span class="p">)</span>
+        <span class="n">out_attr</span> <span class="o">=</span> <span class="n">nodedata</span><span class="o">.</span><span class="n">Global</span><span class="o">.</span><span class="n">plugToAttr</span><span class="p">(</span><span class="n">out_attr</span><span class="p">)</span>
+        <span class="k">if</span> <span class="n">is_connect</span><span class="p">:</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">connected</span><span class="p">(</span><span class="n">in_attr</span><span class="p">,</span> <span class="n">out_attr</span><span class="p">)</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">disconnected</span><span class="p">(</span><span class="n">in_attr</span><span class="p">,</span> <span class="n">out_attr</span><span class="p">)</span>
+
+    <span class="k">def</span> <span class="nf">__connectMessage</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">in_attr</span> <span class="o">=</span> <span class="n">OpenMaya</span><span class="o">.</span><span class="n">MPlug</span><span class="p">,</span> <span class="n">out_attr</span> <span class="o">=</span> <span class="n">OpenMaya</span><span class="o">.</span><span class="n">MPlug</span><span class="p">,</span> <span class="n">is_connect</span> <span class="o">=</span> <span class="nb">bool</span><span class="p">,</span> <span class="n">data</span> <span class="o">=</span> <span class="kc">None</span><span class="p">):</span>
+        <span class="n">in_attr</span> <span class="o">=</span> <span class="n">nodedata</span><span class="o">.</span><span class="n">Global</span><span class="o">.</span><span class="n">plugToAttr</span><span class="p">(</span><span class="n">in_attr</span><span class="p">)</span>
+        <span class="n">out_attr</span> <span class="o">=</span> <span class="n">nodedata</span><span class="o">.</span><span class="n">Global</span><span class="o">.</span><span class="n">plugToAttr</span><span class="p">(</span><span class="n">out_attr</span><span class="p">)</span>
+        <span class="k">if</span> <span class="n">is_connect</span><span class="p">:</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">connect</span><span class="p">(</span><span class="n">in_attr</span><span class="p">,</span> <span class="n">out_attr</span><span class="p">)</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">disconnect</span><span class="p">(</span><span class="n">in_attr</span><span class="p">,</span> <span class="n">out_attr</span><span class="p">)</span>
+
+<div class="viewcode-block" id="Dg.createNode"><a class="viewcode-back" href="../../../cpmel/CPMel.event.html#CPMel.event.events.Dg.createNode">[docs]</a>    <span class="k">def</span> <span class="nf">createNode</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">node</span> <span class="o">=</span> <span class="n">nodedata</span><span class="o">.</span><span class="n">DgNode</span><span class="p">):</span>
+        <span class="sa">u</span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        节点创建事件</span>
+
+<span class="sd">        :param node:</span>
+<span class="sd">        :return:</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="k">pass</span></div>
+
+<div class="viewcode-block" id="Dg.removeNode"><a class="viewcode-back" href="../../../cpmel/CPMel.event.html#CPMel.event.events.Dg.removeNode">[docs]</a>    <span class="k">def</span> <span class="nf">removeNode</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">node</span> <span class="o">=</span> <span class="n">nodedata</span><span class="o">.</span><span class="n">DgNode</span><span class="p">):</span>
+        <span class="sa">u</span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        节点移除事件</span>
+
+<span class="sd">        :param node:</span>
+<span class="sd">        :return:</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="k">pass</span></div>
+
+<div class="viewcode-block" id="Dg.connect"><a class="viewcode-back" href="../../../cpmel/CPMel.event.html#CPMel.event.events.Dg.connect">[docs]</a>    <span class="k">def</span> <span class="nf">connect</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">in_attr</span> <span class="o">=</span> <span class="n">nodedata</span><span class="o">.</span><span class="n">AttrObject</span><span class="p">,</span> <span class="n">out_attr</span> <span class="o">=</span> <span class="n">nodedata</span><span class="o">.</span><span class="n">AttrObject</span><span class="p">):</span>
+        <span class="sa">u</span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        属性连接事件</span>
+
+<span class="sd">        :param in_attr:</span>
+<span class="sd">        :param out_attr:</span>
+<span class="sd">        :return:</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="k">pass</span></div>
+
+<div class="viewcode-block" id="Dg.disconnect"><a class="viewcode-back" href="../../../cpmel/CPMel.event.html#CPMel.event.events.Dg.disconnect">[docs]</a>    <span class="k">def</span> <span class="nf">disconnect</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">in_attr</span> <span class="o">=</span> <span class="n">nodedata</span><span class="o">.</span><span class="n">AttrObject</span><span class="p">,</span> <span class="n">out_attr</span> <span class="o">=</span> <span class="n">nodedata</span><span class="o">.</span><span class="n">AttrObject</span><span class="p">):</span>
+        <span class="sa">u</span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        属性断开连接事件</span>
+
+<span class="sd">        :param in_attr:</span>
+<span class="sd">        :param out_attr:</span>
+<span class="sd">        :return:</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="k">pass</span></div>
+
+<div class="viewcode-block" id="Dg.connected"><a class="viewcode-back" href="../../../cpmel/CPMel.event.html#CPMel.event.events.Dg.connected">[docs]</a>    <span class="k">def</span> <span class="nf">connected</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">in_attr</span> <span class="o">=</span> <span class="n">nodedata</span><span class="o">.</span><span class="n">AttrObject</span><span class="p">,</span> <span class="n">out_attr</span> <span class="o">=</span> <span class="n">nodedata</span><span class="o">.</span><span class="n">AttrObject</span><span class="p">):</span>
+        <span class="sa">u</span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        属性连接结束事件</span>
+
+<span class="sd">        :param in_attr:</span>
+<span class="sd">        :param out_attr:</span>
+<span class="sd">        :return:</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="k">pass</span></div>
+
+<div class="viewcode-block" id="Dg.disconnected"><a class="viewcode-back" href="../../../cpmel/CPMel.event.html#CPMel.event.events.Dg.disconnected">[docs]</a>    <span class="k">def</span> <span class="nf">disconnected</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">in_attr</span> <span class="o">=</span> <span class="n">nodedata</span><span class="o">.</span><span class="n">AttrObject</span><span class="p">,</span> <span class="n">out_attr</span> <span class="o">=</span> <span class="n">nodedata</span><span class="o">.</span><span class="n">AttrObject</span><span class="p">):</span>
+        <span class="sa">u</span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        属性断开连接结束事件</span>
+
+<span class="sd">        :param in_attr:</span>
+<span class="sd">        :param out_attr:</span>
+<span class="sd">        :return:</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="k">pass</span></div></div>
+
+
+
+<div class="viewcode-block" id="Dag"><a class="viewcode-back" href="../../../cpmel/CPMel.event.html#CPMel.event.events.Dag">[docs]</a><span class="k">class</span> <span class="nc">Dag</span><span class="p">(</span><span class="n">Dg</span><span class="p">):</span>
+    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="nb">super</span><span class="p">(</span><span class="n">Dag</span><span class="p">,</span> <span class="bp">self</span><span class="p">)</span><span class="o">.</span><span class="fm">__init__</span><span class="p">()</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">message_ids</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">OpenMaya</span><span class="o">.</span><span class="n">MDagMessage</span><span class="o">.</span><span class="n">addParentAddedCallback</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">__moveLevel</span><span class="p">))</span>
+
+    <span class="k">def</span> <span class="nf">__moveLevel</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">child</span> <span class="o">=</span> <span class="n">OpenMaya</span><span class="o">.</span><span class="n">MDagPath</span><span class="p">,</span> <span class="n">parent</span> <span class="o">=</span> <span class="n">OpenMaya</span><span class="o">.</span><span class="n">MDagPath</span><span class="p">,</span> <span class="n">data</span> <span class="o">=</span> <span class="kc">None</span><span class="p">):</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">moveLevel</span><span class="p">(</span><span class="n">nodedata</span><span class="o">.</span><span class="n">newObject</span><span class="p">(</span><span class="n">child</span><span class="o">.</span><span class="n">fullPathName</span><span class="p">()),</span> <span class="n">nodedata</span><span class="o">.</span><span class="n">newObject</span><span class="p">(</span><span class="n">parent</span><span class="o">.</span><span class="n">fullPathName</span><span class="p">()))</span>
+
+<div class="viewcode-block" id="Dag.moveLevel"><a class="viewcode-back" href="../../../cpmel/CPMel.event.html#CPMel.event.events.Dag.moveLevel">[docs]</a>    <span class="k">def</span> <span class="nf">moveLevel</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">child</span> <span class="o">=</span> <span class="n">nodedata</span><span class="o">.</span><span class="n">DagNode</span><span class="p">,</span> <span class="n">parent</span> <span class="o">=</span> <span class="n">nodedata</span><span class="o">.</span><span class="n">DagNode</span><span class="p">):</span>
+        <span class="sa">u</span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        层级移动</span>
+
+<span class="sd">        :param child:</span>
+<span class="sd">        :param parent:</span>
+<span class="sd">        :return:</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="k">pass</span></div></div>
+
+
+
+<div class="viewcode-block" id="Select"><a class="viewcode-back" href="../../../cpmel/CPMel.event.html#CPMel.event.events.Select">[docs]</a><span class="k">class</span> <span class="nc">Select</span><span class="p">(</span><span class="n">base</span><span class="o">.</span><span class="n">EventBase</span><span class="p">):</span>
+    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="nb">super</span><span class="p">(</span><span class="n">Select</span><span class="p">,</span> <span class="bp">self</span><span class="p">)</span><span class="o">.</span><span class="fm">__init__</span><span class="p">()</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">message_ids</span><span class="o">.</span><span class="n">append</span><span class="p">(</span>
+                <span class="n">OpenMaya</span><span class="o">.</span><span class="n">MEventMessage</span><span class="o">.</span><span class="n">addEventCallback</span><span class="p">(</span><span class="sa">u</span><span class="s2">&quot;SelectionChanged&quot;</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">__selected</span><span class="p">)</span>
+                <span class="p">)</span>
+
+    <span class="k">def</span> <span class="nf">__selected</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">data</span> <span class="o">=</span> <span class="kc">None</span><span class="p">):</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">selected</span><span class="p">()</span>
+
+<div class="viewcode-block" id="Select.selected"><a class="viewcode-back" href="../../../cpmel/CPMel.event.html#CPMel.event.events.Select.selected">[docs]</a>    <span class="k">def</span> <span class="nf">selected</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="sa">u</span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        选择事件</span>
+
+<span class="sd">        :return:</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="k">pass</span></div></div>
+</pre></div>
+
+           </div>
+           
+          </div>
+          <footer>
+  
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>
+        
+        &copy; Copyright 2020, 苍之幻灵
+
+    </p>
+  </div>
+    
+    
+    
+    Built with <a href="http://sphinx-doc.org/">Sphinx</a> using a
+    
+    <a href="https://github.com/rtfd/sphinx_rtd_theme">theme</a>
+    
+    provided by <a href="https://readthedocs.org">Read the Docs</a>. 
+
+</footer>
+
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+  
+
+  <script type="text/javascript">
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script>
+
+  
+  
+    
+   
+
+</body>
+</html>

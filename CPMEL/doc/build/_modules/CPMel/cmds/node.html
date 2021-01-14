@@ -1,0 +1,482 @@
+
+
+<!DOCTYPE html>
+<html class="writer-html4" lang="en" >
+<head>
+  <meta charset="utf-8">
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  
+  <title>CPMel.cmds.node &mdash; CPMEL 2.0.0 documentation</title>
+  
+
+  
+  <link rel="stylesheet" href="../../../_static/css/theme.css" type="text/css" />
+  <link rel="stylesheet" href="../../../_static/pygments.css" type="text/css" />
+
+  
+  
+  
+  
+
+  
+  <!--[if lt IE 9]>
+    <script src="../../../_static/js/html5shiv.min.js"></script>
+  <![endif]-->
+  
+    
+      <script type="text/javascript" id="documentation_options" data-url_root="../../../" src="../../../_static/documentation_options.js"></script>
+        <script type="text/javascript" src="../../../_static/jquery.js"></script>
+        <script type="text/javascript" src="../../../_static/underscore.js"></script>
+        <script type="text/javascript" src="../../../_static/doctools.js"></script>
+        <script type="text/javascript" src="../../../_static/language_data.js"></script>
+    
+    <script type="text/javascript" src="../../../_static/js/theme.js"></script>
+
+    
+    <link rel="index" title="Index" href="../../../genindex.html" />
+    <link rel="search" title="Search" href="../../../search.html" /> 
+</head>
+
+<body class="wy-body-for-nav">
+
+   
+  <div class="wy-grid-for-nav">
+    
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+          
+
+          
+            <a href="../../../contents.html" class="icon icon-home" alt="Documentation Home"> CPMEL
+          
+
+          
+          </a>
+
+          
+            
+            
+          
+
+          
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../../../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+
+          
+        </div>
+
+        
+        <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
+          
+            
+            
+              
+            
+            
+              <!-- Local TOC -->
+              <div class="local-toc"></div>
+            
+          
+        </div>
+        
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+
+      
+      <nav class="wy-nav-top" aria-label="top navigation">
+        
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../../../contents.html">CPMEL</a>
+        
+      </nav>
+
+
+      <div class="wy-nav-content">
+        
+        <div class="rst-content">
+        
+          
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<div role="navigation" aria-label="breadcrumbs navigation">
+
+  <ul class="wy-breadcrumbs">
+    
+      <li><a href="../../../contents.html" class="icon icon-home"></a> &raquo;</li>
+        
+          <li><a href="../../index.html">Module code</a> &raquo;</li>
+        
+          <li><a href="../cmds.html">CPMel.cmds</a> &raquo;</li>
+        
+      <li>CPMel.cmds.node</li>
+    
+    
+      <li class="wy-breadcrumbs-aside">
+        
+      </li>
+    
+  </ul>
+
+  
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+            
+  <h1>Source code for CPMel.cmds.node</h1><div class="highlight"><pre>
+<span></span><span class="ch">#!/usr/bin/python</span>
+<span class="c1"># -*-coding:utf-8 -*-</span>
+<span class="sa">u</span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">:创建时间: 2020/5/18 23:57</span>
+<span class="sd">:作者: 苍之幻灵</span>
+<span class="sd">:我的主页: https://cpcgskill.com</span>
+<span class="sd">:QQ: 2921251087</span>
+<span class="sd">:爱发电: https://afdian.net/@Phantom_of_the_Cang</span>
+<span class="sd">:aboutcg: https://www.aboutcg.org/teacher/54335</span>
+<span class="sd">:bilibili: https://space.bilibili.com/351598127</span>
+<span class="sd">CPMel.cmds 脚本模块</span>
+<span class="sd">&quot;&quot;&quot;</span>
+<span class="kn">from</span> <span class="nn">collections</span> <span class="kn">import</span> <span class="n">Iterable</span>
+
+<span class="kn">from</span> <span class="nn">collections</span> <span class="kn">import</span> <span class="n">Iterable</span>
+<span class="kn">import</span> <span class="nn">maya.cmds</span> <span class="k">as</span> <span class="nn">mc</span>
+
+<span class="kn">from</span> <span class="nn">...api</span> <span class="kn">import</span> <span class="n">OpenMaya</span>
+<span class="kn">from</span> <span class="nn">...</span> <span class="kn">import</span> <span class="n">core</span> <span class="k">as</span> <span class="n">cmcore</span>
+<span class="kn">from</span> <span class="nn">.</span> <span class="kn">import</span> <span class="n">basedata</span>
+<span class="kn">from</span> <span class="nn">.</span> <span class="kn">import</span> <span class="n">nodedata</span>
+<span class="kn">from</span> <span class="nn">.</span> <span class="kn">import</span> <span class="n">nodetypes</span>
+<span class="kn">from</span> <span class="nn">...tool</span> <span class="kn">import</span> <span class="n">decode</span>
+<span class="c1"># DELETE #</span>
+<span class="kn">from</span> <span class="nn">...</span> <span class="kn">import</span> <span class="n">ISDEBUG</span>
+
+<span class="k">if</span> <span class="n">ISDEBUG</span><span class="p">:</span>
+    <span class="n">reload</span><span class="p">(</span><span class="n">basedata</span><span class="p">)</span>
+    <span class="n">reload</span><span class="p">(</span><span class="n">nodedata</span><span class="p">)</span>
+    <span class="n">reload</span><span class="p">(</span><span class="n">nodetypes</span><span class="p">)</span>
+<span class="c1"># \DELETE #</span>
+<span class="kn">from</span> <span class="nn">.basedata</span> <span class="kn">import</span> <span class="o">*</span>
+<span class="kn">from</span> <span class="nn">.nodedata</span> <span class="kn">import</span> <span class="o">*</span>
+<span class="kn">from</span> <span class="nn">.nodetypes</span> <span class="kn">import</span> <span class="o">*</span>
+<span class="kn">from</span> <span class="nn">.nodedata</span> <span class="kn">import</span> <span class="n">newObject</span>
+
+<span class="n">__all__</span> <span class="o">=</span> <span class="p">[</span><span class="s2">&quot;CPMelToCmds&quot;</span><span class="p">,</span> <span class="s2">&quot;cmdsToCPMel&quot;</span><span class="p">,</span> <span class="s2">&quot;commandWrap&quot;</span><span class="p">]</span>
+
+<span class="c1"># __ToTuple__ = {OpenMaya.MVector, OpenMaya.MFloatVector, OpenMaya.MPoint, OpenMaya.MFloatPoint, OpenMaya.MFloatArray,</span>
+<span class="c1">#                OpenMaya.MDoubleArray, OpenMaya.MIntArray, OpenMaya.MInt64Array}</span>
+
+<span class="n">__ToTuple__</span> <span class="o">=</span> <span class="p">(</span><span class="nb">list</span><span class="p">,</span> <span class="nb">tuple</span><span class="p">)</span>
+
+
+<span class="c1"># __RecursiveToList__ = {list, tuple, OpenMaya.MPointArray, OpenMaya.MFloatPointArray, OpenMaya.MVectorArray,</span>
+<span class="c1">#                        OpenMaya.MFloatVector}</span>
+
+<span class="c1"># CreateObjectType = nodedata.CreateObjectType()</span>
+
+
+<div class="viewcode-block" id="CPMelToCmds"><a class="viewcode-back" href="../../../cpmel/CPMel.cmds.node.html#CPMel.cmds.static_cmds.CPMelToCmds">[docs]</a><span class="k">def</span> <span class="nf">CPMelToCmds</span><span class="p">(</span><span class="n">val</span><span class="p">):</span>
+    <span class="sa">u</span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    用于将CPMel的对象转化为cmds可以理解的值的函数</span>
+
+<span class="sd">    :param val:	Cmds模块输入参数列表中的元素</span>
+<span class="sd">    :return: 转化完成的对象</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">val</span><span class="p">,</span> <span class="n">BaseData</span><span class="p">):</span>
+        <span class="k">return</span> <span class="n">val</span><span class="o">.</span><span class="n">compile</span><span class="p">()</span>
+    <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">val</span><span class="p">,</span> <span class="n">CPObject</span><span class="p">):</span>
+        <span class="k">return</span> <span class="n">val</span><span class="o">.</span><span class="n">compile</span><span class="p">()</span>
+    <span class="c1"># 检查参数是否为需要递归转化为列表的值</span>
+    <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="n">__ToTuple__</span><span class="p">:</span>
+        <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">val</span><span class="p">,</span> <span class="n">i</span><span class="p">):</span>
+            <span class="k">return</span> <span class="nb">tuple</span><span class="p">((</span><span class="n">CPMelToCmds</span><span class="p">(</span><span class="n">t</span><span class="p">)</span> <span class="k">for</span> <span class="n">t</span> <span class="ow">in</span> <span class="n">val</span><span class="p">))</span>
+    <span class="k">return</span> <span class="n">val</span></div>
+
+
+<div class="viewcode-block" id="cmdsToCPMel"><a class="viewcode-back" href="../../../cpmel/CPMel.cmds.node.html#CPMel.cmds.static_cmds.cmdsToCPMel">[docs]</a><span class="k">def</span> <span class="nf">cmdsToCPMel</span><span class="p">(</span><span class="n">val</span><span class="p">):</span>
+    <span class="sa">u</span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    将cmds的返回值转化为CPMel使用的对象的函数</span>
+
+<span class="sd">    :param val: Cmds模块返回参数列表中的元素</span>
+<span class="sd">    :return: 转化完成的对象</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">val</span><span class="p">,</span> <span class="nb">tuple</span><span class="p">):</span>
+        <span class="k">if</span> <span class="nb">len</span><span class="p">(</span><span class="n">val</span><span class="p">)</span> <span class="o">==</span> <span class="mi">3</span><span class="p">:</span>
+            <span class="k">try</span><span class="p">:</span>
+                <span class="k">return</span> <span class="n">basedata</span><span class="o">.</span><span class="n">Double3</span><span class="p">(</span><span class="n">val</span><span class="p">)</span>
+            <span class="k">except</span> <span class="ne">Exception</span><span class="p">:</span>
+                <span class="k">return</span> <span class="n">val</span>
+        <span class="k">return</span> <span class="n">val</span>
+    <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">val</span><span class="p">,</span> <span class="n">basestring</span><span class="p">):</span>
+        <span class="k">try</span><span class="p">:</span>
+            <span class="k">return</span> <span class="n">newObject</span><span class="p">(</span><span class="n">val</span><span class="p">)</span>
+        <span class="k">except</span> <span class="ne">Exception</span><span class="p">:</span>
+            <span class="k">return</span> <span class="n">val</span>
+        <span class="c1"># return val</span>
+    <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">val</span><span class="p">,</span> <span class="nb">list</span><span class="p">):</span>
+        <span class="k">return</span> <span class="p">[</span><span class="n">cmdsToCPMel</span><span class="p">(</span><span class="n">i</span><span class="p">)</span> <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="n">val</span><span class="p">]</span>
+    <span class="k">return</span> <span class="n">val</span></div>
+
+
+<span class="k">def</span> <span class="nf">inCommandWrap</span><span class="p">(</span><span class="n">fn</span><span class="p">):</span>
+    <span class="sa">u</span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    命令包裹函数</span>
+
+<span class="sd">    :param fn:</span>
+<span class="sd">    :return:</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+
+    <span class="k">def</span> <span class="nf">test</span><span class="p">(</span><span class="o">*</span><span class="n">args</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">):</span>
+        <span class="n">args</span> <span class="o">=</span> <span class="nb">tuple</span><span class="p">((</span><span class="n">CPMelToCmds</span><span class="p">(</span><span class="n">i</span><span class="p">)</span> <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="n">args</span><span class="p">))</span>
+        <span class="n">kwargs</span> <span class="o">=</span> <span class="p">{</span><span class="n">i</span><span class="p">:</span> <span class="n">CPMelToCmds</span><span class="p">(</span><span class="n">kwargs</span><span class="p">[</span><span class="n">i</span><span class="p">])</span> <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="n">kwargs</span><span class="p">}</span>
+        <span class="k">try</span><span class="p">:</span>
+            <span class="k">return</span> <span class="n">fn</span><span class="p">(</span><span class="o">*</span><span class="n">args</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">)</span>
+        <span class="k">except</span> <span class="ne">Exception</span> <span class="k">as</span> <span class="n">ex</span><span class="p">:</span>
+            <span class="k">raise</span> <span class="n">cmcore</span><span class="o">.</span><span class="n">CPMelError</span><span class="p">(</span><span class="sa">u</span><span class="s2">&quot;Command error &gt;&gt; &quot;</span> <span class="o">+</span> <span class="sa">u</span><span class="s2">&quot;</span><span class="se">\n</span><span class="s2">&quot;</span><span class="o">.</span><span class="n">join</span><span class="p">([</span><span class="n">decode</span><span class="p">(</span><span class="n">i</span><span class="p">)</span> <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="n">ex</span><span class="o">.</span><span class="n">args</span><span class="p">]))</span>
+
+    <span class="n">test</span><span class="o">.</span><span class="vm">__name__</span> <span class="o">=</span> <span class="n">fn</span><span class="o">.</span><span class="vm">__name__</span>
+    <span class="n">test</span><span class="o">.</span><span class="vm">__doc__</span> <span class="o">=</span> <span class="n">fn</span><span class="o">.</span><span class="vm">__doc__</span>
+    <span class="k">return</span> <span class="n">test</span>
+
+
+<span class="k">def</span> <span class="nf">runCommandWrap</span><span class="p">(</span><span class="n">fn</span><span class="p">):</span>
+    <span class="sa">u</span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    命令返回包裹函数</span>
+
+<span class="sd">    :param fn:</span>
+<span class="sd">    :return:</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+
+    <span class="k">def</span> <span class="nf">test</span><span class="p">(</span><span class="o">*</span><span class="n">args</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">):</span>
+        <span class="k">try</span><span class="p">:</span>
+            <span class="n">out_args</span> <span class="o">=</span> <span class="n">fn</span><span class="p">(</span><span class="o">*</span><span class="n">args</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">)</span>
+        <span class="k">except</span> <span class="ne">Exception</span> <span class="k">as</span> <span class="n">ex</span><span class="p">:</span>
+            <span class="k">raise</span> <span class="n">cmcore</span><span class="o">.</span><span class="n">CPMelError</span><span class="p">(</span><span class="sa">u</span><span class="s2">&quot;Command error &gt;&gt; &quot;</span> <span class="o">+</span> <span class="sa">u</span><span class="s2">&quot;</span><span class="se">\n</span><span class="s2">&quot;</span><span class="o">.</span><span class="n">join</span><span class="p">([</span><span class="n">decode</span><span class="p">(</span><span class="n">i</span><span class="p">)</span> <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="n">ex</span><span class="o">.</span><span class="n">args</span><span class="p">]))</span>
+        <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">out_args</span><span class="p">,</span> <span class="n">Iterable</span><span class="p">)</span> <span class="ow">and</span> <span class="p">(</span><span class="ow">not</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">out_args</span><span class="p">,</span> <span class="n">basestring</span><span class="p">)):</span>
+            <span class="k">return</span> <span class="nb">type</span><span class="p">(</span><span class="n">out_args</span><span class="p">)((</span><span class="n">cmdsToCPMel</span><span class="p">(</span><span class="n">i</span><span class="p">)</span> <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="n">out_args</span><span class="p">))</span>
+        <span class="k">return</span> <span class="n">cmdsToCPMel</span><span class="p">(</span><span class="n">out_args</span><span class="p">)</span>
+
+    <span class="n">test</span><span class="o">.</span><span class="vm">__name__</span> <span class="o">=</span> <span class="n">fn</span><span class="o">.</span><span class="vm">__name__</span>
+    <span class="n">test</span><span class="o">.</span><span class="vm">__doc__</span> <span class="o">=</span> <span class="n">fn</span><span class="o">.</span><span class="vm">__doc__</span>
+    <span class="k">return</span> <span class="n">test</span>
+
+
+<span class="k">def</span> <span class="nf">runUiCommandWrap</span><span class="p">(</span><span class="n">fn</span><span class="p">):</span>
+    <span class="sa">u</span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    gui命令返回值包裹函数</span>
+<span class="sd">    :param fn:</span>
+<span class="sd">    :return: fn</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+
+    <span class="k">def</span> <span class="nf">test</span><span class="p">(</span><span class="o">*</span><span class="n">args</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">):</span>
+        <span class="k">try</span><span class="p">:</span>
+            <span class="n">out_args</span> <span class="o">=</span> <span class="n">fn</span><span class="p">(</span><span class="o">*</span><span class="n">args</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">)</span>
+        <span class="k">except</span> <span class="ne">Exception</span> <span class="k">as</span> <span class="n">ex</span><span class="p">:</span>
+            <span class="k">raise</span> <span class="n">cmcore</span><span class="o">.</span><span class="n">CPMelError</span><span class="p">(</span><span class="sa">u</span><span class="s2">&quot;Command error &gt;&gt; &quot;</span> <span class="o">+</span> <span class="sa">u</span><span class="s2">&quot;</span><span class="se">\n</span><span class="s2">&quot;</span><span class="o">.</span><span class="n">join</span><span class="p">([</span><span class="n">decode</span><span class="p">(</span><span class="n">i</span><span class="p">)</span> <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="n">ex</span><span class="o">.</span><span class="n">args</span><span class="p">]))</span>
+        <span class="k">if</span> <span class="p">(</span><span class="ow">not</span> <span class="s1">&#39;q&#39;</span> <span class="ow">in</span> <span class="n">kwargs</span><span class="p">)</span> <span class="ow">and</span> <span class="p">(</span><span class="ow">not</span> <span class="s1">&#39;query&#39;</span> <span class="ow">in</span> <span class="n">kwargs</span><span class="p">)</span> <span class="ow">and</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">out_args</span><span class="p">,</span> <span class="n">basestring</span><span class="p">):</span>
+            <span class="k">return</span> <span class="n">nodedata</span><span class="o">.</span><span class="n">UIObject</span><span class="p">(</span><span class="n">out_args</span><span class="p">)</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="k">return</span> <span class="n">out_args</span>
+
+    <span class="n">test</span><span class="o">.</span><span class="vm">__name__</span> <span class="o">=</span> <span class="n">fn</span><span class="o">.</span><span class="vm">__name__</span>
+    <span class="n">test</span><span class="o">.</span><span class="vm">__doc__</span> <span class="o">=</span> <span class="n">fn</span><span class="o">.</span><span class="vm">__doc__</span>
+    <span class="k">return</span> <span class="n">test</span>
+
+
+<div class="viewcode-block" id="commandWrap"><a class="viewcode-back" href="../../../cpmel/CPMel.cmds.node.html#CPMel.cmds.static_cmds.commandWrap">[docs]</a><span class="k">def</span> <span class="nf">commandWrap</span><span class="p">(</span><span class="n">fn</span><span class="p">):</span>
+    <span class="sa">u</span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    命令包裹函数</span>
+
+<span class="sd">    :param fn:</span>
+<span class="sd">    :return:</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+
+    <span class="k">def</span> <span class="nf">test</span><span class="p">(</span><span class="o">*</span><span class="n">args</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">):</span>
+        <span class="n">args</span> <span class="o">=</span> <span class="nb">tuple</span><span class="p">((</span><span class="n">CPMelToCmds</span><span class="p">(</span><span class="n">i</span><span class="p">)</span> <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="n">args</span><span class="p">))</span>
+        <span class="n">kwargs</span> <span class="o">=</span> <span class="p">{</span><span class="n">i</span><span class="p">:</span> <span class="n">CPMelToCmds</span><span class="p">(</span><span class="n">kwargs</span><span class="p">[</span><span class="n">i</span><span class="p">])</span> <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="n">kwargs</span><span class="p">}</span>
+        <span class="k">try</span><span class="p">:</span>
+            <span class="n">out_args</span> <span class="o">=</span> <span class="n">fn</span><span class="p">(</span><span class="o">*</span><span class="n">args</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">)</span>
+        <span class="k">except</span> <span class="ne">Exception</span> <span class="k">as</span> <span class="n">ex</span><span class="p">:</span>
+            <span class="k">raise</span> <span class="n">cmcore</span><span class="o">.</span><span class="n">CPMelError</span><span class="p">(</span><span class="sa">u</span><span class="s2">&quot;Command error &gt;&gt; &quot;</span> <span class="o">+</span> <span class="sa">u</span><span class="s2">&quot;</span><span class="se">\n</span><span class="s2">&quot;</span><span class="o">.</span><span class="n">join</span><span class="p">([</span><span class="n">decode</span><span class="p">(</span><span class="n">i</span><span class="p">)</span> <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="n">ex</span><span class="o">.</span><span class="n">args</span><span class="p">]))</span>
+
+        <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">out_args</span><span class="p">,</span> <span class="n">Iterable</span><span class="p">)</span> <span class="ow">and</span> <span class="p">(</span><span class="ow">not</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">out_args</span><span class="p">,</span> <span class="n">basestring</span><span class="p">)):</span>
+            <span class="k">return</span> <span class="nb">type</span><span class="p">(</span><span class="n">out_args</span><span class="p">)((</span><span class="n">cmdsToCPMel</span><span class="p">(</span><span class="n">i</span><span class="p">)</span> <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="n">out_args</span><span class="p">))</span>
+        <span class="k">return</span> <span class="n">cmdsToCPMel</span><span class="p">(</span><span class="n">out_args</span><span class="p">)</span>
+
+    <span class="n">test</span><span class="o">.</span><span class="vm">__name__</span> <span class="o">=</span> <span class="n">fn</span><span class="o">.</span><span class="vm">__name__</span>
+    <span class="n">test</span><span class="o">.</span><span class="vm">__doc__</span> <span class="o">=</span> <span class="n">fn</span><span class="o">.</span><span class="vm">__doc__</span>
+    <span class="k">return</span> <span class="n">test</span></div>
+
+
+<span class="k">def</span> <span class="nf">uiCommandWrap</span><span class="p">(</span><span class="n">fn</span><span class="p">):</span>
+    <span class="sa">u</span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    gui命令包裹函数</span>
+<span class="sd">    :param fn:</span>
+<span class="sd">    :return: fn</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+
+    <span class="k">def</span> <span class="nf">test</span><span class="p">(</span><span class="o">*</span><span class="n">args</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">):</span>
+        <span class="n">args</span> <span class="o">=</span> <span class="nb">tuple</span><span class="p">((</span><span class="n">CPMelToCmds</span><span class="p">(</span><span class="n">i</span><span class="p">)</span> <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="n">args</span><span class="p">))</span>
+        <span class="n">kwargs</span> <span class="o">=</span> <span class="p">{</span><span class="n">i</span><span class="p">:</span> <span class="n">CPMelToCmds</span><span class="p">(</span><span class="n">kwargs</span><span class="p">[</span><span class="n">i</span><span class="p">])</span> <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="n">kwargs</span><span class="p">}</span>
+        <span class="k">try</span><span class="p">:</span>
+            <span class="n">out_args</span> <span class="o">=</span> <span class="n">fn</span><span class="p">(</span><span class="o">*</span><span class="n">args</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">)</span>
+        <span class="k">except</span> <span class="ne">Exception</span> <span class="k">as</span> <span class="n">ex</span><span class="p">:</span>
+            <span class="k">raise</span> <span class="n">cmcore</span><span class="o">.</span><span class="n">CPMelError</span><span class="p">(</span><span class="sa">u</span><span class="s2">&quot;Command error &gt;&gt; &quot;</span> <span class="o">+</span> <span class="sa">u</span><span class="s2">&quot;</span><span class="se">\n</span><span class="s2">&quot;</span><span class="o">.</span><span class="n">join</span><span class="p">([</span><span class="n">decode</span><span class="p">(</span><span class="n">i</span><span class="p">)</span> <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="n">ex</span><span class="o">.</span><span class="n">args</span><span class="p">]))</span>
+        <span class="k">if</span> <span class="p">(</span><span class="ow">not</span> <span class="s1">&#39;q&#39;</span> <span class="ow">in</span> <span class="n">kwargs</span><span class="p">)</span> <span class="ow">and</span> <span class="p">(</span><span class="ow">not</span> <span class="s1">&#39;query&#39;</span> <span class="ow">in</span> <span class="n">kwargs</span><span class="p">)</span> <span class="ow">and</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">out_args</span><span class="p">,</span> <span class="n">basestring</span><span class="p">):</span>
+            <span class="k">return</span> <span class="n">nodedata</span><span class="o">.</span><span class="n">UIObject</span><span class="p">(</span><span class="n">out_args</span><span class="p">)</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="k">return</span> <span class="n">out_args</span>
+
+    <span class="n">test</span><span class="o">.</span><span class="vm">__name__</span> <span class="o">=</span> <span class="n">fn</span><span class="o">.</span><span class="vm">__name__</span>
+    <span class="n">test</span><span class="o">.</span><span class="vm">__doc__</span> <span class="o">=</span> <span class="n">fn</span><span class="o">.</span><span class="vm">__doc__</span>
+    <span class="k">return</span> <span class="n">test</span>
+
+<span class="c1"># def getCmdInfoBasic(command):</span>
+<span class="c1">#     typemap = {</span>
+<span class="c1">#         &#39;string&#39;: unicode,</span>
+<span class="c1">#         &#39;length&#39;: float,</span>
+<span class="c1">#         &#39;float&#39;: float,</span>
+<span class="c1">#         &#39;angle&#39;: float,</span>
+<span class="c1">#         &#39;int&#39;: int,</span>
+<span class="c1">#         &#39;unsignedint&#39;: int,</span>
+<span class="c1">#         &#39;on|off&#39;: bool,</span>
+<span class="c1">#         &#39;script&#39;: callable,</span>
+<span class="c1">#         &#39;name&#39;: &#39;PyNode&#39;</span>
+<span class="c1">#     }</span>
+<span class="c1">#     flags = {}</span>
+<span class="c1">#     shortFlags = {}</span>
+<span class="c1">#     removedFlags = {}</span>
+<span class="c1">#     try:</span>
+<span class="c1">#         lines = cmds.help(command).split(&#39;\n&#39;)</span>
+<span class="c1">#     except RuntimeError:</span>
+<span class="c1">#         pass</span>
+<span class="c1">#     else:</span>
+<span class="c1">#         synopsis = lines.pop(0)</span>
+<span class="c1">#         # certain commands on certain platforms have an empty first line</span>
+<span class="c1">#         if not synopsis:</span>
+<span class="c1">#             synopsis = lines.pop(0)</span>
+<span class="c1">#         #_logger.debug(synopsis)</span>
+<span class="c1">#         if lines:</span>
+<span class="c1">#             lines.pop(0)  # &#39;Flags&#39;</span>
+<span class="c1">#             #_logger.debug(lines)</span>
+<span class="c1">#</span>
+<span class="c1">#             for line in lines:</span>
+<span class="c1">#                 line = line.replace(&#39;(Query Arg Mandatory)&#39;, &#39;&#39;)</span>
+<span class="c1">#                 line = line.replace(&#39;(Query Arg Optional)&#39;, &#39;&#39;)</span>
+<span class="c1">#                 tokens = line.split()</span>
+<span class="c1">#</span>
+<span class="c1">#                 try:</span>
+<span class="c1">#                     tokens.remove(&#39;(multi-use)&#39;)</span>
+<span class="c1">#                     multiuse = True</span>
+<span class="c1">#                 except ValueError:</span>
+<span class="c1">#                     multiuse = False</span>
+<span class="c1">#                 #_logger.debug(tokens)</span>
+<span class="c1">#                 if len(tokens) &gt; 1 and tokens[0].startswith(&#39;-&#39;):</span>
+<span class="c1">#</span>
+<span class="c1">#                     args = [typemap.get(x.lower(), util.uncapitalize(x)) for x in tokens[2:]]</span>
+<span class="c1">#                     numArgs = len(args)</span>
+<span class="c1">#</span>
+<span class="c1">#                     # lags with no args in mel require a boolean val in python</span>
+<span class="c1">#                     if numArgs == 0:</span>
+<span class="c1">#                         args = bool</span>
+<span class="c1">#                         # numArgs will stay at 0, which is the number of mel arguments.</span>
+<span class="c1">#                         # this flag should be renamed to numMelArgs</span>
+<span class="c1">#                         #numArgs = 1</span>
+<span class="c1">#                     elif numArgs == 1:</span>
+<span class="c1">#                         args = args[0]</span>
+<span class="c1">#</span>
+<span class="c1">#                     longname = str(tokens[1][1:])</span>
+<span class="c1">#                     shortname = str(tokens[0][1:])</span>
+<span class="c1">#</span>
+<span class="c1">#                     if longname in keyword.kwlist:</span>
+<span class="c1">#                         removedFlags[longname] = shortname</span>
+<span class="c1">#                         longname = shortname</span>
+<span class="c1">#                     elif shortname in keyword.kwlist:</span>
+<span class="c1">#                         removedFlags[shortname] = longname</span>
+<span class="c1">#                         shortname = longname</span>
+<span class="c1">#                     # sometimes the longname is empty, so we&#39;ll use the shortname for both</span>
+<span class="c1">#                     elif longname == &#39;&#39;:</span>
+<span class="c1">#                         longname = shortname</span>
+<span class="c1">#</span>
+<span class="c1">#                     flags[longname] = {&#39;longname&#39;: longname, &#39;shortname&#39;: shortname, &#39;args&#39;: args, &#39;numArgs&#39;: numArgs, &#39;docstring&#39;: &#39;&#39;}</span>
+<span class="c1">#                     if multiuse:</span>
+<span class="c1">#                         flags[longname].setdefault(&#39;modes&#39;, []).append(&#39;multiuse&#39;)</span>
+<span class="c1">#                     shortFlags[shortname] = longname</span>
+<span class="c1">#</span>
+<span class="c1">#     # except:</span>
+<span class="c1">#     #    pass</span>
+<span class="c1">#         #_logger.debug(&quot;could not retrieve command info for&quot;, command)</span>
+<span class="c1">#     res = {&#39;flags&#39;: flags, &#39;shortFlags&#39;: shortFlags, &#39;description&#39;: &#39;&#39;, &#39;example&#39;: &#39;&#39;, &#39;type&#39;: &#39;other&#39;}</span>
+<span class="c1">#     if removedFlags:</span>
+<span class="c1">#         res[&#39;removedFlags&#39;] = removedFlags</span>
+<span class="c1">#     return res</span>
+</pre></div>
+
+           </div>
+           
+          </div>
+          <footer>
+  
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>
+        
+        &copy; Copyright 2020, 苍之幻灵
+
+    </p>
+  </div>
+    
+    
+    
+    Built with <a href="http://sphinx-doc.org/">Sphinx</a> using a
+    
+    <a href="https://github.com/rtfd/sphinx_rtd_theme">theme</a>
+    
+    provided by <a href="https://readthedocs.org">Read the Docs</a>. 
+
+</footer>
+
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+  
+
+  <script type="text/javascript">
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script>
+
+  
+  
+    
+   
+
+</body>
+</html>

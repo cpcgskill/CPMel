@@ -1,0 +1,1419 @@
+
+
+<!DOCTYPE html>
+<html class="writer-html4" lang="en" >
+<head>
+  <meta charset="utf-8">
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  
+  <title>CPMel.cmds.node.nodetypes &mdash; CPMEL 2.0.0 documentation</title>
+  
+
+  
+  <link rel="stylesheet" href="../../../../_static/css/theme.css" type="text/css" />
+  <link rel="stylesheet" href="../../../../_static/pygments.css" type="text/css" />
+
+  
+  
+  
+  
+
+  
+  <!--[if lt IE 9]>
+    <script src="../../../../_static/js/html5shiv.min.js"></script>
+  <![endif]-->
+  
+    
+      <script type="text/javascript" id="documentation_options" data-url_root="../../../../" src="../../../../_static/documentation_options.js"></script>
+        <script type="text/javascript" src="../../../../_static/jquery.js"></script>
+        <script type="text/javascript" src="../../../../_static/underscore.js"></script>
+        <script type="text/javascript" src="../../../../_static/doctools.js"></script>
+        <script type="text/javascript" src="../../../../_static/language_data.js"></script>
+    
+    <script type="text/javascript" src="../../../../_static/js/theme.js"></script>
+
+    
+    <link rel="index" title="Index" href="../../../../genindex.html" />
+    <link rel="search" title="Search" href="../../../../search.html" /> 
+</head>
+
+<body class="wy-body-for-nav">
+
+   
+  <div class="wy-grid-for-nav">
+    
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+          
+
+          
+            <a href="../../../../contents.html" class="icon icon-home" alt="Documentation Home"> CPMEL
+          
+
+          
+          </a>
+
+          
+            
+            
+          
+
+          
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../../../../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+
+          
+        </div>
+
+        
+        <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
+          
+            
+            
+              
+            
+            
+              <!-- Local TOC -->
+              <div class="local-toc"></div>
+            
+          
+        </div>
+        
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+
+      
+      <nav class="wy-nav-top" aria-label="top navigation">
+        
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../../../../contents.html">CPMEL</a>
+        
+      </nav>
+
+
+      <div class="wy-nav-content">
+        
+        <div class="rst-content">
+        
+          
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<div role="navigation" aria-label="breadcrumbs navigation">
+
+  <ul class="wy-breadcrumbs">
+    
+      <li><a href="../../../../contents.html" class="icon icon-home"></a> &raquo;</li>
+        
+          <li><a href="../../../index.html">Module code</a> &raquo;</li>
+        
+          <li><a href="../../cmds.html">CPMel.cmds</a> &raquo;</li>
+        
+          <li><a href="../node.html">CPMel.cmds.node</a> &raquo;</li>
+        
+      <li>CPMel.cmds.node.nodetypes</li>
+    
+    
+      <li class="wy-breadcrumbs-aside">
+        
+      </li>
+    
+  </ul>
+
+  
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+            
+  <h1>Source code for CPMel.cmds.node.nodetypes</h1><div class="highlight"><pre>
+<span></span><span class="ch">#!/usr/bin/python</span>
+<span class="c1"># -*-coding:utf-8 -*-</span>
+<span class="sa">u</span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">:创建时间: 2020/5/18 23:57</span>
+<span class="sd">:作者: 苍之幻灵</span>
+<span class="sd">:我的主页: https://cpcgskill.com</span>
+<span class="sd">:QQ: 2921251087</span>
+<span class="sd">:爱发电: https://afdian.net/@Phantom_of_the_Cang</span>
+<span class="sd">:aboutcg: https://www.aboutcg.org/teacher/54335</span>
+<span class="sd">:bilibili: https://space.bilibili.com/351598127</span>
+<span class="sd">CPMel.cmds模块节点类型定义</span>
+<span class="sd">&quot;&quot;&quot;</span>
+<span class="kn">import</span> <span class="nn">array</span>
+
+<span class="kn">import</span> <span class="nn">maya.cmds</span> <span class="k">as</span> <span class="nn">cmds</span>
+<span class="kn">import</span> <span class="nn">maya.mel</span> <span class="k">as</span> <span class="nn">mel</span>
+
+<span class="kn">from</span> <span class="nn">.</span> <span class="kn">import</span> <span class="n">basedata</span>
+<span class="kn">from</span> <span class="nn">...api</span> <span class="kn">import</span> <span class="n">apiwrap</span>
+<span class="kn">from</span> <span class="nn">...</span> <span class="kn">import</span> <span class="n">core</span> <span class="k">as</span> <span class="n">cmcore</span>
+<span class="kn">from</span> <span class="nn">.nodedata</span> <span class="kn">import</span> <span class="o">*</span>
+<span class="kn">from</span> <span class="nn">.basedata</span> <span class="kn">import</span> <span class="o">*</span>
+<span class="kn">from</span> <span class="nn">...api.OpenMaya</span> <span class="kn">import</span> <span class="o">*</span>
+<span class="kn">from</span> <span class="nn">...api.OpenMayaAnim</span> <span class="kn">import</span> <span class="o">*</span>
+
+<span class="n">__all__</span> <span class="o">=</span> <span class="p">[</span><span class="s2">&quot;Transform&quot;</span><span class="p">,</span> <span class="s2">&quot;MeshVtx&quot;</span><span class="p">,</span> <span class="s2">&quot;MeshEdge&quot;</span><span class="p">,</span> <span class="s2">&quot;MeshFace&quot;</span><span class="p">,</span> <span class="s2">&quot;Mesh&quot;</span><span class="p">,</span> <span class="s2">&quot;CurveCv&quot;</span><span class="p">,</span> <span class="s2">&quot;Curve&quot;</span><span class="p">,</span> <span class="s2">&quot;SurfaceCv&quot;</span><span class="p">,</span> <span class="s2">&quot;Surface&quot;</span><span class="p">,</span>
+           <span class="s2">&quot;SkinCluster&quot;</span><span class="p">]</span>
+
+<span class="n">ScriptUtil</span> <span class="o">=</span> <span class="n">MScriptUtil</span><span class="p">()</span>
+
+
+<div class="viewcode-block" id="Transform"><a class="viewcode-back" href="../../../../cpmel/CPMel.cmds.node.html#CPMel.cmds.node.nodetypes.Transform">[docs]</a><span class="k">class</span> <span class="nc">Transform</span><span class="p">(</span><span class="n">DagNode</span><span class="p">):</span>
+    <span class="n">__metaclass__</span> <span class="o">=</span> <span class="n">ObjectMetadef</span><span class="p">(</span><span class="n">MFn</span><span class="o">.</span><span class="n">kTransform</span><span class="p">)</span>
+
+    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">obj</span><span class="o">=</span><span class="n">MObject</span><span class="p">,</span> <span class="n">uuid</span><span class="o">=</span><span class="n">MUuid</span><span class="p">,</span> <span class="n">uuid_s</span><span class="o">=</span><span class="sa">u</span><span class="s2">&quot;&quot;</span><span class="p">):</span>
+        <span class="nb">super</span><span class="p">(</span><span class="n">Transform</span><span class="p">,</span> <span class="bp">self</span><span class="p">)</span><span class="o">.</span><span class="fm">__init__</span><span class="p">(</span><span class="n">obj</span><span class="p">,</span> <span class="n">uuid</span><span class="p">,</span> <span class="n">uuid_s</span><span class="p">)</span>
+        <span class="c1"># path = self.fn.dagPath()</span>
+        <span class="c1"># int_p = ScriptUtil.asUintPtr()</span>
+        <span class="c1"># path.numberOfShapesDirectlyBelow(int_p)</span>
+        <span class="c1"># shape_size = ScriptUtil.getUint(int_p)</span>
+        <span class="c1"># if shape_size &gt; 0:</span>
+        <span class="c1">#     path.extendToShapeDirectlyBelow(0)</span>
+        <span class="c1">#     self.shape =  Global.objToNode(path.node())</span>
+        <span class="c1"># else:</span>
+        <span class="c1">#     self.shape = None</span>
+
+    <span class="k">def</span> <span class="fm">__getattribute__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">item</span><span class="p">):</span>
+        <span class="sa">u</span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        .访问操作</span>
+
+<span class="sd">        :param item:</span>
+<span class="sd">        :return:</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="k">try</span><span class="p">:</span>
+            <span class="k">return</span> <span class="nb">object</span><span class="o">.</span><span class="fm">__getattribute__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">item</span><span class="p">)</span>
+        <span class="k">except</span> <span class="ne">AttributeError</span><span class="p">:</span>
+            <span class="k">try</span><span class="p">:</span>
+                <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">attr</span><span class="p">(</span><span class="n">item</span><span class="p">)</span>
+            <span class="k">except</span> <span class="n">cmcore</span><span class="o">.</span><span class="n">CPMelErrorBase</span><span class="p">:</span>
+                <span class="k">try</span><span class="p">:</span>
+                    <span class="k">return</span> <span class="nb">getattr</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">getShape</span><span class="p">(),</span> <span class="n">item</span><span class="p">)</span>
+                <span class="k">except</span> <span class="n">cmcore</span><span class="o">.</span><span class="n">CPMelErrorBase</span><span class="p">:</span>
+                    <span class="k">raise</span> <span class="n">cmcore</span><span class="o">.</span><span class="n">CPMelError</span><span class="p">(</span><span class="sa">u</span><span class="s2">&quot;找不到属性&quot;</span><span class="p">)</span>
+
+<div class="viewcode-block" id="Transform.getShape"><a class="viewcode-back" href="../../../../cpmel/CPMel.cmds.node.html#CPMel.cmds.node.nodetypes.Transform.getShape">[docs]</a>    <span class="k">def</span> <span class="nf">getShape</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">index</span><span class="o">=</span><span class="mi">0</span><span class="p">):</span>
+        <span class="n">path</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">fn</span><span class="o">.</span><span class="n">dagPath</span><span class="p">()</span>
+        <span class="n">int_p</span> <span class="o">=</span> <span class="n">ScriptUtil</span><span class="o">.</span><span class="n">asUintPtr</span><span class="p">()</span>
+        <span class="n">path</span><span class="o">.</span><span class="n">numberOfShapesDirectlyBelow</span><span class="p">(</span><span class="n">int_p</span><span class="p">)</span>
+        <span class="n">shape_size</span> <span class="o">=</span> <span class="n">ScriptUtil</span><span class="o">.</span><span class="n">getUint</span><span class="p">(</span><span class="n">int_p</span><span class="p">)</span>
+        <span class="k">if</span> <span class="n">shape_size</span> <span class="o">&gt;</span> <span class="mi">0</span><span class="p">:</span>
+            <span class="n">path</span><span class="o">.</span><span class="n">extendToShapeDirectlyBelow</span><span class="p">(</span><span class="n">index</span><span class="p">)</span>
+            <span class="k">return</span> <span class="n">Global</span><span class="o">.</span><span class="n">objToNode</span><span class="p">(</span><span class="n">path</span><span class="o">.</span><span class="n">node</span><span class="p">())</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="k">raise</span> <span class="n">cmcore</span><span class="o">.</span><span class="n">CPMelError</span><span class="p">(</span><span class="sa">u</span><span class="s2">&quot;没有形状节点&quot;</span><span class="p">)</span></div>
+
+<div class="viewcode-block" id="Transform.getShapes"><a class="viewcode-back" href="../../../../cpmel/CPMel.cmds.node.html#CPMel.cmds.node.nodetypes.Transform.getShapes">[docs]</a>    <span class="k">def</span> <span class="nf">getShapes</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="n">path</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">fn</span><span class="o">.</span><span class="n">dagPath</span><span class="p">()</span>
+        <span class="n">int_p</span> <span class="o">=</span> <span class="n">ScriptUtil</span><span class="o">.</span><span class="n">asUintPtr</span><span class="p">()</span>
+        <span class="n">path</span><span class="o">.</span><span class="n">numberOfShapesDirectlyBelow</span><span class="p">(</span><span class="n">int_p</span><span class="p">)</span>
+        <span class="n">shape_size</span> <span class="o">=</span> <span class="n">ScriptUtil</span><span class="o">.</span><span class="n">getUint</span><span class="p">(</span><span class="n">int_p</span><span class="p">)</span>
+        <span class="k">if</span> <span class="n">shape_size</span> <span class="o">&gt;</span> <span class="mi">0</span><span class="p">:</span>
+            <span class="n">objs</span> <span class="o">=</span> <span class="nb">list</span><span class="p">()</span>
+            <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">shape_size</span><span class="p">):</span>
+                <span class="n">path</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">fn</span><span class="o">.</span><span class="n">dagPath</span><span class="p">()</span>
+                <span class="n">path</span><span class="o">.</span><span class="n">extendToShapeDirectlyBelow</span><span class="p">(</span><span class="n">i</span><span class="p">)</span>
+                <span class="n">obj</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">Globalfunction</span><span class="o">.</span><span class="n">objToNode</span><span class="p">(</span><span class="n">path</span><span class="o">.</span><span class="n">node</span><span class="p">())</span>
+                <span class="n">objs</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">obj</span><span class="p">)</span>
+            <span class="k">return</span> <span class="n">objs</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="k">return</span> <span class="p">[]</span></div>
+
+<div class="viewcode-block" id="Transform.cp__getFnClass"><a class="viewcode-back" href="../../../../cpmel/CPMel.cmds.node.html#CPMel.cmds.node.nodetypes.Transform.cp__getFnClass">[docs]</a>    <span class="k">def</span> <span class="nf">cp__getFnClass</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="sa">u</span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        获得当前函数集</span>
+<span class="sd">        :return: MFn</span>
+<span class="sd">        :rtype: MFnDependencyNode</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="n">path</span> <span class="o">=</span> <span class="n">MDagPath</span><span class="p">()</span>
+        <span class="n">MDagPath</span><span class="o">.</span><span class="n">getAPathTo</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">obj</span><span class="p">,</span> <span class="n">path</span><span class="p">)</span>
+        <span class="k">return</span> <span class="n">MFnTransform</span><span class="p">(</span><span class="n">path</span><span class="p">)</span></div>
+
+<div class="viewcode-block" id="Transform.isCurrentNodeType"><a class="viewcode-back" href="../../../../cpmel/CPMel.cmds.node.html#CPMel.cmds.node.nodetypes.Transform.isCurrentNodeType">[docs]</a>    <span class="nd">@staticmethod</span>
+    <span class="k">def</span> <span class="nf">isCurrentNodeType</span><span class="p">(</span><span class="n">path</span><span class="o">=</span><span class="n">MDagPath</span><span class="p">):</span>
+        <span class="sa">u</span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        返回节点这个类是否支持这个节点</span>
+
+<span class="sd">        :param path: api1.0 MObject 指向一个节点的MObject</span>
+<span class="sd">        :return: bool</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="k">return</span> <span class="n">path</span><span class="o">.</span><span class="n">hasFn</span><span class="p">(</span><span class="n">MFn</span><span class="o">.</span><span class="n">kTransform</span><span class="p">)</span></div></div>
+
+
+<div class="viewcode-block" id="MeshVtx"><a class="viewcode-back" href="../../../../cpmel/CPMel.cmds.node.html#CPMel.cmds.node.nodetypes.MeshVtx">[docs]</a><span class="k">class</span> <span class="nc">MeshVtx</span><span class="p">(</span><span class="n">Components1Base</span><span class="p">):</span>
+    <span class="n">components_type_str</span> <span class="o">=</span> <span class="s2">&quot;vtx&quot;</span>
+    <span class="n">__metaclass__</span> <span class="o">=</span> <span class="n">componentsTypesMetadef</span>
+
+<div class="viewcode-block" id="MeshVtx.cp__init_componenrs"><a class="viewcode-back" href="../../../../cpmel/CPMel.cmds.node.html#CPMel.cmds.node.nodetypes.MeshVtx.cp__init_componenrs">[docs]</a>    <span class="k">def</span> <span class="nf">cp__init_componenrs</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="n">dag</span><span class="p">,</span> <span class="n">obj</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">Globalfunction</span><span class="o">.</span><span class="n">nameToMDagPath</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">compile</span><span class="p">())</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">it</span> <span class="o">=</span> <span class="n">MItMeshVertex</span><span class="p">(</span><span class="n">dag</span><span class="p">,</span> <span class="n">obj</span><span class="p">)</span></div>
+
+<div class="viewcode-block" id="MeshVtx.verticesToFace"><a class="viewcode-back" href="../../../../cpmel/CPMel.cmds.node.html#CPMel.cmds.node.nodetypes.MeshVtx.verticesToFace">[docs]</a>    <span class="nd">@Components1Base</span><span class="o">.</span><span class="n">IsSingleComponent</span>
+    <span class="k">def</span> <span class="nf">verticesToFace</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">node</span><span class="o">.</span><span class="n">verticesToFace</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">index</span><span class="p">)</span></div>
+
+<div class="viewcode-block" id="MeshVtx.verticesToEdge"><a class="viewcode-back" href="../../../../cpmel/CPMel.cmds.node.html#CPMel.cmds.node.nodetypes.MeshVtx.verticesToEdge">[docs]</a>    <span class="nd">@Components1Base</span><span class="o">.</span><span class="n">IsSingleComponent</span>
+    <span class="k">def</span> <span class="nf">verticesToEdge</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">node</span><span class="o">.</span><span class="n">verticesToEdge</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">index</span><span class="p">)</span></div>
+
+<div class="viewcode-block" id="MeshVtx.verticesToVertices"><a class="viewcode-back" href="../../../../cpmel/CPMel.cmds.node.html#CPMel.cmds.node.nodetypes.MeshVtx.verticesToVertices">[docs]</a>    <span class="nd">@Components1Base</span><span class="o">.</span><span class="n">IsSingleComponent</span>
+    <span class="k">def</span> <span class="nf">verticesToVertices</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">node</span><span class="o">.</span><span class="n">verticesToVertices</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">index</span><span class="p">)</span></div>
+
+<div class="viewcode-block" id="MeshVtx.setPoint"><a class="viewcode-back" href="../../../../cpmel/CPMel.cmds.node.html#CPMel.cmds.node.nodetypes.MeshVtx.setPoint">[docs]</a>    <span class="nd">@Components1Base</span><span class="o">.</span><span class="n">IsSingleComponent</span>
+    <span class="k">def</span> <span class="nf">setPoint</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">point</span><span class="p">,</span> <span class="n">space</span><span class="o">=</span><span class="n">basedata</span><span class="o">.</span><span class="n">Space</span><span class="o">.</span><span class="n">object</span><span class="p">):</span>
+        <span class="c1"># if not isinstance(point, MPoint):</span>
+        <span class="c1">#     point = MPoint(point[0], point[1], point[2])</span>
+        <span class="c1"># for i in self.it:</span>
+        <span class="c1">#     self.it.setPosition(point, space)</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">node</span><span class="o">.</span><span class="n">setPoint</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">index</span><span class="p">,</span> <span class="n">point</span><span class="p">,</span> <span class="n">space</span><span class="p">)</span></div>
+
+<div class="viewcode-block" id="MeshVtx.getPoint"><a class="viewcode-back" href="../../../../cpmel/CPMel.cmds.node.html#CPMel.cmds.node.nodetypes.MeshVtx.getPoint">[docs]</a>    <span class="nd">@Components1Base</span><span class="o">.</span><span class="n">IsSingleComponent</span>
+    <span class="k">def</span> <span class="nf">getPoint</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">space</span><span class="o">=</span><span class="n">basedata</span><span class="o">.</span><span class="n">Space</span><span class="o">.</span><span class="n">object</span><span class="p">):</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">node</span><span class="o">.</span><span class="n">getPoint</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">index</span><span class="p">,</span> <span class="n">space</span><span class="p">)</span></div></div>
+
+
+<div class="viewcode-block" id="MeshEdge"><a class="viewcode-back" href="../../../../cpmel/CPMel.cmds.node.html#CPMel.cmds.node.nodetypes.MeshEdge">[docs]</a><span class="k">class</span> <span class="nc">MeshEdge</span><span class="p">(</span><span class="n">Components1Base</span><span class="p">):</span>
+    <span class="n">components_type_str</span> <span class="o">=</span> <span class="s2">&quot;e&quot;</span>
+    <span class="n">__metaclass__</span> <span class="o">=</span> <span class="n">componentsTypesMetadef</span>
+
+<div class="viewcode-block" id="MeshEdge.cp__init_componenrs"><a class="viewcode-back" href="../../../../cpmel/CPMel.cmds.node.html#CPMel.cmds.node.nodetypes.MeshEdge.cp__init_componenrs">[docs]</a>    <span class="k">def</span> <span class="nf">cp__init_componenrs</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="n">dag</span><span class="p">,</span> <span class="n">obj</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">Globalfunction</span><span class="o">.</span><span class="n">nameToMDagPath</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">compile</span><span class="p">())</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">it</span> <span class="o">=</span> <span class="n">MItMeshEdge</span><span class="p">(</span><span class="n">dag</span><span class="p">,</span> <span class="n">obj</span><span class="p">)</span></div>
+
+<div class="viewcode-block" id="MeshEdge.edgeToFace"><a class="viewcode-back" href="../../../../cpmel/CPMel.cmds.node.html#CPMel.cmds.node.nodetypes.MeshEdge.edgeToFace">[docs]</a>    <span class="nd">@Components1Base</span><span class="o">.</span><span class="n">IsSingleComponent</span>
+    <span class="k">def</span> <span class="nf">edgeToFace</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">node</span><span class="o">.</span><span class="n">edgeToFace</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">index</span><span class="p">)</span></div>
+
+<div class="viewcode-block" id="MeshEdge.edgeToEdge"><a class="viewcode-back" href="../../../../cpmel/CPMel.cmds.node.html#CPMel.cmds.node.nodetypes.MeshEdge.edgeToEdge">[docs]</a>    <span class="nd">@Components1Base</span><span class="o">.</span><span class="n">IsSingleComponent</span>
+    <span class="k">def</span> <span class="nf">edgeToEdge</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">node</span><span class="o">.</span><span class="n">edgeToEdge</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">index</span><span class="p">)</span></div>
+
+<div class="viewcode-block" id="MeshEdge.edgeToVertices"><a class="viewcode-back" href="../../../../cpmel/CPMel.cmds.node.html#CPMel.cmds.node.nodetypes.MeshEdge.edgeToVertices">[docs]</a>    <span class="nd">@Components1Base</span><span class="o">.</span><span class="n">IsSingleComponent</span>
+    <span class="k">def</span> <span class="nf">edgeToVertices</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">node</span><span class="o">.</span><span class="n">edgeToVertices</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">index</span><span class="p">)</span></div>
+
+<div class="viewcode-block" id="MeshEdge.setPoint"><a class="viewcode-back" href="../../../../cpmel/CPMel.cmds.node.html#CPMel.cmds.node.nodetypes.MeshEdge.setPoint">[docs]</a>    <span class="nd">@Components1Base</span><span class="o">.</span><span class="n">IsSingleComponent</span>
+    <span class="k">def</span> <span class="nf">setPoint</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">point</span><span class="o">=</span><span class="n">basedata</span><span class="o">.</span><span class="n">Double3</span><span class="p">,</span> <span class="n">space</span><span class="o">=</span><span class="n">basedata</span><span class="o">.</span><span class="n">Space</span><span class="o">.</span><span class="n">object</span><span class="p">):</span>
+        <span class="c1"># if not isinstance(point, MPoint):</span>
+        <span class="c1">#     point = MPoint(point[0], point[1], point[2])</span>
+        <span class="c1"># doIts = list()</span>
+        <span class="c1"># undoIts = list()</span>
+        <span class="c1"># for i in self.it:</span>
+        <span class="c1">#     m_point = self.it.center(space)</span>
+        <span class="c1">#     point0 = self.it.point(0, space)</span>
+        <span class="c1">#     point1 = self.it.point(1, space)</span>
+        <span class="c1">#     doIts.append(</span>
+        <span class="c1">#             functools.partial(self.it.setPoint, point + (point0 - m_point), 0, space)</span>
+        <span class="c1">#             )</span>
+        <span class="c1">#     doIts.append(</span>
+        <span class="c1">#             functools.partial(self.it.setPoint, point + (point1 - m_point), 1, space)</span>
+        <span class="c1">#             )</span>
+        <span class="c1">#     undoIts.append(</span>
+        <span class="c1">#             functools.partial(self.it.setPoint, point0, 0, space)</span>
+        <span class="c1">#             )</span>
+        <span class="c1">#     undoIts.append(</span>
+        <span class="c1">#             functools.partial(self.it.setPoint, point1, 1, space)</span>
+        <span class="c1">#             )</span>
+        <span class="c1"># doIts.append(self.it.updateSurface)</span>
+        <span class="c1"># undoIts.append(self.it.updateSurface)</span>
+        <span class="c1"># cmcore.addCommands(doIts, undoIts)</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">node</span><span class="o">.</span><span class="n">setEdgePoint</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">index</span><span class="p">,</span> <span class="n">point</span><span class="p">,</span> <span class="n">space</span><span class="p">)</span></div>
+
+<div class="viewcode-block" id="MeshEdge.getPoint"><a class="viewcode-back" href="../../../../cpmel/CPMel.cmds.node.html#CPMel.cmds.node.nodetypes.MeshEdge.getPoint">[docs]</a>    <span class="nd">@Components1Base</span><span class="o">.</span><span class="n">IsSingleComponent</span>
+    <span class="k">def</span> <span class="nf">getPoint</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">space</span><span class="o">=</span><span class="n">basedata</span><span class="o">.</span><span class="n">Space</span><span class="o">.</span><span class="n">object</span><span class="p">):</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">node</span><span class="o">.</span><span class="n">setEdgePoint</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">index</span><span class="p">,</span> <span class="n">space</span><span class="p">)</span></div></div>
+
+
+<div class="viewcode-block" id="MeshFace"><a class="viewcode-back" href="../../../../cpmel/CPMel.cmds.node.html#CPMel.cmds.node.nodetypes.MeshFace">[docs]</a><span class="k">class</span> <span class="nc">MeshFace</span><span class="p">(</span><span class="n">Components1Base</span><span class="p">):</span>
+    <span class="n">components_type_str</span> <span class="o">=</span> <span class="s2">&quot;f&quot;</span>
+    <span class="n">__metaclass__</span> <span class="o">=</span> <span class="n">componentsTypesMetadef</span>
+
+<div class="viewcode-block" id="MeshFace.faceToFace"><a class="viewcode-back" href="../../../../cpmel/CPMel.cmds.node.html#CPMel.cmds.node.nodetypes.MeshFace.faceToFace">[docs]</a>    <span class="nd">@Components1Base</span><span class="o">.</span><span class="n">IsSingleComponent</span>
+    <span class="k">def</span> <span class="nf">faceToFace</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">node</span><span class="o">.</span><span class="n">faceToFace</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">index</span><span class="p">)</span></div>
+
+<div class="viewcode-block" id="MeshFace.faceToEdge"><a class="viewcode-back" href="../../../../cpmel/CPMel.cmds.node.html#CPMel.cmds.node.nodetypes.MeshFace.faceToEdge">[docs]</a>    <span class="nd">@Components1Base</span><span class="o">.</span><span class="n">IsSingleComponent</span>
+    <span class="k">def</span> <span class="nf">faceToEdge</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">node</span><span class="o">.</span><span class="n">faceToEdge</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">index</span><span class="p">)</span></div>
+
+<div class="viewcode-block" id="MeshFace.faceToVertices"><a class="viewcode-back" href="../../../../cpmel/CPMel.cmds.node.html#CPMel.cmds.node.nodetypes.MeshFace.faceToVertices">[docs]</a>    <span class="nd">@Components1Base</span><span class="o">.</span><span class="n">IsSingleComponent</span>
+    <span class="k">def</span> <span class="nf">faceToVertices</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">node</span><span class="o">.</span><span class="n">faceToVertices</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">index</span><span class="p">)</span></div>
+
+    <span class="c1"># def setPoint(self, point = basedata.Double3):</span>
+    <span class="c1">#     pass</span>
+<div class="viewcode-block" id="MeshFace.setPoint"><a class="viewcode-back" href="../../../../cpmel/CPMel.cmds.node.html#CPMel.cmds.node.nodetypes.MeshFace.setPoint">[docs]</a>    <span class="nd">@Components1Base</span><span class="o">.</span><span class="n">IsSingleComponent</span>
+    <span class="k">def</span> <span class="nf">setPoint</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">point</span><span class="o">=</span><span class="n">basedata</span><span class="o">.</span><span class="n">Double3</span><span class="p">,</span> <span class="n">space</span><span class="o">=</span><span class="n">basedata</span><span class="o">.</span><span class="n">Space</span><span class="o">.</span><span class="n">object</span><span class="p">):</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">node</span><span class="o">.</span><span class="n">setFacePoint</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">index</span><span class="p">,</span> <span class="n">point</span><span class="p">,</span> <span class="n">space</span><span class="p">)</span></div>
+
+<div class="viewcode-block" id="MeshFace.getPoint"><a class="viewcode-back" href="../../../../cpmel/CPMel.cmds.node.html#CPMel.cmds.node.nodetypes.MeshFace.getPoint">[docs]</a>    <span class="nd">@Components1Base</span><span class="o">.</span><span class="n">IsSingleComponent</span>
+    <span class="k">def</span> <span class="nf">getPoint</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">space</span><span class="o">=</span><span class="n">basedata</span><span class="o">.</span><span class="n">Space</span><span class="o">.</span><span class="n">object</span><span class="p">):</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">node</span><span class="o">.</span><span class="n">getFacePoint</span><span class="p">(</span><span class="n">space</span><span class="p">)</span></div></div>
+
+
+<div class="viewcode-block" id="Mesh"><a class="viewcode-back" href="../../../../cpmel/CPMel.cmds.node.html#CPMel.cmds.node.nodetypes.Mesh">[docs]</a><span class="k">class</span> <span class="nc">Mesh</span><span class="p">(</span><span class="n">DagNode</span><span class="p">):</span>
+    <span class="n">__metaclass__</span> <span class="o">=</span> <span class="n">ObjectMetadef</span><span class="p">(</span><span class="n">MFn</span><span class="o">.</span><span class="n">kMesh</span><span class="p">)</span>
+
+    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="o">*</span><span class="n">args</span><span class="p">):</span>
+        <span class="nb">super</span><span class="p">(</span><span class="n">Mesh</span><span class="p">,</span> <span class="bp">self</span><span class="p">)</span><span class="o">.</span><span class="fm">__init__</span><span class="p">(</span><span class="o">*</span><span class="n">args</span><span class="p">)</span>
+        <span class="n">path</span> <span class="o">=</span> <span class="n">MDagPath</span><span class="p">()</span>
+        <span class="n">MDagPath</span><span class="o">.</span><span class="n">getAPathTo</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">obj</span><span class="p">,</span> <span class="n">path</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">it_vtx</span> <span class="o">=</span> <span class="n">MItMeshVertex</span><span class="p">(</span><span class="n">path</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">it_e</span> <span class="o">=</span> <span class="n">MItMeshEdge</span><span class="p">(</span><span class="n">path</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">it_f</span> <span class="o">=</span> <span class="n">MItMeshPolygon</span><span class="p">(</span><span class="n">path</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">vtx</span> <span class="o">=</span> <span class="n">MeshVtx</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">vtx</span><span class="o">.</span><span class="n">cp__init_componenrs</span><span class="p">()</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">e</span> <span class="o">=</span> <span class="n">MeshEdge</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">e</span><span class="o">.</span><span class="n">cp__init_componenrs</span><span class="p">()</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">f</span> <span class="o">=</span> <span class="n">MeshFace</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">f</span><span class="o">.</span><span class="n">cp__init_componenrs</span><span class="p">()</span>
+
+<div class="viewcode-block" id="Mesh.cp__getFnClass"><a class="viewcode-back" href="../../../../cpmel/CPMel.cmds.node.html#CPMel.cmds.node.nodetypes.Mesh.cp__getFnClass">[docs]</a>    <span class="k">def</span> <span class="nf">cp__getFnClass</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="sa">u</span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        获得当前函数集</span>
+<span class="sd">        :return: MFn</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="n">path</span> <span class="o">=</span> <span class="n">MDagPath</span><span class="p">()</span>
+        <span class="n">MDagPath</span><span class="o">.</span><span class="n">getAPathTo</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">obj</span><span class="p">,</span> <span class="n">path</span><span class="p">)</span>
+        <span class="k">return</span> <span class="n">MFnMesh</span><span class="p">(</span><span class="n">path</span><span class="p">)</span></div>
+
+<div class="viewcode-block" id="Mesh.isCurrentNodeType"><a class="viewcode-back" href="../../../../cpmel/CPMel.cmds.node.html#CPMel.cmds.node.nodetypes.Mesh.isCurrentNodeType">[docs]</a>    <span class="nd">@staticmethod</span>
+    <span class="k">def</span> <span class="nf">isCurrentNodeType</span><span class="p">(</span><span class="n">path</span><span class="o">=</span><span class="n">MDagPath</span><span class="p">):</span>
+        <span class="sa">u</span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        返回节点这个类是否支持这个节点</span>
+
+<span class="sd">        :param path: api1.0 MObject 指向一个节点的MObject</span>
+<span class="sd">        :return: bool</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="k">return</span> <span class="n">path</span><span class="o">.</span><span class="n">hasFn</span><span class="p">(</span><span class="n">MFn</span><span class="o">.</span><span class="n">kMesh</span><span class="p">)</span></div>
+
+    <span class="c1">#</span>
+    <span class="c1"># def components__vtx(self, rang = None):</span>
+    <span class="c1">#     return  Components1(self, MeshVtx, &quot;vtx&quot;, rang)</span>
+    <span class="c1">#</span>
+    <span class="c1"># @property</span>
+    <span class="c1"># def vtx(self):</span>
+    <span class="c1">#     return self.components__vtx()</span>
+
+    <span class="nd">@property</span>
+    <span class="k">def</span> <span class="nf">MeshVertex</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="k">return</span> <span class="n">apiwrap</span><span class="o">.</span><span class="n">MeshVertex</span><span class="p">(</span><span class="s2">&quot;</span><span class="si">%s</span><span class="s2">.vtx[*]&quot;</span> <span class="o">%</span> <span class="bp">self</span><span class="o">.</span><span class="n">name</span><span class="p">())</span>
+
+<div class="viewcode-block" id="Mesh.vertexToFace"><a class="viewcode-back" href="../../../../cpmel/CPMel.cmds.node.html#CPMel.cmds.node.nodetypes.Mesh.vertexToFace">[docs]</a>    <span class="k">def</span> <span class="nf">vertexToFace</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">index</span><span class="o">=</span><span class="mi">0</span><span class="p">):</span>
+        <span class="sa">u</span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        获得连接到输入顶点的面</span>
+
+<span class="sd">        :param index:</span>
+<span class="sd">        :return:</span>
+<span class="sd">        :rtype: list</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">it_vtx</span><span class="o">.</span><span class="n">setIndex</span><span class="p">(</span><span class="n">index</span><span class="p">,</span> <span class="n">ScriptUtil</span><span class="o">.</span><span class="n">asIntPtr</span><span class="p">())</span>
+        <span class="n">ids</span> <span class="o">=</span> <span class="n">MIntArray</span><span class="p">()</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">it_vtx</span><span class="o">.</span><span class="n">getConnectedFaces</span><span class="p">(</span><span class="n">ids</span><span class="p">)</span>
+        <span class="k">return</span> <span class="n">basedata</span><span class="o">.</span><span class="n">IntArray</span><span class="p">(</span><span class="n">ids</span><span class="p">)</span></div>
+
+<div class="viewcode-block" id="Mesh.vertexToEdge"><a class="viewcode-back" href="../../../../cpmel/CPMel.cmds.node.html#CPMel.cmds.node.nodetypes.Mesh.vertexToEdge">[docs]</a>    <span class="k">def</span> <span class="nf">vertexToEdge</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">index</span><span class="o">=</span><span class="mi">0</span><span class="p">):</span>
+        <span class="sa">u</span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        获得连接到输入顶点的边</span>
+
+<span class="sd">        :param index:</span>
+<span class="sd">        :return:</span>
+<span class="sd">        :rtype: list</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">it_vtx</span><span class="o">.</span><span class="n">setIndex</span><span class="p">(</span><span class="n">index</span><span class="p">,</span> <span class="n">ScriptUtil</span><span class="o">.</span><span class="n">asIntPtr</span><span class="p">())</span>
+        <span class="n">ids</span> <span class="o">=</span> <span class="n">MIntArray</span><span class="p">()</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">it_vtx</span><span class="o">.</span><span class="n">getConnectedEdges</span><span class="p">(</span><span class="n">ids</span><span class="p">)</span>
+        <span class="k">return</span> <span class="n">basedata</span><span class="o">.</span><span class="n">IntArray</span><span class="p">(</span><span class="n">ids</span><span class="p">)</span></div>
+
+<div class="viewcode-block" id="Mesh.vertexTovertex"><a class="viewcode-back" href="../../../../cpmel/CPMel.cmds.node.html#CPMel.cmds.node.nodetypes.Mesh.vertexTovertex">[docs]</a>    <span class="k">def</span> <span class="nf">vertexTovertex</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">index</span><span class="o">=</span><span class="mi">0</span><span class="p">):</span>
+        <span class="sa">u</span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        获得围绕输入顶点的顶点</span>
+
+<span class="sd">        :param index:</span>
+<span class="sd">        :return:</span>
+<span class="sd">        :rtype: list</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">it_vtx</span><span class="o">.</span><span class="n">setIndex</span><span class="p">(</span><span class="n">index</span><span class="p">,</span> <span class="n">ScriptUtil</span><span class="o">.</span><span class="n">asIntPtr</span><span class="p">())</span>
+        <span class="n">ids</span> <span class="o">=</span> <span class="n">MIntArray</span><span class="p">()</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">it_vtx</span><span class="o">.</span><span class="n">getConnectedVertices</span><span class="p">(</span><span class="n">ids</span><span class="p">)</span>
+        <span class="n">ids</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">index</span><span class="p">)</span>
+        <span class="k">return</span> <span class="n">basedata</span><span class="o">.</span><span class="n">IntArray</span><span class="p">(</span><span class="n">ids</span><span class="p">)</span></div>
+
+<div class="viewcode-block" id="Mesh.edgeToFace"><a class="viewcode-back" href="../../../../cpmel/CPMel.cmds.node.html#CPMel.cmds.node.nodetypes.Mesh.edgeToFace">[docs]</a>    <span class="k">def</span> <span class="nf">edgeToFace</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">index</span><span class="o">=</span><span class="mi">0</span><span class="p">):</span>
+        <span class="sa">u</span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        获得连接的输入边的面</span>
+
+<span class="sd">        :param index:</span>
+<span class="sd">        :return:</span>
+<span class="sd">        :rtype: list</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">it_e</span><span class="o">.</span><span class="n">setIndex</span><span class="p">(</span><span class="n">index</span><span class="p">,</span> <span class="n">ScriptUtil</span><span class="o">.</span><span class="n">asIntPtr</span><span class="p">())</span>
+        <span class="n">ids</span> <span class="o">=</span> <span class="n">MIntArray</span><span class="p">()</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">it_e</span><span class="o">.</span><span class="n">getConnectedFaces</span><span class="p">(</span><span class="n">ids</span><span class="p">)</span>
+        <span class="k">return</span> <span class="n">basedata</span><span class="o">.</span><span class="n">IntArray</span><span class="p">(</span><span class="n">ids</span><span class="p">)</span></div>
+
+<div class="viewcode-block" id="Mesh.edgeToEdge"><a class="viewcode-back" href="../../../../cpmel/CPMel.cmds.node.html#CPMel.cmds.node.nodetypes.Mesh.edgeToEdge">[docs]</a>    <span class="k">def</span> <span class="nf">edgeToEdge</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">index</span><span class="o">=</span><span class="mi">0</span><span class="p">):</span>
+        <span class="sa">u</span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        获得围绕输入边的边</span>
+
+<span class="sd">        :param index:</span>
+<span class="sd">        :return:</span>
+<span class="sd">        :rtype: list</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">it_e</span><span class="o">.</span><span class="n">setIndex</span><span class="p">(</span><span class="n">index</span><span class="p">,</span> <span class="n">ScriptUtil</span><span class="o">.</span><span class="n">asIntPtr</span><span class="p">())</span>
+        <span class="n">ids</span> <span class="o">=</span> <span class="n">MIntArray</span><span class="p">()</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">it_e</span><span class="o">.</span><span class="n">getConnectedEdges</span><span class="p">(</span><span class="n">ids</span><span class="p">)</span>
+        <span class="n">ids</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">index</span><span class="p">)</span>
+        <span class="k">return</span> <span class="n">basedata</span><span class="o">.</span><span class="n">IntArray</span><span class="p">(</span><span class="n">ids</span><span class="p">)</span></div>
+
+<div class="viewcode-block" id="Mesh.edgeTovertex"><a class="viewcode-back" href="../../../../cpmel/CPMel.cmds.node.html#CPMel.cmds.node.nodetypes.Mesh.edgeTovertex">[docs]</a>    <span class="k">def</span> <span class="nf">edgeTovertex</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">index</span><span class="o">=</span><span class="mi">0</span><span class="p">):</span>
+        <span class="sa">u</span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        获得连接的输入边的顶点</span>
+
+<span class="sd">        :param index:</span>
+<span class="sd">        :return:</span>
+<span class="sd">        :rtype: list</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="c1"># self.node = Mesh</span>
+        <span class="c1"># return MFnMesh()</span>
+        <span class="n">int_2_ptr</span> <span class="o">=</span> <span class="n">ScriptUtil</span><span class="o">.</span><span class="n">asInt2Ptr</span><span class="p">()</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">fn</span><span class="o">.</span><span class="n">getEdgeVertices</span><span class="p">(</span><span class="n">index</span><span class="p">,</span> <span class="n">int_2_ptr</span><span class="p">)</span>
+        <span class="n">ids</span> <span class="o">=</span> <span class="p">(</span><span class="n">ScriptUtil</span><span class="o">.</span><span class="n">getInt2ArrayItem</span><span class="p">(</span><span class="n">int_2_ptr</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">),</span>
+               <span class="n">ScriptUtil</span><span class="o">.</span><span class="n">getInt2ArrayItem</span><span class="p">(</span><span class="n">int_2_ptr</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">1</span><span class="p">))</span>
+        <span class="k">return</span> <span class="n">ids</span></div>
+
+<div class="viewcode-block" id="Mesh.faceToFace"><a class="viewcode-back" href="../../../../cpmel/CPMel.cmds.node.html#CPMel.cmds.node.nodetypes.Mesh.faceToFace">[docs]</a>    <span class="k">def</span> <span class="nf">faceToFace</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">index</span><span class="o">=</span><span class="mi">0</span><span class="p">):</span>
+        <span class="sa">u</span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        获得围绕输入面的面</span>
+
+<span class="sd">        :param index:</span>
+<span class="sd">        :return:</span>
+<span class="sd">        :rtype: list</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">it_f</span><span class="o">.</span><span class="n">setIndex</span><span class="p">(</span><span class="n">index</span><span class="p">,</span> <span class="n">ScriptUtil</span><span class="o">.</span><span class="n">asIntPtr</span><span class="p">())</span>
+        <span class="n">ids</span> <span class="o">=</span> <span class="n">MIntArray</span><span class="p">()</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">it_f</span><span class="o">.</span><span class="n">getConnectedFaces</span><span class="p">(</span><span class="n">ids</span><span class="p">)</span>
+        <span class="n">ids</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">index</span><span class="p">)</span>
+        <span class="k">return</span> <span class="n">basedata</span><span class="o">.</span><span class="n">IntArray</span><span class="p">(</span><span class="n">ids</span><span class="p">)</span></div>
+
+<div class="viewcode-block" id="Mesh.faceToEdge"><a class="viewcode-back" href="../../../../cpmel/CPMel.cmds.node.html#CPMel.cmds.node.nodetypes.Mesh.faceToEdge">[docs]</a>    <span class="k">def</span> <span class="nf">faceToEdge</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">index</span><span class="o">=</span><span class="mi">0</span><span class="p">):</span>
+        <span class="sa">u</span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        获得连接的输入面的边</span>
+
+<span class="sd">        :param index:</span>
+<span class="sd">        :return:</span>
+<span class="sd">        :rtype: list</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">it_f</span><span class="o">.</span><span class="n">setIndex</span><span class="p">(</span><span class="n">index</span><span class="p">,</span> <span class="n">ScriptUtil</span><span class="o">.</span><span class="n">asIntPtr</span><span class="p">())</span>
+        <span class="n">idsa</span> <span class="o">=</span> <span class="n">MIntArray</span><span class="p">()</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">it_f</span><span class="o">.</span><span class="n">getEdges</span><span class="p">(</span><span class="n">idsa</span><span class="p">)</span>
+        <span class="c1"># idsb = MIntArray()</span>
+        <span class="c1"># self.it_f.getConnectedEdges(idsb)</span>
+        <span class="c1"># tuple((idsa.append(i) for i in idsb))</span>
+        <span class="k">return</span> <span class="n">basedata</span><span class="o">.</span><span class="n">IntArray</span><span class="p">(</span><span class="n">idsa</span><span class="p">)</span></div>
+
+<div class="viewcode-block" id="Mesh.faceToVertex"><a class="viewcode-back" href="../../../../cpmel/CPMel.cmds.node.html#CPMel.cmds.node.nodetypes.Mesh.faceToVertex">[docs]</a>    <span class="k">def</span> <span class="nf">faceToVertex</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">index</span><span class="o">=</span><span class="mi">0</span><span class="p">):</span>
+        <span class="sa">u</span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        获得连接的输入面的顶点</span>
+
+<span class="sd">        :param index:</span>
+<span class="sd">        :return:</span>
+<span class="sd">        :rtype: list</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="c1">#</span>
+        <span class="c1"># self.it_f.setIndex(index, ScriptUtil.asIntPtr())</span>
+        <span class="c1"># ids = MIntArray()</span>
+        <span class="c1"># self.it_f.getConnectedVertices(ids)</span>
+        <span class="k">return</span> <span class="n">basedata</span><span class="o">.</span><span class="n">IntArray</span><span class="p">([</span><span class="n">t</span> <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">faceToEdge</span><span class="p">(</span><span class="n">index</span><span class="p">)</span> <span class="k">for</span> <span class="n">t</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">edgeTovertex</span><span class="p">(</span><span class="n">i</span><span class="p">)])</span></div>
+
+<div class="viewcode-block" id="Mesh.VerticesIsBoundary"><a class="viewcode-back" href="../../../../cpmel/CPMel.cmds.node.html#CPMel.cmds.node.nodetypes.Mesh.VerticesIsBoundary">[docs]</a>    <span class="k">def</span> <span class="nf">VerticesIsBoundary</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">index</span><span class="p">):</span>
+        <span class="sa">u</span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        检查输入的顶点是否为边界点</span>
+
+<span class="sd">        :param index:</span>
+<span class="sd">        :return:</span>
+<span class="sd">        :rtype: list</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">it_vtx</span><span class="o">.</span><span class="n">setIndex</span><span class="p">(</span><span class="n">index</span><span class="p">,</span> <span class="n">ScriptUtil</span><span class="o">.</span><span class="n">asIntPtr</span><span class="p">())</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">it_vtx</span><span class="o">.</span><span class="n">onBoundary</span><span class="p">()</span></div>
+
+<div class="viewcode-block" id="Mesh.setPoint"><a class="viewcode-back" href="../../../../cpmel/CPMel.cmds.node.html#CPMel.cmds.node.nodetypes.Mesh.setPoint">[docs]</a>    <span class="k">def</span> <span class="nf">setPoint</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">index</span><span class="p">,</span> <span class="n">point</span><span class="p">,</span> <span class="n">space</span><span class="o">=</span><span class="n">basedata</span><span class="o">.</span><span class="n">Space</span><span class="o">.</span><span class="n">object</span><span class="p">):</span>
+        <span class="sa">u</span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        设置顶点位置</span>
+
+<span class="sd">        :param index: 顶点ID</span>
+<span class="sd">        :param point: 位置参数</span>
+<span class="sd">        :param space: 变换空间</span>
+<span class="sd">        :return:</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="k">if</span> <span class="ow">not</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">point</span><span class="p">,</span> <span class="n">MPoint</span><span class="p">):</span>
+            <span class="n">point</span> <span class="o">=</span> <span class="n">MPoint</span><span class="p">(</span><span class="n">point</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span> <span class="n">point</span><span class="p">[</span><span class="mi">1</span><span class="p">],</span> <span class="n">point</span><span class="p">[</span><span class="mi">2</span><span class="p">])</span>
+        <span class="n">unpoint</span> <span class="o">=</span> <span class="n">MPoint</span><span class="p">()</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">fn</span><span class="o">.</span><span class="n">getPoint</span><span class="p">(</span><span class="n">index</span><span class="p">,</span> <span class="n">unpoint</span><span class="p">,</span> <span class="n">space</span><span class="p">)</span>
+
+        <span class="k">def</span> <span class="nf">doIt</span><span class="p">():</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">functionSet</span><span class="p">()</span><span class="o">.</span><span class="n">setPoint</span><span class="p">(</span><span class="n">index</span><span class="p">,</span> <span class="n">point</span><span class="p">,</span> <span class="n">space</span><span class="p">)</span>
+
+        <span class="k">def</span> <span class="nf">undoIt</span><span class="p">():</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">functionSet</span><span class="p">()</span><span class="o">.</span><span class="n">setPoint</span><span class="p">(</span><span class="n">index</span><span class="p">,</span> <span class="n">unpoint</span><span class="p">,</span> <span class="n">space</span><span class="p">)</span>
+
+        <span class="k">return</span> <span class="n">cmcore</span><span class="o">.</span><span class="n">addCommand</span><span class="p">(</span><span class="n">doIt</span><span class="p">,</span> <span class="n">undoIt</span><span class="p">)</span></div>
+
+<div class="viewcode-block" id="Mesh.getPoint"><a class="viewcode-back" href="../../../../cpmel/CPMel.cmds.node.html#CPMel.cmds.node.nodetypes.Mesh.getPoint">[docs]</a>    <span class="k">def</span> <span class="nf">getPoint</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">index</span><span class="p">,</span> <span class="n">space</span><span class="o">=</span><span class="n">basedata</span><span class="o">.</span><span class="n">Space</span><span class="o">.</span><span class="n">object</span><span class="p">):</span>
+        <span class="sa">u</span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        获得顶点位置</span>
+
+<span class="sd">        :param index: 顶点ID</span>
+<span class="sd">        :param space: 变换空间</span>
+<span class="sd">        :return:</span>
+<span class="sd">        :rtype:basedata.Double3</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="n">point</span> <span class="o">=</span> <span class="n">MPoint</span><span class="p">()</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">fn</span><span class="o">.</span><span class="n">getPoint</span><span class="p">(</span><span class="n">index</span><span class="p">,</span> <span class="n">point</span><span class="p">,</span> <span class="n">space</span><span class="p">)</span>
+        <span class="k">return</span> <span class="n">basedata</span><span class="o">.</span><span class="n">Double3</span><span class="p">(</span><span class="n">point</span><span class="p">)</span></div>
+
+<div class="viewcode-block" id="Mesh.setPoints"><a class="viewcode-back" href="../../../../cpmel/CPMel.cmds.node.html#CPMel.cmds.node.nodetypes.Mesh.setPoints">[docs]</a>    <span class="k">def</span> <span class="nf">setPoints</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">points</span><span class="p">,</span> <span class="n">space</span><span class="o">=</span><span class="n">basedata</span><span class="o">.</span><span class="n">Space</span><span class="o">.</span><span class="n">object</span><span class="p">):</span>
+        <span class="sa">u</span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        设置所有顶点位置</span>
+
+<span class="sd">        :param points: 点位置列表</span>
+<span class="sd">        :param space: 变换空间</span>
+<span class="sd">        :return:</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="n">point_size</span> <span class="o">=</span> <span class="nb">len</span><span class="p">(</span><span class="n">points</span><span class="p">)</span>
+        <span class="k">if</span> <span class="nb">len</span><span class="p">(</span><span class="n">points</span><span class="p">)</span> <span class="o">!=</span> <span class="bp">self</span><span class="o">.</span><span class="n">fn</span><span class="o">.</span><span class="n">numVertices</span><span class="p">():</span>
+            <span class="k">raise</span> <span class="n">cmcore</span><span class="o">.</span><span class="n">CPMelError</span><span class="p">(</span><span class="sa">u</span><span class="s2">&quot;输入的点数量与模型顶点数不一致&quot;</span><span class="p">)</span>
+        <span class="k">if</span> <span class="ow">not</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">points</span><span class="p">,</span> <span class="n">MPointArray</span><span class="p">):</span>
+            <span class="n">m_points</span> <span class="o">=</span> <span class="n">MPointArray</span><span class="p">(</span><span class="n">point_size</span><span class="p">)</span>
+            <span class="p">[</span><span class="n">m_points</span><span class="o">.</span><span class="n">set</span><span class="p">(</span><span class="n">ID</span><span class="p">,</span> <span class="n">i</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span> <span class="n">i</span><span class="p">[</span><span class="mi">1</span><span class="p">],</span> <span class="n">i</span><span class="p">[</span><span class="mi">2</span><span class="p">])</span> <span class="k">for</span> <span class="n">ID</span><span class="p">,</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">enumerate</span><span class="p">(</span><span class="n">points</span><span class="p">)]</span>
+            <span class="n">points</span> <span class="o">=</span> <span class="n">m_points</span>
+        <span class="n">unpoints</span> <span class="o">=</span> <span class="n">MPointArray</span><span class="p">()</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">fn</span><span class="o">.</span><span class="n">getPoints</span><span class="p">(</span><span class="n">unpoints</span><span class="p">,</span> <span class="n">space</span><span class="p">)</span>
+
+        <span class="k">def</span> <span class="nf">doIt</span><span class="p">():</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">functionSet</span><span class="p">()</span><span class="o">.</span><span class="n">setPoints</span><span class="p">(</span><span class="n">points</span><span class="p">,</span> <span class="n">space</span><span class="p">)</span>
+
+        <span class="k">def</span> <span class="nf">undoIt</span><span class="p">():</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">functionSet</span><span class="p">()</span><span class="o">.</span><span class="n">setPoints</span><span class="p">(</span><span class="n">unpoints</span><span class="p">,</span> <span class="n">space</span><span class="p">)</span>
+
+        <span class="k">return</span> <span class="n">cmcore</span><span class="o">.</span><span class="n">addCommand</span><span class="p">(</span><span class="n">doIt</span><span class="p">,</span> <span class="n">undoIt</span><span class="p">)</span></div>
+
+<div class="viewcode-block" id="Mesh.getPoints"><a class="viewcode-back" href="../../../../cpmel/CPMel.cmds.node.html#CPMel.cmds.node.nodetypes.Mesh.getPoints">[docs]</a>    <span class="k">def</span> <span class="nf">getPoints</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">space</span><span class="o">=</span><span class="n">basedata</span><span class="o">.</span><span class="n">Space</span><span class="o">.</span><span class="n">object</span><span class="p">):</span>
+        <span class="sa">u</span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        获得所有顶点位置</span>
+
+<span class="sd">        :param space: 变换空间</span>
+<span class="sd">        :return: MPointArray</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="n">points</span> <span class="o">=</span> <span class="n">MPointArray</span><span class="p">()</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">fn</span><span class="o">.</span><span class="n">getPoints</span><span class="p">(</span><span class="n">points</span><span class="p">,</span> <span class="n">space</span><span class="p">)</span>
+        <span class="k">return</span> <span class="n">basedata</span><span class="o">.</span><span class="n">NewDouble3s</span><span class="p">(</span><span class="n">points</span><span class="p">)</span></div>
+
+<div class="viewcode-block" id="Mesh.setEdgePoint"><a class="viewcode-back" href="../../../../cpmel/CPMel.cmds.node.html#CPMel.cmds.node.nodetypes.Mesh.setEdgePoint">[docs]</a>    <span class="k">def</span> <span class="nf">setEdgePoint</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">index</span><span class="o">=</span><span class="mi">0</span><span class="p">,</span> <span class="n">point</span><span class="o">=</span><span class="n">basedata</span><span class="o">.</span><span class="n">Double3</span><span class="p">,</span> <span class="n">space</span><span class="o">=</span><span class="n">basedata</span><span class="o">.</span><span class="n">Space</span><span class="o">.</span><span class="n">object</span><span class="p">):</span>
+        <span class="sa">u</span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        设置边位置</span>
+<span class="sd">        :param index:</span>
+<span class="sd">        :param point:</span>
+<span class="sd">        :param space:</span>
+<span class="sd">        :return:</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="k">if</span> <span class="ow">not</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">point</span><span class="p">,</span> <span class="n">MPoint</span><span class="p">):</span>
+            <span class="n">point</span> <span class="o">=</span> <span class="n">MPoint</span><span class="p">(</span><span class="n">point</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span> <span class="n">point</span><span class="p">[</span><span class="mi">1</span><span class="p">],</span> <span class="n">point</span><span class="p">[</span><span class="mi">2</span><span class="p">])</span>
+        <span class="n">strat_id</span><span class="p">,</span> <span class="n">end_id</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">edgeToVertices</span><span class="p">(</span><span class="n">index</span><span class="p">)</span>
+        <span class="n">strat_point</span> <span class="o">=</span> <span class="n">MPoint</span><span class="p">()</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">fn</span><span class="o">.</span><span class="n">getPoint</span><span class="p">(</span><span class="n">strat_id</span><span class="p">,</span> <span class="n">strat_point</span><span class="p">,</span> <span class="n">space</span><span class="p">)</span>
+        <span class="n">end_point</span> <span class="o">=</span> <span class="n">MPoint</span><span class="p">()</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">fn</span><span class="o">.</span><span class="n">getPoint</span><span class="p">(</span><span class="n">end_id</span><span class="p">,</span> <span class="n">end_point</span><span class="p">,</span> <span class="n">space</span><span class="p">)</span>
+        <span class="n">mid_point</span> <span class="o">=</span> <span class="p">(</span><span class="n">strat_point</span> <span class="o">+</span> <span class="n">end_point</span><span class="p">)</span> <span class="o">*</span> <span class="mf">0.5</span>
+        <span class="n">do_strat_point</span> <span class="o">=</span> <span class="p">(</span><span class="n">point</span> <span class="o">+</span> <span class="p">(</span><span class="n">strat_point</span> <span class="o">-</span> <span class="n">mid_point</span><span class="p">))</span>
+        <span class="n">do_end_point</span> <span class="o">=</span> <span class="p">(</span><span class="n">point</span> <span class="o">+</span> <span class="p">(</span><span class="n">end_point</span> <span class="o">-</span> <span class="n">mid_point</span><span class="p">))</span>
+
+        <span class="k">def</span> <span class="nf">doIt</span><span class="p">():</span>
+            <span class="n">fn</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">functionSet</span><span class="p">()</span>
+            <span class="n">fn</span><span class="o">.</span><span class="n">setPoint</span><span class="p">(</span><span class="n">strat_id</span><span class="p">,</span> <span class="n">do_strat_point</span><span class="p">,</span> <span class="n">space</span><span class="p">)</span>
+            <span class="n">fn</span><span class="o">.</span><span class="n">setPoint</span><span class="p">(</span><span class="n">end_id</span><span class="p">,</span> <span class="n">do_end_point</span><span class="p">,</span> <span class="n">space</span><span class="p">)</span>
+
+        <span class="k">def</span> <span class="nf">undoIt</span><span class="p">():</span>
+            <span class="n">fn</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">functionSet</span><span class="p">()</span>
+            <span class="n">fn</span><span class="o">.</span><span class="n">setPoint</span><span class="p">(</span><span class="n">strat_id</span><span class="p">,</span> <span class="n">strat_point</span><span class="p">,</span> <span class="n">space</span><span class="p">)</span>
+            <span class="n">fn</span><span class="o">.</span><span class="n">setPoint</span><span class="p">(</span><span class="n">end_id</span><span class="p">,</span> <span class="n">end_point</span><span class="p">,</span> <span class="n">space</span><span class="p">)</span>
+
+        <span class="k">return</span> <span class="n">cmcore</span><span class="o">.</span><span class="n">addCommand</span><span class="p">(</span><span class="n">doIt</span><span class="p">,</span> <span class="n">undoIt</span><span class="p">)</span></div>
+
+<div class="viewcode-block" id="Mesh.getEdgePoint"><a class="viewcode-back" href="../../../../cpmel/CPMel.cmds.node.html#CPMel.cmds.node.nodetypes.Mesh.getEdgePoint">[docs]</a>    <span class="k">def</span> <span class="nf">getEdgePoint</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">index</span><span class="o">=</span><span class="mi">0</span><span class="p">,</span> <span class="n">space</span><span class="o">=</span><span class="n">basedata</span><span class="o">.</span><span class="n">Space</span><span class="o">.</span><span class="n">object</span><span class="p">):</span>
+        <span class="sa">u</span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        获得边位置</span>
+
+<span class="sd">        :param index:</span>
+<span class="sd">        :param space:</span>
+<span class="sd">        :return:</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="n">strat_id</span><span class="p">,</span> <span class="n">end_id</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">edgeToVertices</span><span class="p">(</span><span class="n">index</span><span class="p">)</span>
+        <span class="n">strat_point</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">getPoint</span><span class="p">(</span><span class="n">strat_id</span><span class="p">,</span> <span class="n">space</span><span class="p">)</span>
+        <span class="n">end_point</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">getPoint</span><span class="p">(</span><span class="n">end_id</span><span class="p">,</span> <span class="n">space</span><span class="p">)</span>
+        <span class="n">mid_point</span> <span class="o">=</span> <span class="p">(</span><span class="n">strat_point</span> <span class="o">+</span> <span class="n">end_point</span><span class="p">)</span> <span class="o">*</span> <span class="mf">0.5</span>
+        <span class="k">return</span> <span class="n">basedata</span><span class="o">.</span><span class="n">Double3</span><span class="p">(</span><span class="n">mid_point</span><span class="p">)</span></div>
+
+<div class="viewcode-block" id="Mesh.setFacePoint"><a class="viewcode-back" href="../../../../cpmel/CPMel.cmds.node.html#CPMel.cmds.node.nodetypes.Mesh.setFacePoint">[docs]</a>    <span class="k">def</span> <span class="nf">setFacePoint</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">index</span><span class="o">=</span><span class="mi">0</span><span class="p">,</span> <span class="n">point</span><span class="o">=</span><span class="n">basedata</span><span class="o">.</span><span class="n">Double3</span><span class="p">,</span> <span class="n">space</span><span class="o">=</span><span class="n">basedata</span><span class="o">.</span><span class="n">Space</span><span class="o">.</span><span class="n">object</span><span class="p">):</span>
+        <span class="sa">u</span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        设置面位置</span>
+
+<span class="sd">        :param index:</span>
+<span class="sd">        :param point:</span>
+<span class="sd">        :param space:</span>
+<span class="sd">        :return:</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="k">if</span> <span class="ow">not</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">point</span><span class="p">,</span> <span class="n">MVector</span><span class="p">):</span>
+            <span class="n">point</span> <span class="o">=</span> <span class="n">MVector</span><span class="p">(</span><span class="n">point</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span> <span class="n">point</span><span class="p">[</span><span class="mi">1</span><span class="p">],</span> <span class="n">point</span><span class="p">[</span><span class="mi">2</span><span class="p">])</span>
+        <span class="n">ids</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">faceToVertex</span><span class="p">(</span><span class="n">index</span><span class="p">)</span>
+        <span class="n">strat_points</span> <span class="o">=</span> <span class="nb">list</span><span class="p">()</span>
+        <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="n">ids</span><span class="p">:</span>
+            <span class="n">strat_point</span> <span class="o">=</span> <span class="n">MPoint</span><span class="p">()</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">fn</span><span class="o">.</span><span class="n">getPoint</span><span class="p">(</span><span class="n">i</span><span class="p">,</span> <span class="n">strat_point</span><span class="p">,</span> <span class="n">space</span><span class="p">)</span>
+            <span class="n">strat_points</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">strat_point</span><span class="p">)</span>
+
+        <span class="n">m_point</span> <span class="o">=</span> <span class="n">MPoint</span><span class="p">()</span>
+        <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="n">strat_points</span><span class="p">:</span>
+            <span class="n">m_point</span> <span class="o">=</span> <span class="n">i</span> <span class="o">+</span> <span class="n">m_point</span>
+
+        <span class="n">m_point</span> <span class="o">=</span> <span class="n">m_point</span> <span class="o">/</span> <span class="nb">len</span><span class="p">(</span><span class="n">ids</span><span class="p">)</span>
+
+        <span class="n">end_points</span> <span class="o">=</span> <span class="nb">list</span><span class="p">()</span>
+        <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="n">xrange</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">ids</span><span class="p">)):</span>
+            <span class="n">end_points</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">MPoint</span><span class="p">(</span><span class="n">strat_points</span><span class="p">[</span><span class="n">i</span><span class="p">]</span> <span class="o">-</span> <span class="n">m_point</span> <span class="o">+</span> <span class="n">point</span><span class="p">))</span>
+
+        <span class="k">def</span> <span class="nf">doIt</span><span class="p">():</span>
+            <span class="n">fn</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">functionSet</span><span class="p">()</span>
+            <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="n">xrange</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">ids</span><span class="p">)):</span>
+                <span class="n">fn</span><span class="o">.</span><span class="n">setPoint</span><span class="p">(</span><span class="n">ids</span><span class="p">[</span><span class="n">i</span><span class="p">],</span> <span class="n">end_points</span><span class="p">[</span><span class="n">i</span><span class="p">],</span> <span class="n">space</span><span class="p">)</span>
+
+        <span class="k">def</span> <span class="nf">undoIt</span><span class="p">():</span>
+            <span class="n">fn</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">functionSet</span><span class="p">()</span>
+            <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="n">xrange</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">ids</span><span class="p">)):</span>
+                <span class="n">fn</span><span class="o">.</span><span class="n">setPoint</span><span class="p">(</span><span class="n">ids</span><span class="p">[</span><span class="n">i</span><span class="p">],</span> <span class="n">strat_points</span><span class="p">[</span><span class="n">i</span><span class="p">],</span> <span class="n">space</span><span class="p">)</span>
+
+        <span class="k">return</span> <span class="n">cmcore</span><span class="o">.</span><span class="n">addCommand</span><span class="p">(</span><span class="n">doIt</span><span class="p">,</span> <span class="n">undoIt</span><span class="p">)</span></div>
+
+<div class="viewcode-block" id="Mesh.getFacePoint"><a class="viewcode-back" href="../../../../cpmel/CPMel.cmds.node.html#CPMel.cmds.node.nodetypes.Mesh.getFacePoint">[docs]</a>    <span class="k">def</span> <span class="nf">getFacePoint</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">index</span><span class="o">=</span><span class="mi">0</span><span class="p">,</span> <span class="n">space</span><span class="o">=</span><span class="n">basedata</span><span class="o">.</span><span class="n">Space</span><span class="o">.</span><span class="n">object</span><span class="p">):</span>
+        <span class="sa">u</span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        获得面位置</span>
+
+<span class="sd">        :param index:</span>
+<span class="sd">        :param space:</span>
+<span class="sd">        :return:</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">it_f</span><span class="o">.</span><span class="n">setIndex</span><span class="p">(</span><span class="n">index</span><span class="p">,</span> <span class="n">ScriptUtil</span><span class="o">.</span><span class="n">asIntPtr</span><span class="p">())</span>
+        <span class="n">point</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">it_f</span><span class="o">.</span><span class="n">center</span><span class="p">(</span><span class="n">space</span><span class="p">)</span>
+        <span class="k">return</span> <span class="n">basedata</span><span class="o">.</span><span class="n">Double3</span><span class="p">(</span><span class="n">point</span><span class="p">)</span></div>
+
+<div class="viewcode-block" id="Mesh.getClosestPointAndFace"><a class="viewcode-back" href="../../../../cpmel/CPMel.cmds.node.html#CPMel.cmds.node.nodetypes.Mesh.getClosestPointAndFace">[docs]</a>    <span class="k">def</span> <span class="nf">getClosestPointAndFace</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">point</span><span class="o">=</span><span class="n">basedata</span><span class="o">.</span><span class="n">Double3</span><span class="p">,</span> <span class="n">space</span><span class="o">=</span><span class="n">basedata</span><span class="o">.</span><span class="n">Space</span><span class="o">.</span><span class="n">object</span><span class="p">):</span>
+        <span class="sa">u</span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        获得最近点与最近面ID</span>
+
+<span class="sd">        :param point: 输入的Double3</span>
+<span class="sd">        :param space: 在什么空间下运行</span>
+<span class="sd">        :return: Double3，面ID</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="k">if</span> <span class="ow">not</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">point</span><span class="p">,</span> <span class="n">MPoint</span><span class="p">):</span>
+            <span class="n">point</span> <span class="o">=</span> <span class="n">MPoint</span><span class="p">(</span><span class="n">point</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span> <span class="n">point</span><span class="p">[</span><span class="mi">1</span><span class="p">],</span> <span class="n">point</span><span class="p">[</span><span class="mi">2</span><span class="p">])</span>
+        <span class="n">out_point</span> <span class="o">=</span> <span class="n">MPoint</span><span class="p">()</span>
+        <span class="n">closest_face_id</span> <span class="o">=</span> <span class="n">ScriptUtil</span><span class="o">.</span><span class="n">asIntPtr</span><span class="p">()</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">fn</span><span class="o">.</span><span class="n">getClosestPoint</span><span class="p">(</span><span class="n">point</span><span class="p">,</span> <span class="n">out_point</span><span class="p">,</span> <span class="n">space</span><span class="p">,</span> <span class="n">closest_face_id</span><span class="p">)</span>
+        <span class="k">return</span> <span class="p">(</span><span class="n">basedata</span><span class="o">.</span><span class="n">Double3</span><span class="p">(</span><span class="n">out_point</span><span class="p">),</span> <span class="n">ScriptUtil</span><span class="o">.</span><span class="n">getInt</span><span class="p">(</span><span class="n">closest_face_id</span><span class="p">))</span></div>
+
+<div class="viewcode-block" id="Mesh.getClosestPoitnAndVertices"><a class="viewcode-back" href="../../../../cpmel/CPMel.cmds.node.html#CPMel.cmds.node.nodetypes.Mesh.getClosestPoitnAndVertices">[docs]</a>    <span class="k">def</span> <span class="nf">getClosestPoitnAndVertices</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">point</span><span class="o">=</span><span class="n">basedata</span><span class="o">.</span><span class="n">Double3</span><span class="p">,</span> <span class="n">space</span><span class="o">=</span><span class="n">basedata</span><span class="o">.</span><span class="n">Space</span><span class="o">.</span><span class="n">object</span><span class="p">):</span>
+        <span class="sa">u</span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        返回最近点与最近顶点ID</span>
+
+<span class="sd">        :param point: 输入的Double3</span>
+<span class="sd">        :param space: 在什么空间下运行</span>
+<span class="sd">        :return: Double3，点ID</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="k">if</span> <span class="ow">not</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">point</span><span class="p">,</span> <span class="n">MPoint</span><span class="p">):</span>
+            <span class="n">point</span> <span class="o">=</span> <span class="n">MPoint</span><span class="p">(</span><span class="n">point</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span> <span class="n">point</span><span class="p">[</span><span class="mi">1</span><span class="p">],</span> <span class="n">point</span><span class="p">[</span><span class="mi">2</span><span class="p">])</span>
+        <span class="n">c_point</span> <span class="o">=</span> <span class="n">MPoint</span><span class="p">()</span>
+        <span class="n">closest_face_id</span> <span class="o">=</span> <span class="n">ScriptUtil</span><span class="o">.</span><span class="n">asIntPtr</span><span class="p">()</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">fn</span><span class="o">.</span><span class="n">getClosestPoint</span><span class="p">(</span><span class="n">point</span><span class="p">,</span> <span class="n">c_point</span><span class="p">,</span> <span class="n">space</span><span class="p">,</span> <span class="n">closest_face_id</span><span class="p">)</span>
+        <span class="n">faceid</span> <span class="o">=</span> <span class="n">ScriptUtil</span><span class="o">.</span><span class="n">getInt</span><span class="p">(</span><span class="n">closest_face_id</span><span class="p">)</span>
+        <span class="n">ids</span> <span class="o">=</span> <span class="n">MIntArray</span><span class="p">()</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">fn</span><span class="o">.</span><span class="n">getPolygonVertices</span><span class="p">(</span><span class="n">faceid</span><span class="p">,</span> <span class="n">ids</span><span class="p">)</span>
+
+        <span class="k">def</span> <span class="nf">_</span><span class="p">(</span><span class="n">i</span><span class="p">):</span>
+            <span class="n">pt</span> <span class="o">=</span> <span class="n">MPoint</span><span class="p">()</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">fn</span><span class="o">.</span><span class="n">getPoint</span><span class="p">(</span><span class="n">i</span><span class="p">,</span> <span class="n">pt</span><span class="p">,</span> <span class="n">space</span><span class="p">)</span>
+            <span class="k">return</span> <span class="n">point</span><span class="o">.</span><span class="n">distanceTo</span><span class="p">(</span><span class="n">pt</span><span class="p">)</span>
+
+        <span class="k">return</span> <span class="p">(</span><span class="n">basedata</span><span class="o">.</span><span class="n">Double3</span><span class="p">(</span><span class="n">c_point</span><span class="p">),</span> <span class="nb">min</span><span class="p">(((</span><span class="n">i</span><span class="p">,</span> <span class="n">_</span><span class="p">(</span><span class="n">i</span><span class="p">))</span> <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="n">ids</span><span class="p">),</span> <span class="n">key</span><span class="o">=</span><span class="k">lambda</span> <span class="n">i</span><span class="p">:</span> <span class="n">i</span><span class="p">[</span><span class="mi">1</span><span class="p">])[</span><span class="mi">0</span><span class="p">])</span></div></div>
+
+
+<div class="viewcode-block" id="CurveCv"><a class="viewcode-back" href="../../../../cpmel/CPMel.cmds.node.html#CPMel.cmds.node.nodetypes.CurveCv">[docs]</a><span class="k">class</span> <span class="nc">CurveCv</span><span class="p">(</span><span class="n">Components1Base</span><span class="p">):</span>
+    <span class="n">components_type_str</span> <span class="o">=</span> <span class="s2">&quot;cv&quot;</span>
+    <span class="n">__metaclass__</span> <span class="o">=</span> <span class="n">componentsTypesMetadef</span>
+
+<div class="viewcode-block" id="CurveCv.setPoint"><a class="viewcode-back" href="../../../../cpmel/CPMel.cmds.node.html#CPMel.cmds.node.nodetypes.CurveCv.setPoint">[docs]</a>    <span class="nd">@Components1Base</span><span class="o">.</span><span class="n">IsSingleComponent</span>
+    <span class="k">def</span> <span class="nf">setPoint</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">point</span><span class="o">=</span><span class="n">basedata</span><span class="o">.</span><span class="n">Double3</span><span class="p">,</span> <span class="n">space</span><span class="o">=</span><span class="n">basedata</span><span class="o">.</span><span class="n">Space</span><span class="o">.</span><span class="n">object</span><span class="p">):</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">node</span><span class="o">.</span><span class="n">setPoint</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">index</span><span class="p">,</span> <span class="n">point</span><span class="p">,</span> <span class="n">space</span><span class="p">)</span></div>
+
+<div class="viewcode-block" id="CurveCv.getPoint"><a class="viewcode-back" href="../../../../cpmel/CPMel.cmds.node.html#CPMel.cmds.node.nodetypes.CurveCv.getPoint">[docs]</a>    <span class="nd">@Components1Base</span><span class="o">.</span><span class="n">IsSingleComponent</span>
+    <span class="k">def</span> <span class="nf">getPoint</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">space</span><span class="o">=</span><span class="n">basedata</span><span class="o">.</span><span class="n">Space</span><span class="o">.</span><span class="n">object</span><span class="p">):</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">node</span><span class="o">.</span><span class="n">getPoint</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">index</span><span class="p">,</span> <span class="n">space</span><span class="p">)</span></div></div>
+
+
+<div class="viewcode-block" id="Curve"><a class="viewcode-back" href="../../../../cpmel/CPMel.cmds.node.html#CPMel.cmds.node.nodetypes.Curve">[docs]</a><span class="k">class</span> <span class="nc">Curve</span><span class="p">(</span><span class="n">DagNode</span><span class="p">):</span>
+    <span class="n">__metaclass__</span> <span class="o">=</span> <span class="n">ObjectMetadef</span><span class="p">(</span><span class="n">MFn</span><span class="o">.</span><span class="n">kCurve</span><span class="p">)</span>
+
+    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="o">*</span><span class="n">args</span><span class="p">):</span>
+        <span class="nb">super</span><span class="p">(</span><span class="n">Curve</span><span class="p">,</span> <span class="bp">self</span><span class="p">)</span><span class="o">.</span><span class="fm">__init__</span><span class="p">(</span><span class="o">*</span><span class="n">args</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">cv</span> <span class="o">=</span> <span class="n">CurveCv</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">cv</span><span class="o">.</span><span class="n">cp__init_componenrs</span><span class="p">()</span>
+
+<div class="viewcode-block" id="Curve.isCurrentNodeType"><a class="viewcode-back" href="../../../../cpmel/CPMel.cmds.node.html#CPMel.cmds.node.nodetypes.Curve.isCurrentNodeType">[docs]</a>    <span class="nd">@staticmethod</span>
+    <span class="k">def</span> <span class="nf">isCurrentNodeType</span><span class="p">(</span><span class="n">path</span><span class="o">=</span><span class="n">MDagPath</span><span class="p">):</span>
+        <span class="sa">u</span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        返回节点这个类是否支持这个节点</span>
+
+<span class="sd">        :param path: api1.0 MObject 指向一个节点的MObject</span>
+<span class="sd">        :return: bool</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="k">return</span> <span class="n">path</span><span class="o">.</span><span class="n">hasFn</span><span class="p">(</span><span class="n">MFn</span><span class="o">.</span><span class="n">kCurve</span><span class="p">)</span></div>
+
+<div class="viewcode-block" id="Curve.cp__getFnClass"><a class="viewcode-back" href="../../../../cpmel/CPMel.cmds.node.html#CPMel.cmds.node.nodetypes.Curve.cp__getFnClass">[docs]</a>    <span class="k">def</span> <span class="nf">cp__getFnClass</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="sa">u</span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        获得当前函数集</span>
+<span class="sd">        :return: MFn</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="n">path</span> <span class="o">=</span> <span class="n">MDagPath</span><span class="p">()</span>
+        <span class="n">MDagPath</span><span class="o">.</span><span class="n">getAPathTo</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">obj</span><span class="p">,</span> <span class="n">path</span><span class="p">)</span>
+        <span class="k">return</span> <span class="n">MFnNurbsCurve</span><span class="p">(</span><span class="n">path</span><span class="p">)</span></div>
+
+<div class="viewcode-block" id="Curve.setPoint"><a class="viewcode-back" href="../../../../cpmel/CPMel.cmds.node.html#CPMel.cmds.node.nodetypes.Curve.setPoint">[docs]</a>    <span class="k">def</span> <span class="nf">setPoint</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">index</span><span class="o">=</span><span class="mi">0</span><span class="p">,</span> <span class="n">point</span><span class="o">=</span><span class="n">basedata</span><span class="o">.</span><span class="n">Double3</span><span class="p">,</span> <span class="n">space</span><span class="o">=</span><span class="n">basedata</span><span class="o">.</span><span class="n">Space</span><span class="o">.</span><span class="n">object</span><span class="p">):</span>
+        <span class="sa">u</span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        设置指定CV点的位置</span>
+
+<span class="sd">        :param index:</span>
+<span class="sd">        :param point:</span>
+<span class="sd">        :param space:</span>
+<span class="sd">        :return:</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="k">if</span> <span class="ow">not</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">point</span><span class="p">,</span> <span class="n">MPoint</span><span class="p">):</span>
+            <span class="n">point</span> <span class="o">=</span> <span class="n">MPoint</span><span class="p">(</span><span class="n">point</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span> <span class="n">point</span><span class="p">[</span><span class="mi">1</span><span class="p">],</span> <span class="n">point</span><span class="p">[</span><span class="mi">2</span><span class="p">])</span>
+        <span class="n">unpoint</span> <span class="o">=</span> <span class="n">MPoint</span><span class="p">()</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">fn</span><span class="o">.</span><span class="n">getCV</span><span class="p">(</span><span class="n">index</span><span class="p">,</span> <span class="n">unpoint</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">fn</span><span class="o">.</span><span class="n">setCV</span><span class="p">(</span><span class="n">index</span><span class="p">,</span> <span class="n">point</span><span class="p">,</span> <span class="n">space</span><span class="p">)</span>
+
+        <span class="k">def</span> <span class="nf">doIt</span><span class="p">():</span>
+            <span class="n">fn</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">functionSet</span><span class="p">()</span>
+            <span class="n">fn</span><span class="o">.</span><span class="n">setCV</span><span class="p">(</span><span class="n">index</span><span class="p">,</span> <span class="n">point</span><span class="p">,</span> <span class="n">space</span><span class="p">)</span>
+            <span class="n">fn</span><span class="o">.</span><span class="n">updateCurve</span><span class="p">()</span>
+
+        <span class="k">def</span> <span class="nf">undoIt</span><span class="p">():</span>
+            <span class="n">fn</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">functionSet</span><span class="p">()</span>
+            <span class="n">fn</span><span class="o">.</span><span class="n">setCV</span><span class="p">(</span><span class="n">index</span><span class="p">,</span> <span class="n">unpoint</span><span class="p">,</span> <span class="n">space</span><span class="p">)</span>
+            <span class="n">fn</span><span class="o">.</span><span class="n">updateCurve</span><span class="p">()</span>
+
+        <span class="k">return</span> <span class="n">cmcore</span><span class="o">.</span><span class="n">addCommand</span><span class="p">(</span><span class="n">doIt</span><span class="p">,</span> <span class="n">undoIt</span><span class="p">)</span></div>
+
+<div class="viewcode-block" id="Curve.getPoint"><a class="viewcode-back" href="../../../../cpmel/CPMel.cmds.node.html#CPMel.cmds.node.nodetypes.Curve.getPoint">[docs]</a>    <span class="k">def</span> <span class="nf">getPoint</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">index</span><span class="o">=</span><span class="mi">0</span><span class="p">,</span> <span class="n">space</span><span class="o">=</span><span class="n">basedata</span><span class="o">.</span><span class="n">Space</span><span class="o">.</span><span class="n">object</span><span class="p">):</span>
+        <span class="sa">u</span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        获得CV点的位置</span>
+
+<span class="sd">        :param index:</span>
+<span class="sd">        :param space:</span>
+<span class="sd">        :return:</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="n">point</span> <span class="o">=</span> <span class="n">MPoint</span><span class="p">()</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">fn</span><span class="o">.</span><span class="n">getCV</span><span class="p">(</span><span class="n">index</span><span class="p">,</span> <span class="n">point</span><span class="p">,</span> <span class="n">space</span><span class="p">)</span>
+        <span class="k">return</span> <span class="n">basedata</span><span class="o">.</span><span class="n">Double3</span><span class="p">(</span><span class="n">point</span><span class="p">)</span></div>
+
+<div class="viewcode-block" id="Curve.setPoints"><a class="viewcode-back" href="../../../../cpmel/CPMel.cmds.node.html#CPMel.cmds.node.nodetypes.Curve.setPoints">[docs]</a>    <span class="k">def</span> <span class="nf">setPoints</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">points</span><span class="p">,</span> <span class="n">space</span><span class="o">=</span><span class="n">basedata</span><span class="o">.</span><span class="n">Space</span><span class="o">.</span><span class="n">object</span><span class="p">):</span>
+        <span class="sa">u</span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        设置所有CV点的位置</span>
+
+<span class="sd">        :param points:</span>
+<span class="sd">        :param space:</span>
+<span class="sd">        :return:</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+
+        <span class="n">point_size</span> <span class="o">=</span> <span class="nb">len</span><span class="p">(</span><span class="n">points</span><span class="p">)</span>
+        <span class="n">num_cvsize</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">numCvs</span><span class="p">()</span>
+        <span class="k">if</span> <span class="nb">len</span><span class="p">(</span><span class="n">points</span><span class="p">)</span> <span class="o">!=</span> <span class="n">num_cvsize</span><span class="p">:</span>
+            <span class="k">raise</span> <span class="n">cmcore</span><span class="o">.</span><span class="n">CPMelError</span><span class="p">(</span><span class="sa">u</span><span class="s2">&quot;输入的点数量与曲线点数不一致&quot;</span><span class="p">)</span>
+        <span class="k">if</span> <span class="ow">not</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">points</span><span class="p">,</span> <span class="n">MPointArray</span><span class="p">):</span>
+            <span class="n">m_points</span> <span class="o">=</span> <span class="n">MPointArray</span><span class="p">(</span><span class="n">point_size</span><span class="p">)</span>
+            <span class="p">[</span><span class="n">m_points</span><span class="o">.</span><span class="n">set</span><span class="p">(</span><span class="n">ID</span><span class="p">,</span> <span class="n">i</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span> <span class="n">i</span><span class="p">[</span><span class="mi">1</span><span class="p">],</span> <span class="n">i</span><span class="p">[</span><span class="mi">2</span><span class="p">])</span> <span class="k">for</span> <span class="n">ID</span><span class="p">,</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">enumerate</span><span class="p">(</span><span class="n">points</span><span class="p">)]</span>
+            <span class="n">points</span> <span class="o">=</span> <span class="n">m_points</span>
+        <span class="n">un_points</span> <span class="o">=</span> <span class="n">MPointArray</span><span class="p">()</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">fn</span><span class="o">.</span><span class="n">getCVs</span><span class="p">(</span><span class="n">un_points</span><span class="p">,</span> <span class="n">space</span><span class="p">)</span>
+
+        <span class="k">def</span> <span class="nf">doIt</span><span class="p">():</span>
+            <span class="n">fn</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">functionSet</span><span class="p">()</span>
+            <span class="n">fn</span><span class="o">.</span><span class="n">setCVs</span><span class="p">(</span><span class="n">points</span><span class="p">,</span> <span class="n">space</span><span class="p">)</span>
+            <span class="n">fn</span><span class="o">.</span><span class="n">updateCurve</span><span class="p">()</span>
+
+        <span class="k">def</span> <span class="nf">undoIt</span><span class="p">():</span>
+            <span class="n">fn</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">functionSet</span><span class="p">()</span>
+            <span class="n">fn</span><span class="o">.</span><span class="n">setCVs</span><span class="p">(</span><span class="n">un_points</span><span class="p">,</span> <span class="n">space</span><span class="p">)</span>
+            <span class="n">fn</span><span class="o">.</span><span class="n">updateCurve</span><span class="p">()</span>
+
+        <span class="n">cmcore</span><span class="o">.</span><span class="n">addCommand</span><span class="p">(</span><span class="n">doIt</span><span class="p">,</span> <span class="n">undoIt</span><span class="p">)</span></div>
+
+<div class="viewcode-block" id="Curve.getPoints"><a class="viewcode-back" href="../../../../cpmel/CPMel.cmds.node.html#CPMel.cmds.node.nodetypes.Curve.getPoints">[docs]</a>    <span class="k">def</span> <span class="nf">getPoints</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">space</span><span class="o">=</span><span class="n">basedata</span><span class="o">.</span><span class="n">Space</span><span class="o">.</span><span class="n">object</span><span class="p">):</span>
+        <span class="sa">u</span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        获得所有CV点的位置</span>
+
+<span class="sd">        :param space:</span>
+<span class="sd">        :return:</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="n">points</span> <span class="o">=</span> <span class="n">MPointArray</span><span class="p">()</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">fn</span><span class="o">.</span><span class="n">getCVs</span><span class="p">(</span><span class="n">points</span><span class="p">,</span> <span class="n">space</span><span class="p">)</span>
+        <span class="k">return</span> <span class="n">NewDouble3s</span><span class="p">(</span><span class="n">points</span><span class="p">)</span></div>
+
+<div class="viewcode-block" id="Curve.numCvs"><a class="viewcode-back" href="../../../../cpmel/CPMel.cmds.node.html#CPMel.cmds.node.nodetypes.Curve.numCvs">[docs]</a>    <span class="k">def</span> <span class="nf">numCvs</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="sa">u</span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        返回此曲线的CV数</span>
+
+<span class="sd">        :return:</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">fn</span><span class="o">.</span><span class="n">numCVs</span><span class="p">()</span></div>
+
+<div class="viewcode-block" id="Curve.numSpans"><a class="viewcode-back" href="../../../../cpmel/CPMel.cmds.node.html#CPMel.cmds.node.nodetypes.Curve.numSpans">[docs]</a>    <span class="k">def</span> <span class="nf">numSpans</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="sa">u</span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        返回此曲线的跨度数</span>
+
+<span class="sd">        :return:</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">fn</span><span class="o">.</span><span class="n">numSpans</span><span class="p">()</span></div>
+
+<div class="viewcode-block" id="Curve.numKnots"><a class="viewcode-back" href="../../../../cpmel/CPMel.cmds.node.html#CPMel.cmds.node.nodetypes.Curve.numKnots">[docs]</a>    <span class="k">def</span> <span class="nf">numKnots</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="sa">u</span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        返回此曲线的结数</span>
+
+<span class="sd">        :return:</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">fn</span><span class="o">.</span><span class="n">numKnots</span><span class="p">()</span></div>
+
+<div class="viewcode-block" id="Curve.degree"><a class="viewcode-back" href="../../../../cpmel/CPMel.cmds.node.html#CPMel.cmds.node.nodetypes.Curve.degree">[docs]</a>    <span class="k">def</span> <span class="nf">degree</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="sa">u</span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        返回此曲线的度数</span>
+
+<span class="sd">        :return:</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">fn</span><span class="o">.</span><span class="n">degree</span><span class="p">()</span></div>
+
+<div class="viewcode-block" id="Curve.getPointAtParam"><a class="viewcode-back" href="../../../../cpmel/CPMel.cmds.node.html#CPMel.cmds.node.nodetypes.Curve.getPointAtParam">[docs]</a>    <span class="k">def</span> <span class="nf">getPointAtParam</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">u</span><span class="p">,</span> <span class="n">space</span><span class="o">=</span><span class="n">basedata</span><span class="o">.</span><span class="n">Space</span><span class="o">.</span><span class="n">object</span><span class="p">):</span>
+        <span class="sa">u</span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        返回曲线上给定参数值处的空间点</span>
+
+<span class="sd">        :param u:</span>
+<span class="sd">        :param space:</span>
+<span class="sd">        :return:</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="n">point</span> <span class="o">=</span> <span class="n">MPoint</span><span class="p">()</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">fn</span><span class="o">.</span><span class="n">getPointAtParam</span><span class="p">(</span><span class="n">u</span><span class="p">,</span> <span class="n">point</span><span class="p">,</span> <span class="n">space</span><span class="p">)</span>
+        <span class="k">return</span> <span class="n">basedata</span><span class="o">.</span><span class="n">Double3</span><span class="p">(</span><span class="n">point</span><span class="p">)</span></div>
+
+<div class="viewcode-block" id="Curve.findLengthFromParam"><a class="viewcode-back" href="../../../../cpmel/CPMel.cmds.node.html#CPMel.cmds.node.nodetypes.Curve.findLengthFromParam">[docs]</a>    <span class="k">def</span> <span class="nf">findLengthFromParam</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">u</span><span class="p">):</span>
+        <span class="sa">u</span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        返回与曲线上给定参数值相对应的沿曲线的长度</span>
+
+<span class="sd">        :param u:</span>
+<span class="sd">        :return:</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">fn</span><span class="o">.</span><span class="n">findLengthFromParam</span><span class="p">(</span><span class="n">u</span><span class="p">)</span></div>
+
+<div class="viewcode-block" id="Curve.findParamFromLength"><a class="viewcode-back" href="../../../../cpmel/CPMel.cmds.node.html#CPMel.cmds.node.nodetypes.Curve.findParamFromLength">[docs]</a>    <span class="k">def</span> <span class="nf">findParamFromLength</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">u</span><span class="p">):</span>
+        <span class="sa">u</span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        返回与曲线上给定沿曲线的长度相对应的参数值</span>
+
+<span class="sd">        :param u:</span>
+<span class="sd">        :return:</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">fn</span><span class="o">.</span><span class="n">findParamFromLength</span><span class="p">(</span><span class="n">u</span><span class="p">)</span></div>
+
+<div class="viewcode-block" id="Curve.closestPoint"><a class="viewcode-back" href="../../../../cpmel/CPMel.cmds.node.html#CPMel.cmds.node.nodetypes.Curve.closestPoint">[docs]</a>    <span class="k">def</span> <span class="nf">closestPoint</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">point</span><span class="o">=</span><span class="n">basedata</span><span class="o">.</span><span class="n">Double3</span><span class="p">,</span> <span class="n">space</span><span class="o">=</span><span class="n">basedata</span><span class="o">.</span><span class="n">Space</span><span class="o">.</span><span class="n">object</span><span class="p">,</span> <span class="n">tolerance</span><span class="o">=</span><span class="mf">0.00001</span><span class="p">):</span>
+        <span class="sa">u</span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        此方法确定曲线上最接近给定点的点。</span>
+
+<span class="sd">        :param point: 测试点</span>
+<span class="sd">        :param space: 指定此操作的坐标系</span>
+<span class="sd">        :param tolerance: 计算中允许的误差量（ε值）</span>
+<span class="sd">        :return:</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">point</span><span class="p">,</span> <span class="n">MPoint</span><span class="p">):</span>
+            <span class="n">point</span> <span class="o">=</span> <span class="n">MPoint</span><span class="p">(</span><span class="n">point</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span> <span class="n">point</span><span class="p">[</span><span class="mi">1</span><span class="p">],</span> <span class="n">point</span><span class="p">[</span><span class="mi">2</span><span class="p">])</span>
+        <span class="n">u</span> <span class="o">=</span> <span class="n">ScriptUtil</span><span class="o">.</span><span class="n">asIntPtr</span><span class="p">()</span>
+        <span class="n">point</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">fn</span><span class="o">.</span><span class="n">closestPoint</span><span class="p">(</span><span class="n">point</span><span class="p">,</span> <span class="n">u</span><span class="p">,</span> <span class="n">tolerance</span><span class="p">,</span> <span class="n">space</span><span class="p">)</span>
+        <span class="k">return</span> <span class="p">(</span><span class="n">basedata</span><span class="o">.</span><span class="n">Double3</span><span class="p">(</span><span class="n">point</span><span class="p">),</span> <span class="n">ScriptUtil</span><span class="o">.</span><span class="n">getInt</span><span class="p">(</span><span class="n">u</span><span class="p">))</span></div></div>
+
+
+<div class="viewcode-block" id="SurfaceCv"><a class="viewcode-back" href="../../../../cpmel/CPMel.cmds.node.html#CPMel.cmds.node.nodetypes.SurfaceCv">[docs]</a><span class="k">class</span> <span class="nc">SurfaceCv</span><span class="p">(</span><span class="n">Components2Base</span><span class="p">):</span>
+    <span class="n">components_type_str</span> <span class="o">=</span> <span class="s2">&quot;cv&quot;</span>
+    <span class="n">__metaclass__</span> <span class="o">=</span> <span class="n">componentsTypesMetadef</span>
+
+<div class="viewcode-block" id="SurfaceCv.setPoint"><a class="viewcode-back" href="../../../../cpmel/CPMel.cmds.node.html#CPMel.cmds.node.nodetypes.SurfaceCv.setPoint">[docs]</a>    <span class="nd">@Components2Base</span><span class="o">.</span><span class="n">IsSingleComponent</span>
+    <span class="k">def</span> <span class="nf">setPoint</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">point</span><span class="o">=</span><span class="n">basedata</span><span class="o">.</span><span class="n">Double3</span><span class="p">,</span> <span class="n">space</span><span class="o">=</span><span class="n">basedata</span><span class="o">.</span><span class="n">Space</span><span class="o">.</span><span class="n">object</span><span class="p">):</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">node</span><span class="o">.</span><span class="n">setPoint</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">indexu</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">indexv</span><span class="p">,</span> <span class="n">point</span><span class="p">,</span> <span class="n">space</span><span class="p">)</span></div>
+
+<div class="viewcode-block" id="SurfaceCv.getPoint"><a class="viewcode-back" href="../../../../cpmel/CPMel.cmds.node.html#CPMel.cmds.node.nodetypes.SurfaceCv.getPoint">[docs]</a>    <span class="nd">@Components2Base</span><span class="o">.</span><span class="n">IsSingleComponent</span>
+    <span class="k">def</span> <span class="nf">getPoint</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">space</span><span class="o">=</span><span class="n">basedata</span><span class="o">.</span><span class="n">Space</span><span class="o">.</span><span class="n">object</span><span class="p">):</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">node</span><span class="o">.</span><span class="n">getPoint</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">indexu</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">indexv</span><span class="p">,</span> <span class="n">space</span><span class="p">)</span></div></div>
+
+
+<div class="viewcode-block" id="Surface"><a class="viewcode-back" href="../../../../cpmel/CPMel.cmds.node.html#CPMel.cmds.node.nodetypes.Surface">[docs]</a><span class="k">class</span> <span class="nc">Surface</span><span class="p">(</span><span class="n">DagNode</span><span class="p">):</span>
+    <span class="n">__metaclass__</span> <span class="o">=</span> <span class="n">ObjectMetadef</span><span class="p">(</span><span class="n">MFn</span><span class="o">.</span><span class="n">kNurbsSurface</span><span class="p">)</span>
+
+    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="o">*</span><span class="n">args</span><span class="p">):</span>
+        <span class="nb">super</span><span class="p">(</span><span class="n">Surface</span><span class="p">,</span> <span class="bp">self</span><span class="p">)</span><span class="o">.</span><span class="fm">__init__</span><span class="p">(</span><span class="o">*</span><span class="n">args</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">cv</span> <span class="o">=</span> <span class="n">SurfaceCv</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">cv</span><span class="o">.</span><span class="n">cp__init_componenrs</span><span class="p">()</span>
+
+<div class="viewcode-block" id="Surface.isCurrentNodeType"><a class="viewcode-back" href="../../../../cpmel/CPMel.cmds.node.html#CPMel.cmds.node.nodetypes.Surface.isCurrentNodeType">[docs]</a>    <span class="nd">@staticmethod</span>
+    <span class="k">def</span> <span class="nf">isCurrentNodeType</span><span class="p">(</span><span class="n">path</span><span class="o">=</span><span class="n">MDagPath</span><span class="p">):</span>
+        <span class="sa">u</span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        返回节点这个类是否支持这个节点</span>
+
+<span class="sd">        :param path: api1.0 MObject 指向一个节点的MObject</span>
+<span class="sd">        :return: bool</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="k">return</span> <span class="n">path</span><span class="o">.</span><span class="n">hasFn</span><span class="p">(</span><span class="n">MFn</span><span class="o">.</span><span class="n">kNurbsSurface</span><span class="p">)</span></div>
+
+<div class="viewcode-block" id="Surface.cp__getFnClass"><a class="viewcode-back" href="../../../../cpmel/CPMel.cmds.node.html#CPMel.cmds.node.nodetypes.Surface.cp__getFnClass">[docs]</a>    <span class="k">def</span> <span class="nf">cp__getFnClass</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="sa">u</span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        获得当前函数集</span>
+<span class="sd">        :return: MFn</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="n">path</span> <span class="o">=</span> <span class="n">MDagPath</span><span class="p">()</span>
+        <span class="n">MDagPath</span><span class="o">.</span><span class="n">getAPathTo</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">obj</span><span class="p">,</span> <span class="n">path</span><span class="p">)</span>
+        <span class="k">return</span> <span class="n">MFnNurbsSurface</span><span class="p">(</span><span class="n">path</span><span class="p">)</span></div>
+
+<div class="viewcode-block" id="Surface.setPoint"><a class="viewcode-back" href="../../../../cpmel/CPMel.cmds.node.html#CPMel.cmds.node.nodetypes.Surface.setPoint">[docs]</a>    <span class="k">def</span> <span class="nf">setPoint</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">indexU</span><span class="o">=</span><span class="mi">0</span><span class="p">,</span> <span class="n">indexV</span><span class="o">=</span><span class="mi">0</span><span class="p">,</span> <span class="n">point</span><span class="o">=</span><span class="n">basedata</span><span class="o">.</span><span class="n">Double3</span><span class="p">,</span> <span class="n">space</span><span class="o">=</span><span class="n">basedata</span><span class="o">.</span><span class="n">Space</span><span class="o">.</span><span class="n">object</span><span class="p">):</span>
+        <span class="sa">u</span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        设置CV点位置</span>
+
+<span class="sd">        :param indexU:</span>
+<span class="sd">        :param indexV:</span>
+<span class="sd">        :param point:</span>
+<span class="sd">        :param space:</span>
+<span class="sd">        :return:</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="k">if</span> <span class="ow">not</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">point</span><span class="p">,</span> <span class="n">MPoint</span><span class="p">):</span>
+            <span class="n">point</span> <span class="o">=</span> <span class="n">MPoint</span><span class="p">(</span><span class="n">point</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span> <span class="n">point</span><span class="p">[</span><span class="mi">1</span><span class="p">],</span> <span class="n">point</span><span class="p">[</span><span class="mi">2</span><span class="p">])</span>
+        <span class="n">unpoint</span> <span class="o">=</span> <span class="n">MPoint</span><span class="p">()</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">fn</span><span class="o">.</span><span class="n">getCV</span><span class="p">(</span><span class="n">indexU</span><span class="p">,</span> <span class="n">indexV</span><span class="p">,</span> <span class="n">unpoint</span><span class="p">,</span> <span class="n">space</span><span class="p">)</span>
+
+        <span class="k">def</span> <span class="nf">doIt</span><span class="p">():</span>
+            <span class="n">fn</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">functionSet</span><span class="p">()</span>
+            <span class="n">fn</span><span class="o">.</span><span class="n">setCV</span><span class="p">(</span><span class="n">indexU</span><span class="p">,</span> <span class="n">indexV</span><span class="p">,</span> <span class="n">point</span><span class="p">,</span> <span class="n">space</span><span class="p">)</span>
+            <span class="n">fn</span><span class="o">.</span><span class="n">updateSurface</span><span class="p">()</span>
+
+        <span class="k">def</span> <span class="nf">undoIt</span><span class="p">():</span>
+            <span class="n">fn</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">functionSet</span><span class="p">()</span>
+            <span class="n">fn</span><span class="o">.</span><span class="n">setCV</span><span class="p">(</span><span class="n">indexU</span><span class="p">,</span> <span class="n">indexV</span><span class="p">,</span> <span class="n">unpoint</span><span class="p">,</span> <span class="n">space</span><span class="p">)</span>
+            <span class="n">fn</span><span class="o">.</span><span class="n">updateSurface</span><span class="p">()</span>
+
+        <span class="k">return</span> <span class="n">cmcore</span><span class="o">.</span><span class="n">addCommand</span><span class="p">(</span><span class="n">doIt</span><span class="p">,</span> <span class="n">undoIt</span><span class="p">)</span></div>
+
+<div class="viewcode-block" id="Surface.getPoint"><a class="viewcode-back" href="../../../../cpmel/CPMel.cmds.node.html#CPMel.cmds.node.nodetypes.Surface.getPoint">[docs]</a>    <span class="k">def</span> <span class="nf">getPoint</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">indexU</span><span class="o">=</span><span class="mi">0</span><span class="p">,</span> <span class="n">indexV</span><span class="o">=</span><span class="mi">0</span><span class="p">,</span> <span class="n">space</span><span class="o">=</span><span class="n">basedata</span><span class="o">.</span><span class="n">Space</span><span class="o">.</span><span class="n">object</span><span class="p">):</span>
+        <span class="sa">u</span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        获得CV点位置</span>
+
+<span class="sd">        :param indexU:</span>
+<span class="sd">        :param indexV:</span>
+<span class="sd">        :param space:</span>
+<span class="sd">        :return:</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="n">point</span> <span class="o">=</span> <span class="n">MPoint</span><span class="p">()</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">fn</span><span class="o">.</span><span class="n">getCV</span><span class="p">(</span><span class="n">indexU</span><span class="p">,</span> <span class="n">indexV</span><span class="p">,</span> <span class="n">point</span><span class="p">,</span> <span class="n">space</span><span class="p">)</span>
+        <span class="k">return</span> <span class="n">basedata</span><span class="o">.</span><span class="n">Double3</span><span class="p">(</span><span class="n">point</span><span class="p">)</span></div>
+
+<div class="viewcode-block" id="Surface.numSpansInU"><a class="viewcode-back" href="../../../../cpmel/CPMel.cmds.node.html#CPMel.cmds.node.nodetypes.Surface.numSpansInU">[docs]</a>    <span class="k">def</span> <span class="nf">numSpansInU</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="sa">u</span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        返回u方向上的跨度数</span>
+
+<span class="sd">        :return:</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">fn</span><span class="o">.</span><span class="n">numSpansInU</span><span class="p">()</span></div>
+
+<div class="viewcode-block" id="Surface.numSpansInV"><a class="viewcode-back" href="../../../../cpmel/CPMel.cmds.node.html#CPMel.cmds.node.nodetypes.Surface.numSpansInV">[docs]</a>    <span class="k">def</span> <span class="nf">numSpansInV</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="sa">u</span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        返回v方向上的跨度数</span>
+
+<span class="sd">        :return:</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">fn</span><span class="o">.</span><span class="n">numSpansInV</span><span class="p">()</span></div>
+
+<div class="viewcode-block" id="Surface.numCVsInU"><a class="viewcode-back" href="../../../../cpmel/CPMel.cmds.node.html#CPMel.cmds.node.nodetypes.Surface.numCVsInU">[docs]</a>    <span class="k">def</span> <span class="nf">numCVsInU</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="sa">u</span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        返回U方向上的CV数量（度+跨度）</span>
+
+<span class="sd">        :return:</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">fn</span><span class="o">.</span><span class="n">numCVsInU</span><span class="p">()</span></div>
+
+<div class="viewcode-block" id="Surface.numCVsInV"><a class="viewcode-back" href="../../../../cpmel/CPMel.cmds.node.html#CPMel.cmds.node.nodetypes.Surface.numCVsInV">[docs]</a>    <span class="k">def</span> <span class="nf">numCVsInV</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="sa">u</span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        返回V方向上的CV数量（度+跨度）</span>
+
+<span class="sd">        :return:</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">fn</span><span class="o">.</span><span class="n">numCVsInV</span><span class="p">()</span></div></div>
+
+
+<span class="k">class</span> <span class="nc">WeightGeometryFilter</span><span class="p">(</span><span class="n">DgNode</span><span class="p">):</span>
+    <span class="n">__metaclass__</span> <span class="o">=</span> <span class="n">ObjectMetadef</span><span class="p">(</span><span class="n">MFn</span><span class="o">.</span><span class="n">kWeightGeometryFilt</span><span class="p">)</span>
+
+    <span class="k">def</span> <span class="nf">cp__getFnClass</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="sa">u</span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        获得当前函数集</span>
+<span class="sd">        :return: MFn</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="k">return</span> <span class="n">MFnWeightGeometryFilter</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">obj</span><span class="p">)</span>
+
+    <span class="k">def</span> <span class="nf">getWeights</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">geo</span><span class="p">):</span>
+        <span class="sa">u</span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        获得变形器权重</span>
+
+<span class="sd">        :param geo: 组件 例:xxx.vtx</span>
+<span class="sd">        :return:</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="n">geo</span> <span class="o">=</span> <span class="nb">str</span><span class="p">(</span><span class="n">geo</span><span class="p">)</span>
+        <span class="k">if</span> <span class="n">geo</span><span class="o">.</span><span class="n">find</span><span class="p">(</span><span class="s2">&quot;.&quot;</span><span class="p">)</span> <span class="o">&lt;</span> <span class="mi">0</span><span class="p">:</span>
+            <span class="k">raise</span> <span class="n">cmcore</span><span class="o">.</span><span class="n">CPMelError</span><span class="p">(</span><span class="sa">u</span><span class="s2">&quot;需要组件&quot;</span><span class="p">)</span>
+        <span class="c1"># 建立一个组件选择列表</span>
+        <span class="n">sel_list</span> <span class="o">=</span> <span class="n">MSelectionList</span><span class="p">()</span>
+        <span class="k">try</span><span class="p">:</span>
+            <span class="n">sel_list</span><span class="o">.</span><span class="n">add</span><span class="p">(</span><span class="nb">str</span><span class="p">(</span><span class="n">geo</span><span class="p">))</span>
+        <span class="k">except</span> <span class="ne">RuntimeError</span><span class="p">:</span>
+            <span class="k">raise</span> <span class="n">cmcore</span><span class="o">.</span><span class="n">CPMelError</span><span class="p">(</span><span class="sa">u</span><span class="s2">&quot;对象不存在&quot;</span><span class="p">)</span>
+        <span class="k">if</span> <span class="nb">int</span><span class="p">(</span><span class="n">sel_list</span><span class="o">.</span><span class="n">length</span><span class="p">())</span> <span class="o">&gt;</span> <span class="mi">1</span><span class="p">:</span>
+            <span class="k">raise</span> <span class="n">cmcore</span><span class="o">.</span><span class="n">CPMelError</span><span class="p">(</span><span class="sa">u</span><span class="s2">&quot;不在一个mesh或者其他对象上&quot;</span><span class="p">)</span>
+        <span class="n">path</span> <span class="o">=</span> <span class="n">MDagPath</span><span class="p">()</span>
+        <span class="n">comp</span> <span class="o">=</span> <span class="n">MObject</span><span class="p">()</span>
+        <span class="n">sel_list</span><span class="o">.</span><span class="n">getDagPath</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="n">path</span><span class="p">,</span> <span class="n">comp</span><span class="p">)</span>
+
+        <span class="n">weights</span> <span class="o">=</span> <span class="n">MFloatArray</span><span class="p">()</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">fn</span><span class="o">.</span><span class="n">getWeights</span><span class="p">(</span><span class="n">path</span><span class="p">,</span> <span class="n">comp</span><span class="p">,</span> <span class="n">weights</span><span class="p">)</span>
+        <span class="k">return</span> <span class="n">FloatArray</span><span class="p">(</span><span class="n">weights</span><span class="p">)</span>
+
+    <span class="k">def</span> <span class="nf">setWeights</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">geo</span><span class="p">,</span> <span class="n">weights</span><span class="p">):</span>
+        <span class="sa">u</span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        设置变形器权重</span>
+
+<span class="sd">        :param geo: 组件 例:xxx.vtx</span>
+<span class="sd">        :param weights: 权重列表</span>
+<span class="sd">        :return:</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="n">geo</span> <span class="o">=</span> <span class="nb">str</span><span class="p">(</span><span class="n">geo</span><span class="p">)</span>
+        <span class="k">if</span> <span class="n">geo</span><span class="o">.</span><span class="n">find</span><span class="p">(</span><span class="s2">&quot;.&quot;</span><span class="p">)</span> <span class="o">&lt;</span> <span class="mi">0</span><span class="p">:</span>
+            <span class="k">raise</span> <span class="n">cmcore</span><span class="o">.</span><span class="n">CPMelError</span><span class="p">(</span><span class="sa">u</span><span class="s2">&quot;需要组件&quot;</span><span class="p">)</span>
+        <span class="c1"># 建立一个组件选择列表</span>
+        <span class="n">sel_list</span> <span class="o">=</span> <span class="n">MSelectionList</span><span class="p">()</span>
+        <span class="k">try</span><span class="p">:</span>
+            <span class="n">sel_list</span><span class="o">.</span><span class="n">add</span><span class="p">(</span><span class="nb">str</span><span class="p">(</span><span class="n">geo</span><span class="p">))</span>
+        <span class="k">except</span> <span class="ne">RuntimeError</span><span class="p">:</span>
+            <span class="k">raise</span> <span class="n">cmcore</span><span class="o">.</span><span class="n">CPMelError</span><span class="p">(</span><span class="sa">u</span><span class="s2">&quot;对象不存在&quot;</span><span class="p">)</span>
+        <span class="k">if</span> <span class="nb">int</span><span class="p">(</span><span class="n">sel_list</span><span class="o">.</span><span class="n">length</span><span class="p">())</span> <span class="o">&gt;</span> <span class="mi">1</span><span class="p">:</span>
+            <span class="k">raise</span> <span class="n">cmcore</span><span class="o">.</span><span class="n">CPMelError</span><span class="p">(</span><span class="sa">u</span><span class="s2">&quot;不在一个mesh或者其他对象上&quot;</span><span class="p">)</span>
+        <span class="k">try</span><span class="p">:</span>
+            <span class="n">weights</span> <span class="o">=</span> <span class="n">FloatArray</span><span class="p">(</span><span class="n">weights</span><span class="p">)</span>
+        <span class="k">except</span> <span class="ne">TypeError</span><span class="p">:</span>
+            <span class="k">raise</span> <span class="n">cmcore</span><span class="o">.</span><span class="n">CPMelError</span><span class="p">(</span><span class="sa">u</span><span class="s2">&quot;weight 不是浮点数组&quot;</span><span class="p">)</span>
+        <span class="n">path</span> <span class="o">=</span> <span class="n">MDagPath</span><span class="p">()</span>
+        <span class="n">comp</span> <span class="o">=</span> <span class="n">MObject</span><span class="p">()</span>
+        <span class="n">sel_list</span><span class="o">.</span><span class="n">getDagPath</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="n">path</span><span class="p">,</span> <span class="n">comp</span><span class="p">)</span>
+        <span class="n">m_weights</span> <span class="o">=</span> <span class="n">MFloatArray</span><span class="p">()</span>
+        <span class="n">un_weights</span> <span class="o">=</span> <span class="n">MFloatArray</span><span class="p">()</span>
+        <span class="nb">tuple</span><span class="p">((</span><span class="n">m_weights</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">i</span><span class="p">)</span> <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="n">weights</span><span class="p">))</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">fn</span><span class="o">.</span><span class="n">getWeights</span><span class="p">(</span><span class="n">path</span><span class="p">,</span> <span class="n">comp</span><span class="p">,</span> <span class="n">un_weights</span><span class="p">)</span>
+
+        <span class="k">def</span> <span class="nf">doIt</span><span class="p">():</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">functionSet</span><span class="p">()</span><span class="o">.</span><span class="n">setWeight</span><span class="p">(</span><span class="n">path</span><span class="p">,</span> <span class="n">comp</span><span class="p">,</span> <span class="n">m_weights</span><span class="p">)</span>
+
+        <span class="k">def</span> <span class="nf">undoIt</span><span class="p">():</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">functionSet</span><span class="p">()</span><span class="o">.</span><span class="n">setWeight</span><span class="p">(</span><span class="n">path</span><span class="p">,</span> <span class="n">comp</span><span class="p">,</span> <span class="n">un_weights</span><span class="p">)</span>
+
+        <span class="n">cmcore</span><span class="o">.</span><span class="n">addCommand</span><span class="p">(</span><span class="n">doIt</span><span class="p">,</span> <span class="n">undoIt</span><span class="p">)</span>
+
+
+<div class="viewcode-block" id="SkinCluster"><a class="viewcode-back" href="../../../../cpmel/CPMel.cmds.node.html#CPMel.cmds.node.nodetypes.SkinCluster">[docs]</a><span class="k">class</span> <span class="nc">SkinCluster</span><span class="p">(</span><span class="n">WeightGeometryFilter</span><span class="p">):</span>
+    <span class="n">__metaclass__</span> <span class="o">=</span> <span class="n">ObjectMetadef</span><span class="p">(</span><span class="n">MFn</span><span class="o">.</span><span class="n">kSkinClusterFilter</span><span class="p">)</span>
+
+<div class="viewcode-block" id="SkinCluster.cp__getFnClass"><a class="viewcode-back" href="../../../../cpmel/CPMel.cmds.node.html#CPMel.cmds.node.nodetypes.SkinCluster.cp__getFnClass">[docs]</a>    <span class="k">def</span> <span class="nf">cp__getFnClass</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="sa">u</span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        获得当前函数集</span>
+<span class="sd">        :return: MFn</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="k">return</span> <span class="n">MFnSkinCluster</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">obj</span><span class="p">)</span></div>
+
+<div class="viewcode-block" id="SkinCluster.isCurrentNodeType"><a class="viewcode-back" href="../../../../cpmel/CPMel.cmds.node.html#CPMel.cmds.node.nodetypes.SkinCluster.isCurrentNodeType">[docs]</a>    <span class="nd">@staticmethod</span>
+    <span class="k">def</span> <span class="nf">isCurrentNodeType</span><span class="p">(</span><span class="n">obj</span><span class="o">=</span><span class="n">MObject</span><span class="p">):</span>
+        <span class="sa">u</span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        返回节点这个类是否支持这个节点</span>
+
+<span class="sd">        :param obj: api1.0 MObject 指向一个节点的MObject</span>
+<span class="sd">        :return: bool</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="k">return</span> <span class="n">obj</span><span class="o">.</span><span class="n">hasFn</span><span class="p">(</span><span class="n">MFn</span><span class="o">.</span><span class="n">kSkinClusterFilter</span><span class="p">)</span></div>
+
+<div class="viewcode-block" id="SkinCluster.getPaint"><a class="viewcode-back" href="../../../../cpmel/CPMel.cmds.node.html#CPMel.cmds.node.nodetypes.SkinCluster.getPaint">[docs]</a>    <span class="k">def</span> <span class="nf">getPaint</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="sa">u</span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        绘制权重</span>
+
+<span class="sd">        :param weights:</span>
+<span class="sd">        :return:</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="k">return</span> <span class="n">cmds</span><span class="o">.</span><span class="n">getAttr</span><span class="p">(</span><span class="nb">str</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">+</span> <span class="s2">&quot;.paintWeights&quot;</span><span class="p">)</span></div>
+
+<div class="viewcode-block" id="SkinCluster.setPaint"><a class="viewcode-back" href="../../../../cpmel/CPMel.cmds.node.html#CPMel.cmds.node.nodetypes.SkinCluster.setPaint">[docs]</a>    <span class="k">def</span> <span class="nf">setPaint</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">weights</span><span class="p">):</span>
+        <span class="sa">u</span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        绘制权重</span>
+
+<span class="sd">        :param weights:</span>
+<span class="sd">        :return:</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="k">return</span> <span class="n">cmds</span><span class="o">.</span><span class="n">setAttr</span><span class="p">(</span><span class="nb">str</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">+</span> <span class="s2">&quot;.paintWeights&quot;</span><span class="p">,</span> <span class="n">weights</span><span class="p">,</span> <span class="nb">type</span><span class="o">=</span><span class="s2">&quot;doubleArray&quot;</span><span class="p">)</span></div>
+
+    <span class="n">paint</span> <span class="o">=</span> <span class="nb">property</span><span class="p">(</span><span class="n">getPaint</span><span class="p">,</span> <span class="n">setPaint</span><span class="p">)</span>
+
+<div class="viewcode-block" id="SkinCluster.rePaint"><a class="viewcode-back" href="../../../../cpmel/CPMel.cmds.node.html#CPMel.cmds.node.nodetypes.SkinCluster.rePaint">[docs]</a>    <span class="k">def</span> <span class="nf">rePaint</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="sa">u</span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        重绘制权重</span>
+
+<span class="sd">        :return:</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="n">ctx</span> <span class="o">=</span> <span class="n">cmds</span><span class="o">.</span><span class="n">currentCtx</span><span class="p">()</span>
+        <span class="k">if</span> <span class="n">ctx</span> <span class="o">==</span> <span class="s1">&#39;artAttrSkinContext&#39;</span><span class="p">:</span>
+            <span class="n">mel</span><span class="o">.</span><span class="n">eval</span><span class="p">(</span><span class="sa">u</span><span class="s2">&quot;setSmoothSkinInfluence(</span><span class="se">\&quot;</span><span class="si">%s</span><span class="se">\&quot;</span><span class="s2">)&quot;</span> <span class="o">%</span> <span class="n">cmds</span><span class="o">.</span><span class="n">artAttrSkinPaintCtx</span><span class="p">(</span><span class="n">ctx</span><span class="p">,</span> <span class="n">q</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">inf</span><span class="o">=</span><span class="kc">True</span><span class="p">))</span></div>
+
+<div class="viewcode-block" id="SkinCluster.getWeights"><a class="viewcode-back" href="../../../../cpmel/CPMel.cmds.node.html#CPMel.cmds.node.nodetypes.SkinCluster.getWeights">[docs]</a>    <span class="k">def</span> <span class="nf">getWeights</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">geo</span><span class="p">,</span> <span class="n">inf</span><span class="p">):</span>
+        <span class="sa">u</span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        获得骨骼蒙皮权重</span>
+
+<span class="sd">        :param geo: 组件 例:xxx.vtx</span>
+<span class="sd">        :param inf: 关节索引</span>
+<span class="sd">        :return:</span>
+<span class="sd">        :rtype:list</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="n">geo</span> <span class="o">=</span> <span class="nb">str</span><span class="p">(</span><span class="n">geo</span><span class="p">)</span>
+        <span class="k">if</span> <span class="n">geo</span><span class="o">.</span><span class="n">find</span><span class="p">(</span><span class="s2">&quot;.&quot;</span><span class="p">)</span> <span class="o">&lt;</span> <span class="mi">0</span><span class="p">:</span>
+            <span class="k">raise</span> <span class="n">cmcore</span><span class="o">.</span><span class="n">CPMelError</span><span class="p">(</span><span class="sa">u</span><span class="s2">&quot;需要组件&quot;</span><span class="p">)</span>
+        <span class="k">try</span><span class="p">:</span>
+            <span class="n">inf</span> <span class="o">=</span> <span class="n">basedata</span><span class="o">.</span><span class="n">IntArray</span><span class="p">(</span><span class="n">inf</span><span class="p">)</span>
+        <span class="k">except</span> <span class="ne">TypeError</span><span class="p">:</span>
+            <span class="k">raise</span> <span class="n">cmcore</span><span class="o">.</span><span class="n">CPMelError</span><span class="p">(</span><span class="sa">u</span><span class="s2">&quot;inf 不是整形数组&quot;</span><span class="p">)</span>
+        <span class="c1"># 建立一个组件选择列表</span>
+        <span class="n">sel_list</span> <span class="o">=</span> <span class="n">MSelectionList</span><span class="p">()</span>
+        <span class="k">try</span><span class="p">:</span>
+            <span class="n">sel_list</span><span class="o">.</span><span class="n">add</span><span class="p">(</span><span class="nb">str</span><span class="p">(</span><span class="n">geo</span><span class="p">))</span>
+        <span class="k">except</span> <span class="ne">RuntimeError</span><span class="p">:</span>
+            <span class="k">raise</span> <span class="n">cmcore</span><span class="o">.</span><span class="n">CPMelError</span><span class="p">(</span><span class="sa">u</span><span class="s2">&quot;对象不存在&quot;</span><span class="p">)</span>
+        <span class="k">if</span> <span class="nb">int</span><span class="p">(</span><span class="n">sel_list</span><span class="o">.</span><span class="n">length</span><span class="p">())</span> <span class="o">&gt;</span> <span class="mi">1</span><span class="p">:</span>
+            <span class="k">raise</span> <span class="n">cmcore</span><span class="o">.</span><span class="n">CPMelError</span><span class="p">(</span><span class="sa">u</span><span class="s2">&quot;不在一个mesh或者其他对象上&quot;</span><span class="p">)</span>
+        <span class="n">path</span> <span class="o">=</span> <span class="n">MDagPath</span><span class="p">()</span>
+        <span class="n">comp</span> <span class="o">=</span> <span class="n">MObject</span><span class="p">()</span>
+        <span class="n">sel_list</span><span class="o">.</span><span class="n">getDagPath</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="n">path</span><span class="p">,</span> <span class="n">comp</span><span class="p">)</span>
+
+        <span class="n">m_inf</span> <span class="o">=</span> <span class="n">MIntArray</span><span class="p">()</span>
+        <span class="n">ScriptUtil</span><span class="o">.</span><span class="n">createIntArrayFromList</span><span class="p">(</span><span class="n">inf</span><span class="p">,</span> <span class="n">m_inf</span><span class="p">)</span>
+        <span class="n">m_weigth</span> <span class="o">=</span> <span class="n">MDoubleArray</span><span class="p">()</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">fn</span><span class="o">.</span><span class="n">getWeights</span><span class="p">(</span><span class="n">path</span><span class="p">,</span> <span class="n">comp</span><span class="p">,</span> <span class="n">m_inf</span><span class="p">,</span> <span class="n">m_weigth</span><span class="p">)</span>
+        <span class="k">return</span> <span class="n">FloatArray</span><span class="p">(</span><span class="n">m_weigth</span><span class="p">)</span></div>
+
+<div class="viewcode-block" id="SkinCluster.setWeights"><a class="viewcode-back" href="../../../../cpmel/CPMel.cmds.node.html#CPMel.cmds.node.nodetypes.SkinCluster.setWeights">[docs]</a>    <span class="k">def</span> <span class="nf">setWeights</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">geo</span><span class="p">,</span> <span class="n">inf</span><span class="p">,</span> <span class="n">weigths</span><span class="p">):</span>
+        <span class="sa">u</span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        获得骨骼蒙皮权重</span>
+
+<span class="sd">        :param geo: 组件 例:xxx.vtx</span>
+<span class="sd">        :param inf: 关节索引</span>
+<span class="sd">        :param weigths: 权重数组</span>
+<span class="sd">        :return:</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="n">geo</span> <span class="o">=</span> <span class="nb">str</span><span class="p">(</span><span class="n">geo</span><span class="p">)</span>
+        <span class="k">if</span> <span class="n">geo</span><span class="o">.</span><span class="n">find</span><span class="p">(</span><span class="s2">&quot;.&quot;</span><span class="p">)</span> <span class="o">&lt;</span> <span class="mi">0</span><span class="p">:</span>
+            <span class="k">raise</span> <span class="n">cmcore</span><span class="o">.</span><span class="n">CPMelError</span><span class="p">(</span><span class="sa">u</span><span class="s2">&quot;需要组件&quot;</span><span class="p">)</span>
+        <span class="k">try</span><span class="p">:</span>
+            <span class="n">inf</span> <span class="o">=</span> <span class="n">FloatArray</span><span class="p">(</span><span class="n">inf</span><span class="p">)</span>
+        <span class="k">except</span> <span class="ne">TypeError</span><span class="p">:</span>
+            <span class="k">raise</span> <span class="n">cmcore</span><span class="o">.</span><span class="n">CPMelError</span><span class="p">(</span><span class="sa">u</span><span class="s2">&quot;inf 不是整形数组&quot;</span><span class="p">)</span>
+        <span class="k">try</span><span class="p">:</span>
+            <span class="n">weigths</span> <span class="o">=</span> <span class="n">FloatArray</span><span class="p">(</span><span class="n">weigths</span><span class="p">)</span>
+        <span class="k">except</span> <span class="ne">TypeError</span><span class="p">:</span>
+            <span class="k">raise</span> <span class="n">cmcore</span><span class="o">.</span><span class="n">CPMelError</span><span class="p">(</span><span class="sa">u</span><span class="s2">&quot;weight 不是浮点数组&quot;</span><span class="p">)</span>
+        <span class="c1"># 建立一个组件选择列表</span>
+        <span class="n">sel_list</span> <span class="o">=</span> <span class="n">MSelectionList</span><span class="p">()</span>
+        <span class="k">try</span><span class="p">:</span>
+            <span class="n">sel_list</span><span class="o">.</span><span class="n">add</span><span class="p">(</span><span class="n">geo</span><span class="p">)</span>
+        <span class="k">except</span> <span class="ne">RuntimeError</span><span class="p">:</span>
+            <span class="k">raise</span> <span class="n">cmcore</span><span class="o">.</span><span class="n">CPMelError</span><span class="p">(</span><span class="sa">u</span><span class="s2">&quot;对象不存在&quot;</span><span class="p">)</span>
+        <span class="k">if</span> <span class="nb">int</span><span class="p">(</span><span class="n">sel_list</span><span class="o">.</span><span class="n">length</span><span class="p">())</span> <span class="o">&gt;</span> <span class="mi">1</span><span class="p">:</span>
+            <span class="k">raise</span> <span class="n">cmcore</span><span class="o">.</span><span class="n">CPMelError</span><span class="p">(</span><span class="sa">u</span><span class="s2">&quot;不在一个mesh或者其他对象上&quot;</span><span class="p">)</span>
+        <span class="n">path</span> <span class="o">=</span> <span class="n">MDagPath</span><span class="p">()</span>
+        <span class="n">comp</span> <span class="o">=</span> <span class="n">MObject</span><span class="p">()</span>
+        <span class="n">sel_list</span><span class="o">.</span><span class="n">getDagPath</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="n">path</span><span class="p">,</span> <span class="n">comp</span><span class="p">)</span>
+
+        <span class="n">m_inf</span> <span class="o">=</span> <span class="n">MIntArray</span><span class="p">()</span>
+        <span class="n">ScriptUtil</span><span class="o">.</span><span class="n">createIntArrayFromList</span><span class="p">(</span><span class="n">inf</span><span class="p">,</span> <span class="n">m_inf</span><span class="p">)</span>
+        <span class="n">m_weigth</span> <span class="o">=</span> <span class="n">MDoubleArray</span><span class="p">()</span>
+        <span class="nb">tuple</span><span class="p">((</span><span class="n">m_weigth</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">i</span><span class="p">)</span> <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="n">weigths</span><span class="p">))</span>
+        <span class="c1"># # 撤销的权重</span>
+
+        <span class="c1"># unWeights = MDoubleArray()</span>
+        <span class="c1"># self.fn.getWeights(path, comp, unWeights, un_inf)</span>
+        <span class="n">un_weights</span> <span class="o">=</span> <span class="n">MDoubleArray</span><span class="p">()</span>
+        <span class="n">un_inf</span> <span class="o">=</span> <span class="n">MIntArray</span><span class="p">()</span>
+        <span class="n">test_dag_array</span> <span class="o">=</span> <span class="n">MDagPathArray</span><span class="p">()</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">fn</span><span class="o">.</span><span class="n">influenceObjects</span><span class="p">(</span><span class="n">test_dag_array</span><span class="p">)</span>
+        <span class="nb">tuple</span><span class="p">(</span>
+            <span class="p">(</span><span class="n">un_inf</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">i</span><span class="p">)</span> <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="n">xrange</span><span class="p">(</span>
+                <span class="nb">len</span><span class="p">(</span><span class="n">test_dag_array</span><span class="p">)</span>
+            <span class="p">)</span>
+             <span class="p">)</span>
+        <span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">fn</span><span class="o">.</span><span class="n">setWeights</span><span class="p">(</span><span class="n">path</span><span class="p">,</span> <span class="n">comp</span><span class="p">,</span> <span class="n">m_inf</span><span class="p">,</span> <span class="n">m_weigth</span><span class="p">,</span> <span class="kc">True</span><span class="p">,</span> <span class="n">un_weights</span><span class="p">)</span>
+
+        <span class="k">def</span> <span class="nf">doIt</span><span class="p">():</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">functionSet</span><span class="p">()</span><span class="o">.</span><span class="n">setWeights</span><span class="p">(</span><span class="n">path</span><span class="p">,</span> <span class="n">comp</span><span class="p">,</span> <span class="n">m_inf</span><span class="p">,</span> <span class="n">m_weigth</span><span class="p">)</span>
+
+        <span class="k">def</span> <span class="nf">undoIt</span><span class="p">():</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">functionSet</span><span class="p">()</span><span class="o">.</span><span class="n">setWeights</span><span class="p">(</span><span class="n">path</span><span class="p">,</span> <span class="n">comp</span><span class="p">,</span> <span class="n">un_inf</span><span class="p">,</span> <span class="n">un_weights</span><span class="p">)</span>
+
+        <span class="n">cmcore</span><span class="o">.</span><span class="n">defAddCommandList</span><span class="p">(</span><span class="n">doIt</span><span class="p">,</span> <span class="n">undoIt</span><span class="p">)</span>
+        <span class="k">return</span></div>
+
+<div class="viewcode-block" id="SkinCluster.getBlendWeights"><a class="viewcode-back" href="../../../../cpmel/CPMel.cmds.node.html#CPMel.cmds.node.nodetypes.SkinCluster.getBlendWeights">[docs]</a>    <span class="k">def</span> <span class="nf">getBlendWeights</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">geo</span><span class="p">):</span>
+        <span class="sa">u</span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        获得权重已混合权重</span>
+
+<span class="sd">        :param geo: 组件</span>
+<span class="sd">        :return:</span>
+<span class="sd">        :rtype:list</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="n">geo</span> <span class="o">=</span> <span class="nb">str</span><span class="p">(</span><span class="n">geo</span><span class="p">)</span>
+        <span class="k">if</span> <span class="n">geo</span><span class="o">.</span><span class="n">find</span><span class="p">(</span><span class="s2">&quot;.&quot;</span><span class="p">)</span> <span class="o">&lt;</span> <span class="mi">0</span><span class="p">:</span>
+            <span class="k">raise</span> <span class="n">cmcore</span><span class="o">.</span><span class="n">CPMelError</span><span class="p">(</span><span class="sa">u</span><span class="s2">&quot;需要组件&quot;</span><span class="p">)</span>
+        <span class="c1"># 建立一个组件选择列表</span>
+        <span class="n">sel_list</span> <span class="o">=</span> <span class="n">MSelectionList</span><span class="p">()</span>
+        <span class="k">try</span><span class="p">:</span>
+            <span class="n">sel_list</span><span class="o">.</span><span class="n">add</span><span class="p">(</span><span class="n">geo</span><span class="p">)</span>
+        <span class="k">except</span> <span class="ne">RuntimeError</span><span class="p">:</span>
+            <span class="k">raise</span> <span class="n">cmcore</span><span class="o">.</span><span class="n">CPMelError</span><span class="p">(</span><span class="sa">u</span><span class="s2">&quot;对象不存在&quot;</span><span class="p">)</span>
+        <span class="k">if</span> <span class="nb">int</span><span class="p">(</span><span class="n">sel_list</span><span class="o">.</span><span class="n">length</span><span class="p">())</span> <span class="o">&gt;</span> <span class="mi">1</span><span class="p">:</span>
+            <span class="k">raise</span> <span class="n">cmcore</span><span class="o">.</span><span class="n">CPMelError</span><span class="p">(</span><span class="sa">u</span><span class="s2">&quot;不在一个mesh或者其他对象上&quot;</span><span class="p">)</span>
+        <span class="n">path</span> <span class="o">=</span> <span class="n">MDagPath</span><span class="p">()</span>
+        <span class="n">comp</span> <span class="o">=</span> <span class="n">MObject</span><span class="p">()</span>
+        <span class="n">sel_list</span><span class="o">.</span><span class="n">getDagPath</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="n">path</span><span class="p">,</span> <span class="n">comp</span><span class="p">)</span>
+        <span class="n">un_weight</span> <span class="o">=</span> <span class="n">MDoubleArray</span><span class="p">()</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">fn</span><span class="o">.</span><span class="n">getBlendWeights</span><span class="p">(</span><span class="n">path</span><span class="p">,</span> <span class="n">comp</span><span class="p">,</span> <span class="n">un_weight</span><span class="p">)</span>
+        <span class="k">return</span> <span class="n">FloatArray</span><span class="p">(</span><span class="n">un_weight</span><span class="p">)</span></div>
+
+<div class="viewcode-block" id="SkinCluster.setBlendWeights"><a class="viewcode-back" href="../../../../cpmel/CPMel.cmds.node.html#CPMel.cmds.node.nodetypes.SkinCluster.setBlendWeights">[docs]</a>    <span class="k">def</span> <span class="nf">setBlendWeights</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">geo</span><span class="p">,</span> <span class="n">weigth</span><span class="p">):</span>
+        <span class="sa">u</span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        设置权重已混合权重</span>
+
+<span class="sd">        :param geo: 组件</span>
+<span class="sd">        :param weigth: 权重数组</span>
+<span class="sd">        :return:</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="n">geo</span> <span class="o">=</span> <span class="nb">str</span><span class="p">(</span><span class="n">geo</span><span class="p">)</span>
+        <span class="k">if</span> <span class="n">geo</span><span class="o">.</span><span class="n">find</span><span class="p">(</span><span class="s2">&quot;.&quot;</span><span class="p">)</span> <span class="o">&lt;</span> <span class="mi">0</span><span class="p">:</span>
+            <span class="k">raise</span> <span class="n">cmcore</span><span class="o">.</span><span class="n">CPMelError</span><span class="p">(</span><span class="sa">u</span><span class="s2">&quot;需要组件&quot;</span><span class="p">)</span>
+        <span class="k">try</span><span class="p">:</span>
+            <span class="n">weigth</span> <span class="o">=</span> <span class="n">array</span><span class="o">.</span><span class="n">array</span><span class="p">(</span><span class="s2">&quot;f&quot;</span><span class="p">,</span> <span class="n">weigth</span><span class="p">)</span>
+        <span class="k">except</span> <span class="ne">TypeError</span><span class="p">:</span>
+            <span class="k">raise</span> <span class="n">cmcore</span><span class="o">.</span><span class="n">CPMelError</span><span class="p">(</span><span class="sa">u</span><span class="s2">&quot;weight 不是浮点数组&quot;</span><span class="p">)</span>
+        <span class="c1"># 建立一个组件选择列表</span>
+        <span class="n">sel_list</span> <span class="o">=</span> <span class="n">MSelectionList</span><span class="p">()</span>
+        <span class="k">try</span><span class="p">:</span>
+            <span class="n">sel_list</span><span class="o">.</span><span class="n">add</span><span class="p">(</span><span class="n">geo</span><span class="p">)</span>
+        <span class="k">except</span> <span class="ne">RuntimeError</span><span class="p">:</span>
+            <span class="k">raise</span> <span class="n">cmcore</span><span class="o">.</span><span class="n">CPMelError</span><span class="p">(</span><span class="sa">u</span><span class="s2">&quot;对象不存在&quot;</span><span class="p">)</span>
+        <span class="k">if</span> <span class="nb">int</span><span class="p">(</span><span class="n">sel_list</span><span class="o">.</span><span class="n">length</span><span class="p">())</span> <span class="o">&gt;</span> <span class="mi">1</span><span class="p">:</span>
+            <span class="k">raise</span> <span class="n">cmcore</span><span class="o">.</span><span class="n">CPMelError</span><span class="p">(</span><span class="sa">u</span><span class="s2">&quot;不在一个mesh或者其他对象上&quot;</span><span class="p">)</span>
+        <span class="n">path</span> <span class="o">=</span> <span class="n">MDagPath</span><span class="p">()</span>
+        <span class="n">comp</span> <span class="o">=</span> <span class="n">MObject</span><span class="p">()</span>
+        <span class="n">sel_list</span><span class="o">.</span><span class="n">getDagPath</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="n">path</span><span class="p">,</span> <span class="n">comp</span><span class="p">)</span>
+        <span class="n">m_weigth</span> <span class="o">=</span> <span class="n">MDoubleArray</span><span class="p">()</span>
+        <span class="nb">tuple</span><span class="p">((</span><span class="n">m_weigth</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">i</span><span class="p">)</span> <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="n">weigth</span><span class="p">))</span>
+        <span class="n">un_weight</span> <span class="o">=</span> <span class="n">MDoubleArray</span><span class="p">()</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">fn</span><span class="o">.</span><span class="n">getBlendWeights</span><span class="p">(</span><span class="n">path</span><span class="p">,</span> <span class="n">comp</span><span class="p">,</span> <span class="n">un_weight</span><span class="p">)</span>
+
+        <span class="bp">self</span><span class="o">.</span><span class="n">fn</span><span class="o">.</span><span class="n">setBlendWeights</span><span class="p">(</span><span class="n">path</span><span class="p">,</span> <span class="n">comp</span><span class="p">,</span> <span class="n">m_weigth</span><span class="p">)</span>
+
+        <span class="k">def</span> <span class="nf">doIt</span><span class="p">():</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">functionSet</span><span class="p">()</span><span class="o">.</span><span class="n">setBlendWeights</span><span class="p">(</span><span class="n">path</span><span class="p">,</span> <span class="n">comp</span><span class="p">,</span> <span class="n">m_weigth</span><span class="p">)</span>
+
+        <span class="k">def</span> <span class="nf">undoIt</span><span class="p">():</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">functionSet</span><span class="p">()</span><span class="o">.</span><span class="n">setBlendWeights</span><span class="p">(</span><span class="n">path</span><span class="p">,</span> <span class="n">comp</span><span class="p">,</span> <span class="n">un_weight</span><span class="p">)</span>
+
+        <span class="n">cmcore</span><span class="o">.</span><span class="n">defAddCommandList</span><span class="p">(</span><span class="n">doIt</span><span class="p">,</span> <span class="n">undoIt</span><span class="p">)</span>
+        <span class="k">return</span></div></div>
+</pre></div>
+
+           </div>
+           
+          </div>
+          <footer>
+  
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>
+        
+        &copy; Copyright 2020, 苍之幻灵
+
+    </p>
+  </div>
+    
+    
+    
+    Built with <a href="http://sphinx-doc.org/">Sphinx</a> using a
+    
+    <a href="https://github.com/rtfd/sphinx_rtd_theme">theme</a>
+    
+    provided by <a href="https://readthedocs.org">Read the Docs</a>. 
+
+</footer>
+
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+  
+
+  <script type="text/javascript">
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script>
+
+  
+  
+    
+   
+
+</body>
+</html>
