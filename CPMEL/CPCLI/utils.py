@@ -68,7 +68,7 @@ def writeFile(path, bytes):
     :return:
     :rtype: None
     """
-    if isinstance(bytes, unicode) or isinstance(bytes, str):
+    if isinstance(bytes, unicode):
         bytes = bytes.encode(encoding="utf-8")
     with open(path, "wb") as f:
         f.write(bytes)

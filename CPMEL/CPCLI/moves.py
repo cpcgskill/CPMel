@@ -16,6 +16,7 @@ from .utils import readFile, writeFile, formattedPath, emptyDir
 
 re_o = re.compile(r"\s*")
 
+
 def moves(start_dir, aims_dir, cli_file):
     start_dir = start_dir
     aims_dir = aims_dir
@@ -29,4 +30,4 @@ def moves(start_dir, aims_dir, cli_file):
         o_dir_path = os.path.dirname(o_file)
         if not os.path.exists(o_dir_path):
             os.makedirs(o_dir_path)
-        writeFile(readFile(i_file), o_file)
+        writeFile(o_file, readFile(i_file))

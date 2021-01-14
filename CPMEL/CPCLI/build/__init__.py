@@ -24,10 +24,7 @@ sys.path.append(thisPath)
 def build(src,config_obj=None):
     config.config_obj = config_obj
     src = formattedPath(src)
-    files = list()
-    for root, dirs, files in os.walk(src):
-        for file in files:
-            files.append(formattedPath("%s/%s" % (root, file)))
+    files = [formattedPath("%s/%s" % (root, file)) for root, dirs, files in os.walk(src) for file in files]
     for i in files:
         file_type = i.split(u".")[-1]
         if file_type in compileFiles.fileTypes:

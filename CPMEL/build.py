@@ -24,7 +24,16 @@ debug_dir = root + u"/build/debug"
 moves_file = root + u"/moves.txt"
 
 moves(src, release_dir, moves_file)
+moves(src, debug_dir, moves_file)
 
+
+class release(object):
+    comms = True
+    deletedoc = True
+    deletezeroline = True
+
+
+build(release_dir, config_obj=release)
 #
 #
 # class release(object):
