@@ -17,3 +17,4 @@ from .utils import *
 from .newmoves import newmoves
 from .moves import moves
 from .build import build
+from .group import group
