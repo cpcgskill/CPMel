@@ -13,8 +13,6 @@ u"""
 import os
 import re
 from .utils import *
-
-
 def newmoves(root,
              moves_file=u"moves.txt",
              re_s=r".*\.(py|pyd|pyo|pyw)$"):
