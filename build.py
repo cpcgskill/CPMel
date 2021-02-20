@@ -12,6 +12,7 @@ u"""
 """
 import os
 from CPCLI import *
+
 root = os.path.dirname(os.path.abspath(__file__))
 try:
     emptyDir(root + u"/build")
