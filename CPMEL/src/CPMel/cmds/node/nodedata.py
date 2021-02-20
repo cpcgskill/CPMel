@@ -695,10 +695,6 @@ class DgNode(CPObject):
         """
         return self.fn.isDefaultNode()
 
-    # def setNamespace(self, name_space):
-    #     if MNamespace.namespaceExists(name_space):
-    #
-
     def getNamespace(self):
         u"""
         返回此节点所在的名称空间的名称

@@ -10,6 +10,6 @@ u"""
 :bilibili: https://space.bilibili.com/351598127
 
 """
-import impo
 import init_maya
-import impo.CPMel
+import CPMel.cmds as cc
+import CPMel.ui as qt

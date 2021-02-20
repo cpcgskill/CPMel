@@ -25,6 +25,7 @@
         /CPMel/cmds/AfterPackage.py
         /CPMel/cmds/FrontPackage.py
         /CPMel/cmds/static_cmds.py
+        /CPMel/cmds/create_node.py
         /CPMel/cmds/melproc/__init__.py
         /CPMel/cmds/melproc/base.py
         /CPMel/cmds/melproc/static.py

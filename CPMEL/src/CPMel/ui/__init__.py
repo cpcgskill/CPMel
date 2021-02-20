@@ -16,14 +16,17 @@ try:
     from PyQt5.QtWidgets import *
     from PyQt5.QtCore import *
     from PyQt5.QtGui import *
+    from PyQt5.QtSvg import *
 except ImportError:
     try:
         from PySide2.QtGui import *
         from PySide2.QtCore import *
         from PySide2.QtWidgets import *
+        from PySide2.QtSvg import *
     except ImportError:
         from PySide.QtGui import *
         from PySide.QtCore import *
+        from PySide.QtSvg import *
 
 try:
     from shiboken2 import *

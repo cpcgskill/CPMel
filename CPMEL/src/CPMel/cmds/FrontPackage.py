@@ -13,7 +13,9 @@ u"""
 from maya.cmds import *
 import maya.cmds as cmds
 from .node.nodedata import DagNode, AttrObject, ArrayAttrObject, UIObject
+
 __all__ = ["spaceLocator", "listHistory"]
+
 
 def spaceLocator(*args, **kwargs):
     u"""
@@ -56,3 +58,22 @@ def listHistory(*args, **kwargs):
     if type:
         results = [i for i in results if type in cmds.nodeType(i, inherited=True)]
     return results
+
+
+def listRelatives(*args, **kwargs):
+    u"""
+    修改内容：
+    -当结果为None时返回一个空列表
+
+    :param args:
+    :param kwargs:
+    :return:
+    :rtype: list|str|basestring|DagNode|AttrObject
+    """
+    # __import__("pdb").set_trace()
+    # 不能加u加u会报错
+    # if (not u"pa" in kwargs) and (not u"path" in kwargs):
+    #     kwargs[u"pa"] = True
+    if (not "pa" in kwargs) and (not "path" in kwargs):
+        kwargs["pa"] = True
+    return cmds.listRelatives(*args, **kwargs)

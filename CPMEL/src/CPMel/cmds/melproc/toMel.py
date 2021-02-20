@@ -15,20 +15,16 @@ from ...cmds.node import nodedata
 from ... import core as cmcore
 
 
-
 def toString(val):
     return u"\"%s\"" % unicode(val)
-
 
 
 def toInt(val):
     return str(val)
 
 
-
 def toFloat(val):
     return str(val)
-
 
 
 def toMel(val):
@@ -36,21 +32,25 @@ def toMel(val):
         val = val.compile()
     if isinstance(val, nodedata.BaseData):
         val = val.compile()
+    typ = type(val)
     for i in object_mel_type:
-        if isinstance(val, i):
+        if typ == i:
             return object_mel_type[i](val)
     raise cmcore.CPMelError(u"无法正确转化输入")
 
 
-
 def toArray(val):
-    return "{%s}" % (",".join([toMel(i) for i in val]))
+    return u"{%s}" % (u",".join([toMel(i) for i in val]))
 
 
-object_mel_type = {basestring:toString,
-                   int:toInt,
-                   float:toFloat,
-                   tuple:toArray,
-                   list:toArray,
-                   array.array:toArray
-                   }
+object_mel_type = {
+    bool: lambda val: u"",
+    str: toString,
+    basestring: toString,
+    unicode: toString,
+    int: toInt,
+    float: toFloat,
+    tuple: toArray,
+    list: toArray,
+    array.array: toArray
+}

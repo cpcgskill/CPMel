@@ -88,7 +88,7 @@ import maya.cmds
 sys.cpmel_data = dict()
 MAYAINDEX = int(maya.cmds.about(v=True))
 
-ISDEBUG = False
+ISDEBUG = True
 try:
     PATH = os.path.dirname(os.path.abspath(__file__))
     if type(PATH) == str:

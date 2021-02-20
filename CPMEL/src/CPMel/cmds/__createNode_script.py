@@ -11,12 +11,24 @@ u"""
 """
 import maya.cmds as cmds
 import re
-mode = '''
+
+mode = u'''\
     def <<node>>(self, *args, **kwargs):
-        return self(u"<<node>>", *args, **kwargs)
-'''
+        return self(u"<<node>>", *args, **kwargs)'''
 strings = list()
-for i in cmds.allNodeTypes(ia = False):
+nodes = cmds.allNodeTypes(ia=False)
+nodes = [i for i in nodes if i.find(u"MASH") != 0]
+nodes = [i for i in nodes if i.find(u"xgm") != 0]
+nodes = [i for i in nodes if i.find(u"xgen") != 0]
+nodes = [i for i in nodes if i.find(u"ai") != 0]
+nodes = [i for i in nodes if i.find(u"AI") != 0]
+nodes = [i for i in nodes if i.find(u"HIK") != 0]
+nodes = [i for i in nodes if i.find(u"Boss") != 0]
+nodes = [i for i in nodes if i.find(u"bifrost") != 0]
+nodes = [i for i in nodes if len(i) < 20]
+nodes = [i for i in nodes if len(i) > 3]
+
+for i in nodes:
     strings.append(re.sub("<<node>>", i, mode))
 
-print("".join(strings))
+print(u"\n".join(strings))

@@ -10,14 +10,13 @@ u"""
 :bilibili: https://space.bilibili.com/351598127
 
 """
+import os
 from CPCLI import *
-
-root = u"D:/Development/MAYA/CPMEL/CPMEL"
+root = os.path.dirname(os.path.abspath(__file__))
 try:
     emptyDir(root + u"/build")
 except:
     pass
-
 src = root + u"/src"
 release_dir = root + u"/build/release"
 debug_dir = root + u"/build/debug"

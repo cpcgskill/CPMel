@@ -133,47 +133,46 @@ def formatGuiException(exceptionType, exceptionObject, traceBack, detail=2):
         except:
             pass
     else:
-        return maya_formatGuiException(exceptionType, exceptionObject, traceBack, detail)
-        # try:
-        #     strs = list()
-        #     strs.append(exceptionObject.__class__.__name__ + u" : ")
-        #     for i in exceptionObject.args:
-        #         strs.append(u"    " + decode(i))
-        #     i = 1
-        #     while traceBack:
-        #         strs.append(u"Stack {}:".format(i))
-        #         tracebackCode = traceBack.tb_frame.f_code
-        #         tb_lineno = traceBack.tb_lineno
-        #         co_filename = tracebackCode.co_filename
-        #         co_name = tracebackCode.co_name
-        #         if os.path.isfile(co_filename):
-        #             try:
-        #                 with open(co_filename, "r") as f:
-        #                     lines = f.readlines()
-        #                     code = u"".join([decode(t) for t in
-        #                                      lines[max(tb_lineno - 3, 0):min(tb_lineno + 3, len(lines) - 1)]])
-        #
-        #                     strs.append(u"    file <{}>  object {} line {}:".format(co_filename,
-        #                                                                             co_name,
-        #                                                                             tb_lineno)
-        #                                 )
-        #                     fgx = "-" * 120
-        #                     strs.append(fgx)
-        #                     strs.append(code)
-        #                     strs.append(fgx)
-        #             except:
-        #                 strs.append(u"    file <{}>  object {} line {}:".format(co_filename,
-        #                                                                         co_name,
-        #                                                                         tb_lineno))
-        #         else:
-        #             strs.append(u"    file <{}>  object {} line {}:".format(co_filename,
-        #                                                                     co_name,
-        #                                                                     tb_lineno))
-        #         traceBack = traceBack.tb_next
-        #         i += 1
-        #     return u'\n'.join([decode(i) for i in strs])
-        # except:
-        #     pass
+        try:
+            strs = list()
+            strs.append(exceptionObject.__class__.__name__ + u" : ")
+            for i in exceptionObject.args:
+                strs.append(u"    " + decode(i))
+            i = 1
+            while traceBack:
+                strs.append(u"Stack {}:".format(i))
+                tracebackCode = traceBack.tb_frame.f_code
+                tb_lineno = traceBack.tb_lineno
+                co_filename = tracebackCode.co_filename
+                co_name = tracebackCode.co_name
+                if os.path.isfile(co_filename):
+                    try:
+                        with open(co_filename, "r") as f:
+                            lines = f.readlines()
+                            code = u"".join([decode(t) for t in
+                                             lines[max(tb_lineno - 3, 0):min(tb_lineno + 3, len(lines) - 1)]])
+
+                            strs.append(u"    file <{}>  object {} line {}:".format(co_filename,
+                                                                                    co_name,
+                                                                                    tb_lineno)
+                                        )
+                            fgx = "-" * 120
+                            strs.append(fgx)
+                            strs.append(code)
+                            strs.append(fgx)
+                    except:
+                        strs.append(u"    file <{}>  object {} line {}:".format(co_filename,
+                                                                                co_name,
+                                                                                tb_lineno))
+                else:
+                    strs.append(u"    file <{}>  object {} line {}:".format(co_filename,
+                                                                            co_name,
+                                                                            tb_lineno))
+                traceBack = traceBack.tb_next
+                i += 1
+            return u'\n'.join([decode(i) for i in strs])
+        except:
+            pass
     return maya_formatGuiException(exceptionType, exceptionObject, traceBack, detail)
 
 

@@ -14,19 +14,30 @@ from functools import partial
 import maya.mel
 import maya.cmds as mc
 
-
 from toMel import toMel, toArray, toFloat, toInt, toString
 
 eval = maya.mel.eval
 
 
-
-def melProc(item, *args):
-    return eval("{}({});".format(item, ", ".join(
-            [toArray(i) if isinstance(i, Iterable) and (not isinstance(i, basestring)) else toMel(i) for i
-             in
-             args])))
-
+def melProc(item, *args, **kwargs):
+    args_s = u" ".join(
+        [
+            toArray(i) if isinstance(i, Iterable) and (not isinstance(i, basestring)) else toMel(i)
+            for i in args
+        ]
+    )
+    kwargs_s = u" ".join(
+        [
+            u"-%s %s" % (
+                k,
+                toArray(v) if isinstance(v, Iterable) and (
+                    not isinstance(v, basestring)) else toMel(v)
+            )
+            for k, v in kwargs.items()
+        ]
+    )
+    command_s = u"{0} {2} {1};".format(item, args_s, kwargs_s)
+    return eval(command_s)
 
 
 class melbase(object):
