@@ -14,7 +14,7 @@ import os
 import shutil
 from . import compileFiles
 from . import config
-from utils import readFile, writeFile, formattedPath, emptyDir
+from ..utils import readFile, writeFile, formattedPath, emptyDir
 
 thisPath = os.path.dirname(os.path.abspath(__file__))
 sys.path.append(thisPath)
