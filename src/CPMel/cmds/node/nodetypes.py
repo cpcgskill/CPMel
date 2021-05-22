@@ -132,10 +132,6 @@ class MeshVtx(Components1Base):
 
     @Components1Base.IsSingleComponent
     def setPoint(self, point, space=basedata.Space.object):
-        # if not isinstance(point, MPoint):
-        #     point = MPoint(point[0], point[1], point[2])
-        # for i in self.it:
-        #     self.it.setPosition(point, space)
         return self.node.setPoint(self.index, point, space)
 
     @Components1Base.IsSingleComponent

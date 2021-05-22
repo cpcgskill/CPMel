@@ -144,14 +144,18 @@ class Global(object):
     def objToNode(obj):
         u"""
         将Maya对象转化为Node
-        :param obj: MObject
+
+        :type obj: MObject
+        :param obj: MObject对象
         :return:
         """
         Global.DependencyNode_o.setObject(obj)
         uuid = Global.DependencyNode_o.uuid()
         uuid_s = uuid.asString()
         try:
-            return Global.NewNodes[uuid_s]
+            cp_obj = Global.NewNodes[uuid_s]
+            if not cp_obj.isNull():
+                return cp_obj
         except KeyError:
             pass
         api_type = obj.apiType()
@@ -483,7 +487,7 @@ class DgNode(CPObject):
         :return:
         :rtype:bool
         """
-        return not self.uuid.valid()
+        return not self.objecthandle.isValid() and self.uuid.valid()
 
     def __unicode__(self):
         u"""
