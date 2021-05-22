@@ -80,11 +80,13 @@ u"""
         * 使用CLI
         注意2.7的CLI还不完善将于！！！CPMel3版本稳定CLI功能
 """
+
 from . import initializeMaya
 
 import os
 import sys
 import maya.cmds
+
 sys.cpmel_data = dict()
 MAYAINDEX = int(maya.cmds.about(v=True))
 
