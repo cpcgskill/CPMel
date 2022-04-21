@@ -1,6 +1,6 @@
 # -*-coding:utf-8 -*-
 u"""
-:创建时间: 2022/3/15 3:31
+:创建时间: 2022/4/18 23:41
 :作者: 苍之幻灵
 :我的主页: https://cpcgskill.com
 :QQ: 2921251087
@@ -9,9 +9,14 @@ u"""
 :bilibili: https://space.bilibili.com/351598127
 
 """
-try:
-    import maya.standalone
+from __future__ import unicode_literals, print_function
 
-    maya.standalone.initialize(name='python')
-except:
-    pass
+import cpmel.cmds as cc
+
+
+def test():
+    cc.mel.GrowPolygonSelectionRegion()
+
+
+if __name__ == "__main__":
+    test()

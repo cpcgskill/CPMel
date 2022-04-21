@@ -1,6 +1,6 @@
 # -*-coding:utf-8 -*-
 u"""
-:创建时间: 2022/3/15 3:31
+:创建时间: 2022/3/17 4:10
 :作者: 苍之幻灵
 :我的主页: https://cpcgskill.com
 :QQ: 2921251087
@@ -9,9 +9,3 @@ u"""
 :bilibili: https://space.bilibili.com/351598127
 
 """
-try:
-    import maya.standalone
-
-    maya.standalone.initialize(name='python')
-except:
-    pass
