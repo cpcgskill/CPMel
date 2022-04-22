@@ -54,9 +54,6 @@ class BaseType(object):
 class Node(BaseType):
     __slots__ = ('ref',)
 
-    def __init__(self, ref):
-        super(Node, self).__init__(ref)
-
     def type(self):
         return self.api2_m_fn_dependency_node().typeName
 
@@ -267,9 +264,6 @@ class Shape(DagNode):
 
 
 class Attr(BaseType):
-    def __init__(self, ref):
-        super(Attr, self).__init__(ref)
-
     def __hash__(self):
         return om2.MObjectHandle(self.api2_m_plug().attribute()).hashCode()
 
@@ -370,9 +364,6 @@ class Attr(BaseType):
 
 
 class Component(BaseType):
-    def __init__(self, ref):
-        super(Component, self).__init__(ref)
-
     def __hash__(self):
         return om2.MObjectHandle(self.api2_m_component()[1]).hashCode()
 
