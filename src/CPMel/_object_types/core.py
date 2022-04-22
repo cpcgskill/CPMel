@@ -45,7 +45,7 @@ class BaseType(object):
     def __melobject_list__(self):
         return self.ref.as_string_list()
 
-    def ass_valid(self):
+    def assert_valid(self):
         if self.ref.is_null():
             raise RefException("引用已丢失")
         return self
@@ -61,7 +61,7 @@ class Node(BaseType):
         return self.api2_m_fn_dependency_node().typeName
 
     def name(self):
-        self.ass_valid()
+        self.assert_valid()
         return self.ref.unsafe_as_string_list()[0]
 
     def __hash__(self):
@@ -89,7 +89,7 @@ class Node(BaseType):
             raise AttributeError("{} object has no attribute '{}'".format(self.__class__.__name__, item))
 
     def api1_node_object(self):
-        self.ass_valid()
+        self.assert_valid()
 
         sel = om.MSelectionList()
         sel.add(self.ref.as_string())
@@ -98,7 +98,7 @@ class Node(BaseType):
         return obj
 
     def api2_node_object(self):
-        self.ass_valid()
+        self.assert_valid()
 
         return self.ref.unsafe_m_selection_list().getDependNode(0)
 
@@ -134,7 +134,7 @@ class DagNode(Node):
     __slots__ = ('ref',)
 
     def api1_m_dag_path(self):
-        self.ass_valid()
+        self.assert_valid()
 
         sel = om.MSelectionList()
         sel.add(self.ref.as_string())
@@ -143,7 +143,7 @@ class DagNode(Node):
         return p
 
     def api2_m_dag_path(self):
-        self.ass_valid()
+        self.assert_valid()
 
         return self.ref.unsafe_m_dag_path()
 
@@ -198,7 +198,7 @@ class DagNode(Node):
         return om2.MFnDagNode(self.api2_m_dag_path())
 
     def full_path_name(self):
-        self.ass_valid()
+        self.assert_valid()
         return self.ref.unsafe_full_path_name()
 
     def set_parent(self, p):
@@ -244,8 +244,6 @@ class DagNode(Node):
 
 
 class Transform(DagNode):
-    # __slots__ = ('ref', 'shapes', 'shape')
-
     def __init__(self, ref):
         super(Transform, self).__init__(ref)
         p = self.api2_m_dag_path()  # type: om2.MDagPath
@@ -258,20 +256,9 @@ class Transform(DagNode):
             for n, _ in self.shape.component_configs:
                 setattr(self, n, getattr(self.shape, n))
 
-    # def __getattribute__(self, item):
-    #     try:
-    #         return super(Transform, self).__getattribute__(item)
-    #     except AttributeError:
-    #         s = self.shape
-    #         if s is None:
-    #             raise AttributeError("{} object has no attribute '{}'".format(self.__class__.__name__, item))
-    #         else:
-    #             return getattr(s, item)
-
 
 class Shape(DagNode):
     component_configs = []
-    __slots__ = ('ref',)
 
     def __init__(self, ref):
         super(Shape, self).__init__(ref)
@@ -296,7 +283,7 @@ class Attr(BaseType):
             raise AttributeError("{} object has no attribute '{}'".format(self.__class__.__name__, item))
 
     def api1_m_plug(self):
-        self.ass_valid()
+        self.assert_valid()
 
         sel = om.MSelectionList()
         sel.add(self.ref.unsafe_as_string_list()[0])
@@ -305,11 +292,11 @@ class Attr(BaseType):
         return p
 
     def api2_m_plug(self):
-        self.ass_valid()
+        self.assert_valid()
         return self.ref.unsafe_m_selection_list().getPlug(0)
 
     def name(self):
-        self.ass_valid()
+        self.assert_valid()
         return self.ref.unsafe_as_string_list()[0]
 
     def node(self):
@@ -352,7 +339,7 @@ class Attr(BaseType):
         elif t in {'reflectanceRGB', 'short3', 'spectrumRGB', 'long3'}:
             return v[0]
         elif t == 'matrix':
-            return om.MMatrix.newMatrix((
+            return omtl.new_matrix((
                 v[0:4],
                 v[4:8],
                 v[8:12],
@@ -390,7 +377,7 @@ class Component(BaseType):
         return om2.MObjectHandle(self.api2_m_component()[1]).hashCode()
 
     def api1_m_component(self):
-        self.ass_valid()
+        self.assert_valid()
 
         sel = om.MSelectionList()
         sel.add(self.ref.unsafe_as_string_list()[0])
@@ -400,11 +387,11 @@ class Component(BaseType):
         return p, c
 
     def api2_m_component(self):
-        self.ass_valid()
+        self.assert_valid()
         return self.ref.unsafe_m_selection_list().getComponent(0)
 
     def name(self):
-        self.ass_valid()
+        self.assert_valid()
         return self.ref.unsafe_as_string_list()[0]
 
     def node(self):
