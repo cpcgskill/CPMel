@@ -185,6 +185,7 @@ class DagNode(Node):
         m = arg_conv(m)
         ws = arg_conv(ws)
         mc.xform(self.name(), m=m, ws=ws)
+        return self
 
     matrix = property(get_matrix, set_matrix)
 
