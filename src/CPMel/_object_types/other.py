@@ -112,7 +112,7 @@ class Curve(Shape):
     def get_points(self, ws=True):
         return [i.get_point(ws) for i in new_object("{}.cv[*]".format(self.name()))]
 
-    def numCvs(self):
+    def num_cvs(self):
         u"""
         返回此曲线的CV数
 
@@ -120,7 +120,7 @@ class Curve(Shape):
         """
         return self.api1_m_fn().numCVs()
 
-    def numSpans(self):
+    def num_spans(self):
         u"""
         返回此曲线的跨度数
 
@@ -128,7 +128,7 @@ class Curve(Shape):
         """
         return self.api1_m_fn().numSpans()
 
-    def numKnots(self):
+    def num_knots(self):
         u"""
         返回此曲线的结数
 
