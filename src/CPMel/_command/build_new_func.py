@@ -76,22 +76,22 @@ def new_func_list_from_module(module):
     #     except KeyError as ex:
     #         warnings.warn("注册新CPMel命令失败！{}\n".format(ex))
 
-    for n, f in commands.commands:
+    for n, f in commands.commands.items():
         try:
             module[n] = new_func_from_command(f)
         except KeyError as ex:
             warnings.warn("注册新CPMel命令失败！{}\n".format(ex))
-    for n, f in commands.list_commands:
+    for n, f in commands.list_commands.items():
         try:
             module[n] = new_func_from_list_command(f)
         except KeyError as ex:
             warnings.warn("注册新CPMel命令失败！{}\n".format(ex))
-    for n, f in commands.ui_commands:
+    for n, f in commands.ui_commands.items():
         try:
             module[n] = new_func_from_ui_command(f)
         except KeyError as ex:
             warnings.warn("注册新CPMel命令失败！{}\n".format(ex))
-    for n, f in commands.other_commands:
+    for n, f in commands.other_commands.items():
         try:
             module[n] = new_func_from_command(f)
         except KeyError as ex:
