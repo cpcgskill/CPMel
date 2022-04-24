@@ -50,16 +50,16 @@ class BaseType(object):
             raise RefException("引用已丢失")
         return self
 
+    def name(self):
+        self.assert_valid()
+        return self.ref.unsafe_as_string_list()[0]
+
 
 class Node(BaseType):
     __slots__ = ('ref',)
 
     def type(self):
         return self.api2_m_fn_dependency_node().typeName
-
-    def name(self):
-        self.assert_valid()
-        return self.ref.unsafe_as_string_list()[0]
 
     def __hash__(self):
         return om2.MObjectHandle(self.api2_node_object()).hashCode()
@@ -289,10 +289,6 @@ class Attr(BaseType):
         self.assert_valid()
         return self.ref.unsafe_m_selection_list().getPlug(0)
 
-    def name(self):
-        self.assert_valid()
-        return self.ref.unsafe_as_string_list()[0]
-
     def node(self):
         return new_object(self.name().split('.', 1)[0])
 
@@ -380,10 +376,6 @@ class Component(BaseType):
     def api2_m_component(self):
         self.assert_valid()
         return self.ref.unsafe_m_selection_list().getComponent(0)
-
-    def name(self):
-        self.assert_valid()
-        return self.ref.unsafe_as_string_list()[0]
 
     def node(self):
         return new_object(self.name().split('.', 1)[0])
