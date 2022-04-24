@@ -1,5 +1,5 @@
 # -*-coding:utf-8 -*-
-u"""
+"""
 :创建时间: 2022/4/18 22:46
 :作者: 苍之幻灵
 :我的主页: https://cpcgskill.com
@@ -27,7 +27,7 @@ def _eval(code):
 
 
 def _to_array(val):
-    return u"{%s}" % (u",".join((_to_mel(i) for i in val)))
+    return "{%s}" % (",".join((_to_mel(i) for i in val)))
 
 
 def _to_string(val):
@@ -87,7 +87,7 @@ def call_mel_proc(item, *args, **kwargs):
 
     args_s = " ".join((_to_mel(i) for i in args))
     kwargs_s = " ".join(("-%s %s" % (k, _to_mel(v)) for k, v in kwargs.items()))
-    command_s = u"{0} {2} {1};".format(item, args_s, kwargs_s)
+    command_s = "{0} {2} {1};".format(item, args_s, kwargs_s)
     return _eval(command_s)
 
 
