@@ -46,6 +46,21 @@ cc.select(cl=True)
 jin = cc.joint()
 ```
 
+创建UI
+
+```python
+import cpmel.cmds as cc
+window_name = 'your_window_name'
+if cc.window(window_name, ex=True):
+    cc.deleteUI(window_name)
+cc.window(window_name)
+with cc.flowLayout():
+    cc.button()
+    cc.button()
+    cc.button()
+cc.showWindow()
+```
+
 ### 版权说明
 
 该项目签署了Apache-2.0 授权许可，详情请参阅 LICENSE
