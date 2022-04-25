@@ -1,14 +1,19 @@
 #!/usr/bin/python
 # -*-coding:utf-8 -*-
 from __future__ import unicode_literals, print_function
+import sys
 import setuptools
+
+sys.path.append('./src')
+
+import cpmel.versions as versions
 
 with open("README.md", "rb") as f:
     long_description = f.read().decode(encoding="utf-8")
 
 setuptools.setup(
     name="cpmel",
-    version="3.0.0b0",
+    version=versions.ver_str(),
     author="cpcgskill",
     author_email="cpcgskill@outlook.com",
     description="一个现代的maya python库",
