@@ -63,6 +63,7 @@ def init_scene():
 
 
 class Test(unittest.TestCase):
+
     @file_new
     def test_node_type(self):
         init_scene()
@@ -250,3 +251,30 @@ SmoothBindSkin;
         o = cc.new_object('test_poly.vtx[*]')
         print("test_poly.vtx[*] __hash__ >> ", hash(o), {o: o})
         print("test_poly.vtx all __hash__ >> ", {hash(i): i for i in o}, len({hash(i): i for i in o}))
+
+    @file_new
+    def test_base(self):
+        cc.mel.eval('''
+polySphere -r 1 -sx 20 -sy 20 -ax 0 1 0 -cuv 2 -ch 1;
+select -r pSphere1 ;
+doGroup 0 1 1;
+doGroup 0 1 1;
+''')
+        obj = cc.new_object('pSphere1')
+        grp_1 = cc.new_object('group1')
+        grp_2 = cc.new_object('group2')
+        self.assertTrue(obj in [obj, grp_1, grp_2], msg="check list in")
+
+        self.assertTrue(obj != grp_1, msg="check not __eq__")
+        self.assertTrue(obj == obj, msg="check __eq__")
+        self.assertTrue((obj != obj) == False, msg="check __eq__")
+
+        self.assertTrue(obj.vtx == obj.vtx, msg="check __eq__")
+        vtxs = list(obj.vtx)
+        self.assertTrue(vtxs[0] == vtxs[0], msg="check __eq__")
+        self.assertTrue(vtxs[0] != vtxs[1], msg="check __eq__")
+        self.assertTrue(obj.vtx != vtxs[1], msg="check __eq__")
+        self.assertTrue(obj.vtx != grp_2, msg="check __eq__")
+        self.assertTrue(vtxs[0] != grp_2, msg="check __eq__")
+        self.assertTrue(obj.vtx != grp_2.t, msg="check __eq__")
+        self.assertTrue(vtxs[0] != grp_2.t, msg="check __eq__")

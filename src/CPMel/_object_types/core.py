@@ -64,6 +64,11 @@ class Node(BaseType):
     def __hash__(self):
         return om2.MObjectHandle(self.api2_node_object()).hashCode()
 
+    def __eq__(self, other):
+        if isinstance(other, BaseType):
+            return hash(self) == hash(other)
+        return False
+
     def __str__(self):
         return self.name()
 
@@ -268,6 +273,11 @@ class Attr(BaseType):
     def __hash__(self):
         return om2.MObjectHandle(self.api2_m_plug().attribute()).hashCode()
 
+    def __eq__(self, other):
+        if isinstance(other, BaseType):
+            return hash(self) == hash(other)
+        return False
+
     def attr(self, name):
         return new_object("{}.{}".format(self.name(), name))
 
@@ -364,6 +374,11 @@ class Component(BaseType):
     def __hash__(self):
         return om2.MObjectHandle(self.api2_m_component()[1]).hashCode()
 
+    def __eq__(self, other):
+        if isinstance(other, BaseType):
+            return hash(self) == hash(other)
+        return False
+
     def api1_m_component(self):
         self.assert_valid()
 
@@ -417,6 +432,11 @@ class UI(object):
 
     def __hash__(self):
         return hash(self.ui)
+
+    def __eq__(self, other):
+        if isinstance(other, UI):
+            return hash(self) == hash(other)
+        return False
 
     def get_widget(self):
         u"""
