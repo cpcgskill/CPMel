@@ -253,7 +253,7 @@ SmoothBindSkin;
         print("test_poly.vtx all __hash__ >> ", {hash(i): i for i in o}, len({hash(i): i for i in o}))
 
     @file_new
-    def test_base(self):
+    def test_eq(self):
         cc.mel.eval('''
 polySphere -r 1 -sx 20 -sy 20 -ax 0 1 0 -cuv 2 -ch 1;
 select -r pSphere1 ;
