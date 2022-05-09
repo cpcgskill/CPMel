@@ -5,7 +5,12 @@
 ## 目录
 
 - [快速开始](#快速开始)
-- [功能介绍](#功能介绍)
+    * [安装](#安装)
+    * [测试](#测试)
+- [使用教程](#使用教程)
+    * [命令调用](#命令调用)
+    * [与api交互](#与api交互)
+    * [常用的对象方法](#常用的对象方法)
 - [版权说明](#版权说明)
 
 ### 快速开始
@@ -29,12 +34,25 @@ python -m pip install cpmel
 "C:\Program Files\Autodesk\Maya2018\bin\mayapy.exe" -m pip install cpmel
 ```
 
-#### maya命令调用
+#### 测试
+
+执行以下程序应当可以获得选择列表，如果正确那么恭喜你安装完成！
+
+```python
+import cpmel.cmds as cc
+
+sel = cc.ls(sl=True)
+```
+
+### 使用教程
+
+#### 命令调用
 
 获得选择列表
 
 ```python
 import cpmel.cmds as cc
+
 sel = cc.ls(sl=True)
 ```
 
@@ -42,6 +60,7 @@ sel = cc.ls(sl=True)
 
 ```python
 import cpmel.cmds as cc
+
 cc.select(cl=True)
 jin = cc.joint()
 ```
@@ -50,6 +69,7 @@ jin = cc.joint()
 
 ```python
 import cpmel.cmds as cc
+
 window_name = 'your_window_name'
 if cc.window(window_name, ex=True):
     cc.deleteUI(window_name)
@@ -59,6 +79,92 @@ with cc.flowLayout():
     cc.button()
     cc.button()
 cc.showWindow()
+```
+
+#### 与api交互
+
+获得节点的函数集对象
+
+```python
+# -*-coding:utf-8 -*-
+from __future__ import unicode_literals, print_function
+import cpmel.cmds as cc
+
+node = cc.createNode('transform')
+# api1版本的函数集对象
+node.api1_m_fn()
+# api2版本的函数集对象
+node.api2_m_fn()
+```
+
+获得属性的MPlug对象
+
+```python
+# -*-coding:utf-8 -*-
+from __future__ import unicode_literals, print_function
+import cpmel.cmds as cc
+
+attr = cc.createNode('transform.tx')
+# api1版本的
+attr.api1_m_plug()
+# api2版本的
+attr.api2_m_plug()
+```
+
+一些其他的
+
+```python
+# -*-coding:utf-8 -*-
+from __future__ import unicode_literals, print_function
+import cpmel.cmds as cc
+
+node = cc.createNode('transform')
+
+# api1版本
+node.api1_m_fn_dependency_node()
+node.api1_node_object()
+node.api1_m_dag_path()
+# api2版本
+node.api2_m_fn_dependency_node()
+node.api2_node_object()
+node.api2_m_dag_path()
+```
+
+#### 常用的对象方法
+
+名称相关操作
+
+```python
+# -*-coding:utf-8 -*-
+from __future__ import unicode_literals, print_function
+import cpmel.cmds as cc
+
+node = cc.createNode('transform')
+# 获得最短名称
+node.name()
+# 仅获得节点名称
+node.node_name()
+# 获得完整路径
+node.full_path_name()
+```
+
+dag相关操作
+
+```python
+# -*-coding:utf-8 -*-
+from __future__ import unicode_literals, print_function
+import cpmel.cmds as cc
+
+node_a = cc.createNode('transform')
+node_b = cc.createNode('transform')
+node_c = cc.createNode('transform')
+
+# 设置父对象
+node_a.set_parent(node_b)
+# 获得父对象
+node_a.get_parent()
+# 添加子物体
+node_c.add_child(node_b)
 ```
 
 ### 版权说明
