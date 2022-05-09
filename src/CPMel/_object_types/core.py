@@ -278,6 +278,18 @@ class Attr(BaseType):
             return hash(self) == hash(other)
         return False
 
+    def __lshift__(self, other):
+        a = arg_conv(self)
+        b = arg_conv(other)
+        mc.connectAttr(b, a, f=True)
+        return new_object(b)
+
+    def __rshift__(self, other):
+        a = arg_conv(self)
+        b = arg_conv(other)
+        mc.connectAttr(a, b, f=True)
+        return new_object(b)
+
     def attr(self, name):
         return new_object("{}.{}".format(self.name(), name))
 
@@ -323,7 +335,7 @@ class Attr(BaseType):
     def connect(self, b):
         self_ = arg_conv(self)
         b = arg_conv(b)
-        mc.connectAttr(self_, b)
+        mc.connectAttr(self_, b, f=True)
         return self
 
     def disconnect(self, b):

@@ -10,10 +10,15 @@ u"""
 
 """
 from __future__ import unicode_literals, print_function
+
+import os.path
 import unittest
 import functools
+import sys
+import subprocess
 
 import cpmel.cmds as cc
+from maya.cmds import file, about
 
 
 def file_new(fn):
@@ -60,6 +65,15 @@ def init_scene():
     curve -d 3 -p -1 0 1 -p 0 0 1 -p 1 0 1 -p 1 0 0 -p 1 0 -1 -p 0 0 -1 -p -1 0 -1 -k 0 -k 0 -k 0 -k 1 -k 2 -k 3 -k 4 -k 4 -k 4 ;
 
     """)
+
+
+def open_maya_gui():
+    test_file_path = "C:\\Users\\PC\\Documents\\maya\\projects\\default\\scenes\\test.ma"
+    file(rename=test_file_path)
+    file(save=True, type='mayaAscii')
+    maya_executable = os.sep.join([os.path.dirname(sys.executable), 'maya.exe'])
+    subprocess.call([maya_executable, test_file_path])
+
 
 
 class Test(unittest.TestCase):
@@ -278,3 +292,22 @@ doGroup 0 1 1;
         self.assertTrue(vtxs[0] != grp_2, msg="check __eq__")
         self.assertTrue(obj.vtx != grp_2.t, msg="check __eq__")
         self.assertTrue(vtxs[0] != grp_2.t, msg="check __eq__")
+
+    @file_new
+    def test_shift(self):
+        cc.mel.eval('''
+polySphere -r 1 -sx 20 -sy 20 -ax 0 1 0 -cuv 2 -ch 1;
+select -r pSphere1 ;
+doGroup 0 1 1;
+doGroup 0 1 1;
+''')
+        obj = cc.new_object('pSphere1')
+        grp_1 = cc.new_object('group1')
+        grp_2 = cc.new_object('group2')
+        self.assertTrue(grp_1.t >> obj.t << grp_2.t == grp_2.t, msg="check __lshift__ and __rshift__")
+        self.assertTrue(grp_1.t >> obj.t << grp_2.t == grp_2.t, msg="check __lshift__ and __rshift__")
+
+        # self.assertTrue(grp_1.t << grp_2.t == grp_2.t, msg="check __lshift__")
+        # self.assertTrue(grp_1.t >> grp_2.t == grp_2.t, msg="check __rshift__")
+        # self.assertTrue(grp_1.t << grp_2.t == grp_2.t, msg="check __lshift__")
+        open_maya_gui()

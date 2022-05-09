@@ -40,7 +40,7 @@ class VersionInfo(object):
 
 
 def ver_info():
-    return VersionInfo(major=3, minor=0, patch=0, adv_ver=R, adv_ver_index=0)
+    return VersionInfo(major=3, minor=1, patch=0, adv_ver=R, adv_ver_index=0)
 
 
 def ver_str():
