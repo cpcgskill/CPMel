@@ -37,9 +37,10 @@ setuptools.setup(
         'Programming Language :: Python :: 3.10',
         'Programming Language :: Python :: Implementation :: CPython',
     ],
-    package_dir={"": "src"},
+    package_dir={'': 'src'},
     # 使用自动搜索
-    packages=setuptools.find_packages(where="src"),
+    packages=setuptools.find_packages(where='src'),
+    package_data={'cpmel': ['*.pyi']},
     python_requires=">=2.7, !=3.0.*, !=3.1.*, !=3.2.*, !=3.3.*, !=3.4.*, !=3.5.*",
     # 指定依赖
     install_requires=[
