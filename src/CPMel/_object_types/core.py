@@ -32,6 +32,9 @@ from cpref import make_ref
 
 from cpmel.exc import *
 
+_ptr = long if sys.version_info.major == 2 else int
+_any_int = (int, long) if sys.version_info.major == 2 else int
+
 
 class BaseType(object):
     __slots__ = ('ref',)
@@ -299,6 +302,15 @@ class Attr(BaseType):
         except CPMelException:
             raise AttributeError("{} object has no attribute '{}'".format(self.__class__.__name__, item))
 
+    def __getitem__(self, item):
+        try:
+            if isinstance(item, _any_int):
+                return new_object("{}[{}]".format(self.name(), item))
+            else:
+                raise TypeError('attribute indices must be integers, not {}'.format(item.__class__.__name__))
+        except CPMelException:
+            raise AttributeError("{} object has no item '{}'".format(self.__class__.__name__, item))
+
     def api1_m_plug(self):
         self.assert_valid()
 
@@ -431,9 +443,6 @@ class Component(BaseType):
 
     def __iter__(self):
         return (new_object(i) for i in mc.ls(self.__melobject__(), fl=True))
-
-
-_ptr = long if sys.version_info.major == 2 else int
 
 
 class UI(object):

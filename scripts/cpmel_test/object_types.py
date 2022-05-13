@@ -134,8 +134,12 @@ class Test(unittest.TestCase):
         print("obj >> ", o, type(o))
         print('name >> ', o.name())
         print('node >> ', o.node())
+
+        print('.worldMatrix[0] >> ',cc.new_object('group5.worldMatrix')[0])
+
         print('attr set value >> ', o.set_value((1, 1, 1)))
         print('attr get value >> ', o.get_value())
+
         print('api1_m_plug >> ', o.api1_m_plug())
         print('api2_m_plug >> ', o.api2_m_plug(), type(o.api2_m_plug()))
 
