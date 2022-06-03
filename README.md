@@ -11,6 +11,7 @@
     * [命令调用](#命令调用)
     * [与api交互](#与api交互)
     * [常用的对象方法](#常用的对象方法)
+    * [附加特性](#附加特性)
 - [版权说明](#版权说明)
 
 ### 快速开始
@@ -165,6 +166,43 @@ node_a.set_parent(node_b)
 node_a.get_parent()
 # 添加子物体
 node_c.add_child(node_b)
+```
+
+### 附加特性
+
+属性相关操作
+
+```python
+# -*-coding:utf-8 -*-
+from __future__ import unicode_literals, print_function
+import cpmel.cmds as cc
+
+node = cc.createNode('transform')
+# 获得属性
+# 方法1
+tx_attr = node.tx
+# 方法2 ps: 在节点属性名称与对象属性冲突时可以使用这个
+tx_attr = node.attr('tx')
+
+# 读写属性
+# 方法1
+# 写
+node['tx'] = 1.0
+# 读
+tx_val = node['tx']
+# 方法2
+# 写
+node.tx.set_value(1.0)
+# 读
+tx_val = node.tx.get_value()
+
+# 连接属性
+# 方法1
+node.tx >> node.ty
+# 方法2
+node.tx.connect(node.ty)
+# 断开属性连接
+node.tx.disconnect(node.ty)
 ```
 
 ### 版权说明
