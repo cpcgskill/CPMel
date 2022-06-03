@@ -105,7 +105,8 @@ node.api2_m_fn()
 from __future__ import unicode_literals, print_function
 import cpmel.cmds as cc
 
-attr = cc.createNode('transform.tx')
+node = cc.createNode('transform')
+attr = node.tx
 # api1版本的
 attr.api1_m_plug()
 # api2版本的
