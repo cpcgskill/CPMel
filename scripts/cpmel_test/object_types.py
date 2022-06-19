@@ -75,7 +75,6 @@ def open_maya_gui():
     subprocess.call([maya_executable, test_file_path])
 
 
-
 class Test(unittest.TestCase):
 
     @file_new
@@ -135,7 +134,7 @@ class Test(unittest.TestCase):
         print('name >> ', o.name())
         print('node >> ', o.node())
 
-        print('.worldMatrix[0] >> ',cc.new_object('group5.worldMatrix')[0])
+        print('.worldMatrix[0] >> ', cc.new_object('group5.worldMatrix')[0])
 
         print('attr set value >> ', o.set_value((1, 1, 1)))
         print('attr get value >> ', o.get_value())
@@ -279,13 +278,14 @@ doGroup 0 1 1;
 doGroup 0 1 1;
 ''')
         obj = cc.new_object('pSphere1')
+        obj_two = cc.new_object('pSphere1')
         grp_1 = cc.new_object('group1')
         grp_2 = cc.new_object('group2')
         self.assertTrue(obj in [obj, grp_1, grp_2], msg="check list in")
 
         self.assertTrue(obj != grp_1, msg="check not __eq__")
         self.assertTrue(obj == obj, msg="check __eq__")
-        self.assertTrue((obj != obj) == False, msg="check __eq__")
+        self.assertTrue((obj != obj_two) == False, msg="check __eq__")
 
         self.assertTrue(obj.vtx == obj.vtx, msg="check __eq__")
         vtxs = list(obj.vtx)

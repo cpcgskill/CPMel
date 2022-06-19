@@ -72,6 +72,9 @@ class Node(BaseType):
             return hash(self) == hash(other)
         return False
 
+    def __ne__(self, other):
+        return not self == other
+
     def __str__(self):
         return self.name()
 
@@ -281,6 +284,9 @@ class Attr(BaseType):
             return hash(self) == hash(other)
         return False
 
+    def __ne__(self, other):
+        return not self == other
+
     def __lshift__(self, other):
         a = arg_conv(self)
         b = arg_conv(other)
@@ -403,6 +409,9 @@ class Component(BaseType):
             return hash(self) == hash(other)
         return False
 
+    def __ne__(self, other):
+        return not self == other
+
     def api1_m_component(self):
         self.assert_valid()
 
@@ -458,6 +467,9 @@ class UI(object):
         if isinstance(other, UI):
             return hash(self) == hash(other)
         return False
+
+    def __ne__(self, other):
+        return not self == other
 
     def get_widget(self):
         u"""
