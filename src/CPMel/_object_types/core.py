@@ -32,6 +32,13 @@ from cpref import make_ref
 
 from cpmel.exc import *
 
+__all__ = [
+    'BaseType',
+    'Node', 'DagNode', 'Transform', 'Shape', 'Attr', 'Component',
+    'UI',
+    'other_node_cls', 'new_object',
+]
+
 _ptr = long if sys.version_info.major == 2 else int
 _any_int = (int, long) if sys.version_info.major == 2 else int
 

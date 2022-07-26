@@ -21,6 +21,8 @@ from cpmel._object_types.core import Node, Transform, Shape, other_node_cls, new
 from cpmel._args_conv import arg_conv
 from cpmel.exc import *
 
+__all__ = ['Joint', 'Mesh', 'Curve', 'Surface', 'SkinClusterFilter']
+
 
 @other_node_cls("kJoint")
 class Joint(Transform):
