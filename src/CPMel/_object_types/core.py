@@ -534,12 +534,12 @@ class UI(object):
         pass
 
 
-other_node_cls_table = dict()
+__other_node_cls_table = dict()
 
 
 def other_node_cls(api_type_str):
     def _node(cls):
-        other_node_cls_table[api_type_str] = cls
+        __other_node_cls_table[api_type_str] = cls
         return cls
 
     return _node
@@ -566,7 +566,7 @@ def new_object(o):
 
         # 创建节点
         o = ref.unsafe_m_selection_list().getDependNode(0)
-        other_cls = other_node_cls_table.get(o.apiTypeStr)
+        other_cls = __other_node_cls_table.get(o.apiTypeStr)
         if other_cls is None:
             if ref.ref_type == cr.TDependencyNode:
                 return Node(ref)
