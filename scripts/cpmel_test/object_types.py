@@ -124,6 +124,11 @@ class Test(unittest.TestCase):
               "get_matrix: ", cc.new_object('group4').get_matrix(),
               )
 
+        a, b, c = (cc.createNode('transform'),
+                   cc.createNode('transform'),
+                   cc.createNode('transform'))
+        print('test hierarchy: ', b.set_parent(a).add_child(c).childs)
+
     @file_new
     def test_attr_type(self):
         init_scene()

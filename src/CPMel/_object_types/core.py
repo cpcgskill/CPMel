@@ -210,17 +210,28 @@ class DagNode(Node):
         self.assert_valid()
         return self.ref.unsafe_full_path_name()
 
-    def set_parent(self, p):
-        self_ = arg_conv(self)
-        p = arg_conv(p)
-        mc.parent(self_, p)
-        return self
-
     def add_child(self, *c):
         self_ = arg_conv(self)
         for i in c:
             i = arg_conv(i)
             mc.parent(i, self_)
+        return self
+
+    def get_childs(self):
+        self_ = arg_conv(self)
+        childs = mc.listRelatives(self_, c=True, pa=True)
+        if childs is None:
+            return []
+        return [new_object(i) for i in childs]
+
+    @property
+    def childs(self):
+        return self.get_childs()
+
+    def set_parent(self, p):
+        self_ = arg_conv(self)
+        p = arg_conv(p)
+        mc.parent(self_, p)
         return self
 
     def get_parent(self):
