@@ -170,8 +170,15 @@ class DagNode(Node):
         p = arg_conv(p)
         ws = arg_conv(ws)
         mc.xform(self.name(), t=(p[0], p[1], p[2]), ws=ws)
+        return self
 
-    translation = property(get_translation, set_translation)
+    @property
+    def translation(self):
+        return self.get_translation(ws=True)
+
+    @translation.setter
+    def translation(self, value):
+        self.set_translation(value, ws=True)
 
     def get_rotation(self, ws=True):
         ws = arg_conv(ws)
@@ -181,8 +188,15 @@ class DagNode(Node):
         r = arg_conv(r)
         ws = arg_conv(ws)
         mc.xform(self.name(), ro=(r[0], r[1], r[2]), ws=ws)
+        return self
 
-    rotation = property(get_rotation, set_rotation)
+    @property
+    def rotation(self):
+        return self.get_rotation(ws=True)
+
+    @rotation.setter
+    def rotation(self, value):
+        self.set_rotation(value, ws=True)
 
     def get_scale(self, ws=True):
         ws = arg_conv(ws)
@@ -192,8 +206,15 @@ class DagNode(Node):
         s = arg_conv(s)
         ws = arg_conv(ws)
         mc.xform(self.name(), s=(s[0], s[1], s[2]), ws=ws)
+        return self
 
-    scale = property(get_scale, set_scale)
+    @property
+    def scale(self):
+        return self.get_scale(ws=True)
+
+    @scale.setter
+    def scale(self, value):
+        self.set_scale(value, ws=True)
 
     def get_matrix(self, ws=True):
         ws = arg_conv(ws)
@@ -205,7 +226,13 @@ class DagNode(Node):
         mc.xform(self.name(), m=m, ws=ws)
         return self
 
-    matrix = property(get_matrix, set_matrix)
+    @property
+    def matrix(self):
+        return self.get_matrix(ws=True)
+
+    @matrix.setter
+    def matrix(self, value):
+        self.set_matrix(value, ws=True)
 
     def api1_m_fn(self):
         return om.MFnDagNode(self.api1_m_dag_path())
@@ -411,6 +438,14 @@ class Attr(BaseType):
             mc.setAttr(self.name(), val)
         return self
 
+    @property
+    def value(self):
+        return self.get_value()
+
+    @value.setter
+    def value(self, value):
+        self.set_value(value)
+
     def __str__(self):
         return self.name()
 
@@ -455,7 +490,13 @@ class Component(BaseType):
         mc.xform(self.name(), t=(p[0], p[1], p[2]), ws=ws)
         return self
 
-    point = property(get_point, set_point)
+    @property
+    def point(self):
+        return self.get_point(ws=True)
+
+    @point.setter
+    def point(self, value):
+        self.set_point(value, ws=True)
 
     def __str__(self):
         return self.name()
