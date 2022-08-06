@@ -1,40 +1,32 @@
 #!/usr/bin/python
 # -*-coding:utf-8 -*-
 from __future__ import unicode_literals, print_function, division
-import cpmel._object_types.core as object_types
+from cpmel.object_types import *
 import cpmel._mel as _mel
 
 from typing import Union, AnyStr, Any, List
 
 mel = _mel.Mel()
 
-def cp_return_template(*args, **kwargs) -> Union[list, tuple,
-                                                 AnyStr,
-                                                 object_types.Node, object_types.DagNode,
-                                                 object_types.Attr, object_types.Component]:
+__CommandReturn = Union[list, tuple,
+                      AnyStr,
+                      Node, DagNode,
+                      Attr, Component]
+
+
+def cp_return_template(*args, **kwargs) -> __CommandReturn:
     pass
 
 
-def cp_ui_return_template(*args, **kwargs) -> Union[object_types.UI, Any]:
+def cp_ui_return_template(*args, **kwargs) -> Union[UI, Any]:
     pass
 
 
-def cp_list_return_template(*args, **kwargs) -> List[Union[list, tuple,
-                                                           AnyStr,
-                                                           object_types.Node, object_types.DagNode,
-                                                           object_types.Attr, object_types.Component]]:
+def cp_list_return_template(*args, **kwargs) -> List[__CommandReturn]:
     pass
 
 
-new_object = object_types.new_object
-Node = object_types.Node
-DagNode = object_types.DagNode
-Transform = object_types.Transform
-Attr = object_types.Attr
-Component = object_types.Component
-UI = object_types.UI
 selected = cp_list_return_template
-
 
 insertListItem = cp_return_template
 RenderSequence = cp_return_template

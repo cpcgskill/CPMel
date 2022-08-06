@@ -18,5 +18,5 @@ _new_func_list_from_module(globals())
 
 mel = _mel.Mel()
 
-from cpmel._object_types.core import new_object, Node, DagNode, Transform, Attr, Component, UI
+from cpmel.object_types import *
 from maya.mel import eval
