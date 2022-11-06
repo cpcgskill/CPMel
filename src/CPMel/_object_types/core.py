@@ -173,6 +173,22 @@ class DagNode(Node):
         return self
 
     @property
+    def local_translation(self):
+        return self.get_translation(ws=False)
+
+    @local_translation.setter
+    def local_translation(self, value):
+        self.set_translation(value, ws=False)
+
+    @property
+    def world_translation(self):
+        return self.get_translation(ws=True)
+
+    @world_translation.setter
+    def world_translation(self, value):
+        self.set_translation(value, ws=True)
+
+    @property
     def translation(self):
         return self.get_translation(ws=True)
 
@@ -189,6 +205,22 @@ class DagNode(Node):
         ws = arg_conv(ws)
         mc.xform(self.name(), ro=(r[0], r[1], r[2]), ws=ws)
         return self
+
+    @property
+    def local_rotation(self):
+        return self.get_rotation(ws=False)
+
+    @local_rotation.setter
+    def local_rotation(self, value):
+        self.set_rotation(value, ws=False)
+
+    @property
+    def world_rotation(self):
+        return self.get_rotation(ws=True)
+
+    @world_rotation.setter
+    def world_rotation(self, value):
+        self.set_rotation(value, ws=True)
 
     @property
     def rotation(self):
@@ -209,6 +241,22 @@ class DagNode(Node):
         return self
 
     @property
+    def local_scale(self):
+        return self.get_scale(ws=False)
+
+    @local_scale.setter
+    def local_scale(self, value):
+        self.set_scale(value, ws=False)
+
+    @property
+    def world_scale(self):
+        return self.get_scale(ws=True)
+
+    @world_scale.setter
+    def world_scale(self, value):
+        self.set_scale(value, ws=True)
+
+    @property
     def scale(self):
         return self.get_scale(ws=True)
 
@@ -225,6 +273,22 @@ class DagNode(Node):
         ws = arg_conv(ws)
         mc.xform(self.name(), m=m, ws=ws)
         return self
+
+    @property
+    def local_matrix(self):
+        return self.get_matrix(ws=False)
+
+    @local_matrix.setter
+    def local_matrix(self, value):
+        self.set_matrix(value, ws=False)
+
+    @property
+    def world_matrix(self):
+        return self.get_matrix(ws=True)
+
+    @world_matrix.setter
+    def world_matrix(self, value):
+        self.set_matrix(value, ws=True)
 
     @property
     def matrix(self):

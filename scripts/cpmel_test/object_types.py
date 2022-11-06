@@ -17,6 +17,8 @@ import functools
 import sys
 import subprocess
 
+from cpapi.all import *
+from cpapi.utils import *
 import cpmel.cmds as cc
 from maya.cmds import file, about
 
@@ -106,28 +108,45 @@ class Test(unittest.TestCase):
         init_scene()
 
         # test DagNode
-        print("\n## test DagNode type: ")
+        print("# test DagNode type")
 
-        o = cc.new_object('group5')
+        group4 = cc.new_object('group4')
+        group5 = cc.new_object('group5')
+        joint8 = cc.new_object('joint8')
 
-        print('api1_m_dag_path >> ', o.api1_m_dag_path())
-        print('api2_m_dag_path >> ', o.api2_m_dag_path())
+        # 检查读取api MDagPath的功能的结果是否正确
+        self.assertTrue(group5.api1_m_dag_path().fullPathName() == '|group5')
+        self.assertTrue(group5.api2_m_dag_path().fullPathName() == '|group5')
 
-        print('full_path_name >> ', o.full_path_name())
+        # 检查读取完整路径的功能的结果是否正确
+        self.assertTrue(group5.full_path_name() == '|group5')
 
-        cc.new_object('group4').get_scale(),
-        cc.new_object('group4').set_matrix(o.get_matrix())
-        print('get_matrix set_matrix end >> ',
-              "get_translation: ", cc.new_object('group4').get_translation(),
-              "get_rotation: ", cc.new_object('group4').get_rotation(),
-              "get_scale: ", cc.new_object('group4').get_scale(),
-              "get_matrix: ", cc.new_object('group4').get_matrix(),
-              )
+        # 检查读取平移旋转缩放及矩阵的功能的结果是否正确
+        self.assertTrue(group4.get_translation() == MVector(0, 0, 0))
+        self.assertTrue(group4.get_rotation() == MEulerRotation(0, 0, 0))
+        self.assertTrue(group4.get_scale() == [1.0, 1.0, 1.0])
+        self.assertTrue(group4.get_matrix() == new_matrix([
+            [1.0, 0.0, 0.0, 0.0],
+            [0.0, 1.0, 0.0, 0.0],
+            [0.0, 0.0, 1.0, 0.0],
+            [0.0, 0.0, 0.0, 1.0],
+        ]))
+        # 单纯的检查返回值
+        self.assertTrue(group4.set_matrix(group5.get_matrix()) == group4)
 
-        a, b, c = (cc.createNode('transform'),
-                   cc.createNode('transform'),
-                   cc.createNode('transform'))
-        print('test hierarchy: ', b.set_parent(a).add_child(c).childs)
+        # 检查世界空间下的平移、旋转、缩放及矩阵是否与局部空间下的不一致(他们应该不一致,因为joint8存在拥有变换的父对象)
+        self.assertTrue(joint8.world_translation != joint8.local_translation)
+        self.assertTrue(joint8.world_rotation != joint8.local_rotation)
+        self.assertTrue(joint8.world_scale != joint8.local_scale)
+        self.assertTrue(joint8.world_matrix != joint8.local_matrix)
+
+        a, b, c = (
+            cc.createNode('transform'),
+            cc.createNode('transform'),
+            cc.createNode('transform'),
+        )
+
+        self.assertTrue(b.set_parent(a).add_child(c).childs == [cc.new_object('transform3')])
 
     @file_new
     def test_attr_type(self):
