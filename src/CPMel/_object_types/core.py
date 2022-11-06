@@ -393,7 +393,7 @@ class Attr(BaseType):
         return self
 
     def is_lock(self):
-        return mc.getAttr(self.name(), lock=False)
+        return mc.getAttr(self.name(), lock=True)
 
     def connect(self, b):
         self_ = arg_conv(self)
