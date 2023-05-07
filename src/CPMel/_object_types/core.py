@@ -408,6 +408,28 @@ class Attr(BaseType):
         mc.connectAttr(a, b, f=True)
         return new_object(b)
 
+    def __iter__(self):
+        attr_plug = self.api1_m_plug()
+        if attr_plug.isCompound():
+            return (new_object(attr_plug.child(i).name()) for i in range(attr_plug.numChildren()))
+        elif attr_plug.isArray():
+            return (new_object(attr_plug.child(i).name()) for i in range(attr_plug.numElements()))
+        raise CPMelException('This plugin cannot create iterable objects')
+
+    @property
+    def childs(self):
+        attr_plug = self.api1_m_plug()
+        if not attr_plug.isCompound():
+            raise CPMelException('This plug is not a compound')
+        return list(self)
+
+    @property
+    def elements(self):
+        attr_plug = self.api1_m_plug()
+        if not attr_plug.isArray():
+            raise CPMelException('This plug is not a compound')
+        return list(self)
+
     def attr(self, name):
         return new_object("{}.{}".format(self.name(), name))
 

@@ -166,6 +166,13 @@ class Test(unittest.TestCase):
         print('api1_m_plug >> ', o.api1_m_plug())
         print('api2_m_plug >> ', o.api2_m_plug(), type(o.api2_m_plug()))
 
+        with self.assertRaises(cc.CPMelException):
+            print('.tx childs >> ', cc.new_object('group5.tx').childs)
+        with self.assertRaises(cc.CPMelException):
+            print('.tx elements >> ', cc.new_object('group5.tx').elements)
+
+        print('.t childs >> ', cc.new_object('group5.t').childs)
+
     @file_new
     def test_component_type(self):
         init_scene()
