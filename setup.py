@@ -44,7 +44,7 @@ setuptools.setup(
     python_requires=">=2.7, !=3.0.*, !=3.1.*, !=3.2.*, !=3.3.*, !=3.4.*, !=3.5.*",
     # 指定依赖
     install_requires=[
-        'cpapi==1.0.2',
-        'cpref==1.1.0',
+        'cpapi==1.0',
+        'cpref==1.1',
     ],
 )
