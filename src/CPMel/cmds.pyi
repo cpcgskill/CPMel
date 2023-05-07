@@ -3,6 +3,7 @@
 from __future__ import unicode_literals, print_function, division
 from cpmel.object_types import *
 import cpmel._mel as _mel
+from cpmel.exc import *
 
 from typing import Union, AnyStr, Any, List
 

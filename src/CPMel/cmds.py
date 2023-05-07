@@ -13,6 +13,7 @@ from __future__ import unicode_literals, print_function
 
 from cpmel._command.build_new_func import new_func_list_from_module as _new_func_list_from_module
 import cpmel._mel as _mel
+from cpmel.exc import *
 
 _new_func_list_from_module(globals())
 
