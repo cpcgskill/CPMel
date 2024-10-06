@@ -11,7 +11,10 @@ u"""
 """
 from __future__ import unicode_literals, print_function
 import sys
-from collections import Iterable, Callable
+if sys.version_info.major == 2:
+    from collections import Iterable, Callable
+else:
+    from collections.abc import Iterable, Callable
 
 from cpapi.all import (MUuid,
                        MVector, MPoint, MMatrix,

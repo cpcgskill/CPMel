@@ -10,8 +10,8 @@ u"""
 
 """
 from __future__ import unicode_literals, print_function
-import pymel.core as pm
 import cpmel.cmds as cc
+import pymel.core as pm
 
 if __name__ == '__main__':
     n = pm.createNode("joint")

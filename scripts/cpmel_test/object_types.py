@@ -70,7 +70,8 @@ def init_scene():
 
 
 def open_maya_gui():
-    test_file_path = "C:\\Users\\PC\\Documents\\maya\\projects\\default\\scenes\\test.ma"
+    user_app_dir = os.path.expanduser('~')
+    test_file_path = user_app_dir + "\\Documents\\maya\\projects\\default\\scenes\\test.ma"
     file(rename=test_file_path)
     file(save=True, type='mayaAscii')
     maya_executable = os.sep.join([os.path.dirname(sys.executable), 'maya.exe'])

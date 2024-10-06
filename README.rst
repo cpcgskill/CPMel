@@ -51,7 +51,7 @@ ta有以下设计目标
 ~~~~
 
 注意下方的python是你的Python, 正常情况下可以直接通过python调用,
-而Maya的python一般是”C:\Program Files\Autodesk\\\\bin\mayapy.exe”
+而Maya的python一般是”C:\\Program Files\\Autodesk\\\\bin\\mayapy.exe”
 
 .. code:: commandline
 

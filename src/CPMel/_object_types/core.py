@@ -13,13 +13,16 @@ from __future__ import unicode_literals, print_function
 import sys
 
 import maya.cmds as mc
-
 try:
-    from PySide2.QtWidgets import QWidget
-    from shiboken2 import wrapInstance
+    from PySide6.QtWidgets import QWidget
+    from shiboken6 import wrapInstance
 except ImportError:
-    from PySide.QtGui import QWidget
-    from shiboken import wrapInstance
+    try:
+        from PySide2.QtWidgets import QWidget
+        from shiboken2 import wrapInstance
+    except ImportError:
+        from PySide.QtGui import QWidget
+        from shiboken import wrapInstance
 
 import cpapi.utils as omtl
 import cpapi.OpenMaya as om
